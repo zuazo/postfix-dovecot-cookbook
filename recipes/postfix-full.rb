@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+tables_path = '/etc/postfix/tables'
+# check if we can get the tables path from the postfixadmin cookbook
+if node['postfixadmin'] and node['postfixadmin']['map_files'] and node['postfixadmin']['map_files']['path']
+  tables_path = node['postfixadmin']['map_files']['path']
+end
+
 #
 # master.cf
 #
@@ -115,16 +121,16 @@ node.default['postfix']['main']['smtpd_tls_auth_only'] = true
 
 # Virtual delivery
 node.default['postfix']['main']['virtual_mailbox_domains'] = [
-  'proxy:mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf',
+  "proxy:mysql:#{tables_path}/mysql_virtual_domains_maps.cf",
 ]
 node.default['postfix']['main']['virtual_alias_maps'] = [
-  'proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_maps.cf',
-  'proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_maps.cf',
-  'proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf',
+  "proxy:mysql:#{tables_path}/mysql_virtual_alias_maps.cf",
+  "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_maps.cf",
+  "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_catchall_maps.cf",
 ]
 node.default['postfix']['main']['virtual_mailbox_maps'] = [
-  'proxy:mysql:/etc/postfix/sql/mysql_virtual_mailbox_maps.cf',
-  'proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf',
+  "proxy:mysql:#{tables_path}/mysql_virtual_mailbox_maps.cf",
+  "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_mailbox_maps.cf",
 ]
 node.default['postfix']['main']['virtual_mailbox_base'] = '/home/vmail'
 node.default['postfix']['main']['virtual_uid_maps'] = 'static:5000'
