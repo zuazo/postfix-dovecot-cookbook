@@ -54,30 +54,36 @@ node.default['dovecot']['conf']['postmaster_address'] = node['postfix-dovecot'][
 node.default['dovecot']['conf']['hostname'] = node['postfix-dovecot']['hostname']
 node.default['dovecot']['conf']['lda_mailbox_autocreate'] = true
 node.default['dovecot']['conf']['lda_mailbox_autosubscribe'] = true
-node.default['dovecot']['protocols']['lda']['mail_plugins'] = [ '$mail_plugins', 'sieve' ]
+if node['postfix-dovecot']['sieve']['enabled']
+  node.default['dovecot']['protocols']['lda']['mail_plugins'] = [ '$mail_plugins', 'sieve' ]
+else
+  node.default['dovecot']['protocols']['lda']['mail_plugins'] = [ '$mail_plugins' ] # not required
+end
 
 # 20-imap.conf
 node.default['dovecot']['protocols']['imap'] = {}
 
 # 90-sieve.conf
-node.default['dovecot']['plugins']['sieve']['sieve_global_path'] = node['postfix-dovecot']['sieve_global_path']
-execute 'sievec sieve_global_path' do
-  command "sievec '#{node['dovecot']['plugins']['sieve']['sieve_global_path']}'"
-  action :nothing
-end
-directory ::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path']) do
-  owner 'root'
-  group 'root'
-  mode '00755'
-  not_if do ::File.exists?(node['dovecot']['plugins']['sieve']['sieve_global_path']) end
-end
-template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
-  source 'default.sieve.erb'
-  # TODO reinforcing this
-  owner 'root'
-  group 'root'
-  mode '00640'
-  notifies :run, 'execute[sievec sieve_global_path]'
+if node['postfix-dovecot']['sieve']['enabled']
+  node.default['dovecot']['plugins']['sieve']['sieve_global_path'] = node['postfix-dovecot']['sieve']['global_path']
+  execute 'sievec sieve_global_path' do
+    command "sievec '#{node['dovecot']['plugins']['sieve']['sieve_global_path']}'"
+    action :nothing
+  end
+  directory ::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path']) do
+    owner 'root'
+    group 'root'
+    mode '00755'
+    not_if do ::File.exists?(node['dovecot']['plugins']['sieve']['sieve_global_path']) end
+  end
+  template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
+    source 'default.sieve.erb'
+    # TODO reinforcing this
+    owner 'root'
+    group 'root'
+    mode '00640'
+    notifies :run, 'execute[sievec sieve_global_path]'
+  end
 end
 
 # auth-sql.conf.ext
