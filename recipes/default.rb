@@ -18,3 +18,5 @@
 #
 
 include_recipe 'postfix-dovecot::postfix-full'
+include_recipe 'postfix-dovecot::dovecot'
+

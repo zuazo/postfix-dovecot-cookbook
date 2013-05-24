@@ -1,0 +1,11 @@
+require "fileinto";
+
+if header :contains "X-Spam-Virus" "Yes" {
+  fileinto "Spam";
+  stop;
+}
+
+if header :contains "X-Spam-Status" "Yes" {
+  fileinto "Spam";
+  stop;
+}
