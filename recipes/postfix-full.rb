@@ -67,12 +67,20 @@ node.default['postfix']['master']['inet:smtps'] = {
 
 #dovecot   unix  -       n       n       -       -       pipe
 #  flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -f {sender} -d ${recipient}
+dovecot_argv = [
+  "#{node['dovecot']['lib_path']}/deliver",
+  '-f {sender}',
+  '-d ${recipient}',
+]
+if node['postfix-dovecot']['spamc']['enabled']
+  dovecot_argv.unshift('/usr/bin/spamc -e')
+end
 node.default['postfix']['master']['dovecot'] = {
   'command' => 'pipe',
   'unpriv' => false,
   'chroot' => false,
   'args' => [
-    "flags=DRhu user=#{node['postfix-dovecot']['vmail']['user']}:#{node['postfix-dovecot']['vmail']['group']} argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -f {sender} -d ${recipient}",
+    "flags=DRhu user=#{node['postfix-dovecot']['vmail']['user']}:#{node['postfix-dovecot']['vmail']['group']} argv=#{dovecot_argv.join(' ')}",
   ],
 }
 
