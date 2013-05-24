@@ -37,8 +37,8 @@ node.default['dovecot']['services']['auth']['listeners'] = {
   # of all usernames and get results of everyone's userdb lookups.
   'unix:auth-userdb' => {
     'mode' => '0600',
-    'user' => 'vmail',
-    'group' => 'vmail',
+    'user' => node['postfix-dovecot']['vmail']['user'],
+    'group' => node['postfix-dovecot']['vmail']['group'],
   },
   # Postfix smtp-auth
   'unix:/var/spool/postfix/private/auth' => {
@@ -86,9 +86,9 @@ node.default['dovecot']['auth']['sql']['userdb']['args'] = '/etc/dovecot/dovecot
 
 # auth-static.conf.ext
 node.default['dovecot']['auth']['static']['userdb']['args'] = [
-  'uid=vmail',
-  'gid=vmail',
-  'home=/home/vmail/%d/%n',
+  "uid=#{node['postfix-dovecot']['vmail']['user']}",
+  "gid=#{node['postfix-dovecot']['vmail']['group']}",
+  "home=#{node['postfix-dovecot']['vmail']['home']}/%d/%n",
   'allow_all_users=yes',
 ]
 
@@ -120,7 +120,7 @@ node.default['dovecot']['conf']['sql']['password_query'] = [
   'WHERE username = \'%u\' AND active = \'1\'',
 ]
 node.default['dovecot']['conf']['sql']['user_query'] = [
-  'SELECT username AS user, password, concat(\'/home/vmail/\', maildir) AS userdb_home, concat(\'maildir:/home/vmail/\', maildir) AS userdb_mail',
+  "SELECT username AS user, password, concat('#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS userdb_home, concat('maildir:#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS userdb_mail",
   'FROM mailbox',
   'WHERE username = \'%u\' AND active = \'1\'',
 ]

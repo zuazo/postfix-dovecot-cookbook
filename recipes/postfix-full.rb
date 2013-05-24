@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-tables_path = '/etc/postfix/tables'
+tables_path = "#{node['postfix']['base_dir']}/tables"
 # check if we can get the tables path from the postfixadmin cookbook
 if node['postfixadmin'] and node['postfixadmin']['map_files'] and node['postfixadmin']['map_files']['path']
   tables_path = node['postfixadmin']['map_files']['path']
@@ -70,7 +70,7 @@ node.default['postfix']['master']['dovecot'] = {
   'unpriv' => false,
   'chroot' => false,
   'args' => [
-    'flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -f {sender} -d ${recipient}',
+    "flags=DRhu user=#{node['postfix-dovecot']['vmail']['user']}:#{node['postfix-dovecot']['vmail']['group']} argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -f {sender} -d ${recipient}",
   ],  
 }
 
@@ -132,9 +132,9 @@ node.default['postfix']['main']['virtual_mailbox_maps'] = [
   "proxy:mysql:#{tables_path}/mysql_virtual_mailbox_maps.cf",
   "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_mailbox_maps.cf",
 ]
-node.default['postfix']['main']['virtual_mailbox_base'] = '/home/vmail'
-node.default['postfix']['main']['virtual_uid_maps'] = 'static:5000'
-node.default['postfix']['main']['virtual_gid_maps'] = 'static:5000'
+node.default['postfix']['main']['virtual_mailbox_base'] = node['postfix-dovecot']['vmail']['home']
+node.default['postfix']['main']['virtual_uid_maps'] = "static:#{node['postfix-dovecot']['vmail']['uid']}"
+node.default['postfix']['main']['virtual_gid_maps'] = "static:#{node['postfix-dovecot']['vmail']['gid']}"
 node.default['postfix']['main']['virtual_transport'] = 'dovecot'
 node.default['postfix']['main']['dovecot_destination_recipient_limit'] = 1
 

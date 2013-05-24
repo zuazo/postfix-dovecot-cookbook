@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: postfix-dovecot
-# Recipe:: default
+# Recipe:: vmail
 #
 # Copyright 2013, Onddo Labs, Sl.
 #
@@ -17,8 +17,19 @@
 # limitations under the License.
 #
 
-include_recipe 'postfix-dovecot::vmail'
-include_recipe 'postfix-dovecot::postfixadmin'
-include_recipe 'postfix-dovecot::postfix-full'
-include_recipe 'postfix-dovecot::dovecot'
+user node['postfix-dovecot']['vmail']['user'] do
+  comment node['postfix-dovecot']['vmail']['user'].capitalize
+  home node['postfix-dovecot']['vmail']['home']
+  shell '/bin/false'
+  uid node['postfix-dovecot']['vmail']['uid']
+  supports :manage_home => true
+  system true
+end
+
+group node['postfix-dovecot']['vmail']['group'] do
+  gid node['postfix-dovecot']['vmail']['gid']
+  members [ node['postfix-dovecot']['vmail']['user'] ]
+  system true
+  append true
+end
 
