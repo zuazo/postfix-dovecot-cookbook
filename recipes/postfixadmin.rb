@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: postfix-dovecot
-# Recipe:: default
+# Recipe:: postfixadmin
 #
 # Copyright 2013, Onddo Labs, Sl.
 #
@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe 'postfix-dovecot::postfixadmin'
-include_recipe 'postfix-dovecot::postfix-full'
-include_recipe 'postfix-dovecot::dovecot'
+include_recipe 'postfixadmin::default'
+include_recipe 'postfixadmin::map_files'
 

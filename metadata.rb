@@ -9,5 +9,6 @@ version          '0.1.0'
 supports 'ubuntu'
 
 depends 'dovecot'
+depends 'postfixadmin'
 depends 'postfix-full'
 
