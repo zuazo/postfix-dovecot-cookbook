@@ -53,7 +53,7 @@ node.default['postfix']['master']['inet:submission'] = {
 #  -o smtpd_sasl_auth_enable=yes
 #  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 #  -o milter_macro_daemon_name=ORIGINATING
-node.default['postfix']['master']['inet:smtps'] = { 
+node.default['postfix']['master']['inet:smtps'] = {
   'command' => 'smtpd',
   'private' => false,
   'args' => [
@@ -62,18 +62,18 @@ node.default['postfix']['master']['inet:smtps'] = {
     '-o smtpd_sasl_auth_enable=yes',
     '-o smtpd_client_restrictions=permit_sasl_authenticated,reject',
     '-o milter_macro_daemon_name=ORIGINATING',
-  ],  
+  ],
 }
 
 #dovecot   unix  -       n       n       -       -       pipe
 #  flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -f {sender} -d ${recipient}
-node.default['postfix']['master']['dovecot'] = { 
+node.default['postfix']['master']['dovecot'] = {
   'command' => 'pipe',
   'unpriv' => false,
   'chroot' => false,
   'args' => [
     "flags=DRhu user=#{node['postfix-dovecot']['vmail']['user']}:#{node['postfix-dovecot']['vmail']['group']} argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -f {sender} -d ${recipient}",
-  ],  
+  ],
 }
 
 #
