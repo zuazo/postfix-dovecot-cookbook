@@ -29,25 +29,25 @@ node.default['dovecot']['conf']['mail_location'] = 'maildir:~/Maildir'
 node.default['dovecot']['conf']['mail_privileged_group'] = 'mail'
 
 # 10-master.conf
-node.default['dovecot']['services']['auth']['listeners'] = {
+node.default['dovecot']['services']['auth']['listeners'] = [
   # auth_socket_path points to this userdb socket by default. It's typically
   # used by dovecot-lda, doveadm, possibly imap process, etc. Its default
   # permissions make it readable only by root, but you may need to relax these
   # permissions. Users that have access to this socket are able to get a list
   # of all usernames and get results of everyone's userdb lookups.
-  'unix:auth-userdb' => {
+  { 'unix:auth-userdb' => {
     'mode' => '0600',
     'user' => node['postfix-dovecot']['vmail']['user'],
     'group' => node['postfix-dovecot']['vmail']['group'],
-  },
+  } },
   # Postfix smtp-auth
-  'unix:/var/spool/postfix/private/auth' => {
+  { 'unix:/var/spool/postfix/private/auth' => {
     # TODO reinforcing this
     'mode' => '0666',
     'user' => 'postfix',
     'group' => 'postfix',
-  },
-}
+  } },
+]
 
 # 15-lda.conf
 node.default['dovecot']['conf']['postmaster_address'] = node['postfix-dovecot']['postmaster_address']
@@ -81,7 +81,7 @@ if node['postfix-dovecot']['sieve']['enabled']
     # TODO reinforcing this
     owner 'root'
     group 'root'
-    mode '00640'
+    mode '00644'
     notifies :run, 'execute[sievec sieve_global_path]'
   end
 end
@@ -126,10 +126,11 @@ node.default['dovecot']['conf']['sql']['password_query'] = [
   'WHERE username = \'%u\' AND active = \'1\'',
 ]
 node.default['dovecot']['conf']['sql']['user_query'] = [
-  "SELECT username AS user, password, concat('#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS userdb_home, concat('maildir:#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS userdb_mail",
+  "SELECT username AS user, password, concat('#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS home, concat('maildir:#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS mail",
   'FROM mailbox',
   'WHERE username = \'%u\' AND active = \'1\'',
 ]
+
 node.default['dovecot']['conf']['sql']['iterate_query'] = [
   'SELECT username AS user',
   'FROM mailbox WHERE active = \'1\'',
