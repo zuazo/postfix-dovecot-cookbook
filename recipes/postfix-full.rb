@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+package 'postfix-mysql'
+
 tables_path = "#{node['postfix']['base_dir']}/tables"
 # check if we can get the tables path from the postfixadmin cookbook
 if node['postfixadmin'] and node['postfixadmin']['map_files'] and node['postfixadmin']['map_files']['path']
