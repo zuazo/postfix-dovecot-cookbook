@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+package 'postfix'
 package 'postfix-mysql'
 
 tables_path = "#{node['postfix']['base_dir']}/tables"

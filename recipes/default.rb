@@ -18,7 +18,7 @@
 #
 
 include_recipe 'postfix-dovecot::vmail'
-include_recipe 'postfix-dovecot::postfixadmin'
 include_recipe 'postfix-dovecot::postfix-full'
+include_recipe 'postfix-dovecot::postfixadmin'
 include_recipe 'postfix-dovecot::dovecot'
 

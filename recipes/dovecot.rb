@@ -77,6 +77,7 @@ if node['postfix-dovecot']['sieve']['enabled']
     owner 'root'
     group 'root'
     mode '00755'
+    recursive true
     not_if do ::File.exists?(::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path'])) end
   end
   template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
