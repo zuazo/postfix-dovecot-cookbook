@@ -69,25 +69,6 @@ node.default['dovecot']['protocols']['imap'] = {}
 # 90-sieve.conf
 if node['postfix-dovecot']['sieve']['enabled']
   node.default['dovecot']['plugins']['sieve']['sieve_global_path'] = node['postfix-dovecot']['sieve']['global_path']
-  execute 'sievec sieve_global_path' do
-    command "sievec '#{node['dovecot']['plugins']['sieve']['sieve_global_path']}'"
-    action :nothing
-  end
-  directory ::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path']) do
-    owner 'root'
-    group 'root'
-    mode '00755'
-    recursive true
-    not_if do ::File.exists?(::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path'])) end
-  end
-  template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
-    source 'default.sieve.erb'
-    # TODO reinforcing this
-    owner 'root'
-    group 'root'
-    mode '00644'
-    notifies :run, 'execute[sievec sieve_global_path]'
-  end
 end
 
 # auth-sql.conf.ext
@@ -141,4 +122,29 @@ node.default['dovecot']['conf']['sql']['iterate_query'] = [
 ]
 
 include_recipe 'dovecot'
+
+# this should go after installing dovecot, sievec is required
+execute 'sievec sieve_global_path' do
+  command "sievec '#{node['dovecot']['plugins']['sieve']['sieve_global_path']}'"
+  action :nothing
+end
+directory ::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path']) do
+  owner 'root'
+  group 'root'
+  mode '00755'
+  recursive true
+  not_if do
+    ::File.exists?(::File.dirname(node['dovecot']['plugins']['sieve']['sieve_global_path'])) or
+    not node['postfix-dovecot']['sieve']['enabled']
+  end
+end
+template node['dovecot']['plugins']['sieve']['sieve_global_path'] do
+  source 'default.sieve.erb'
+  # TODO reinforcing this
+  owner 'root'
+  group 'root'
+  mode '00644'
+  only_if do node['postfix-dovecot']['sieve']['enabled'] end
+  notifies :run, 'execute[sievec sieve_global_path]'
+end
 
