@@ -18,7 +18,10 @@
 #
 
 package 'postfix'
-package 'postfix-mysql'
+case node['platform']
+when 'debian', 'ubuntu' then
+  package 'postfix-mysql'
+end
 
 tables_path = "#{node['postfix']['base_dir']}/tables"
 # check if we can get the tables path from the postfixadmin cookbook
