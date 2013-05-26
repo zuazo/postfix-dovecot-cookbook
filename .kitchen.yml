@@ -20,6 +20,10 @@ platforms:
   driver_config:
     box: opscode-centos-5.9
     box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
+- name: debian-7.0-chef10
+  driver_config:
+    box: debian-7.0.0-chef_10.26.0-1-amd64
+    box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_10.26.0-1-amd64.box
 - name: debian-7.0-chef11
   driver_config:
     box: debian-7.0.0-chef_11.4.4-2-amd64
