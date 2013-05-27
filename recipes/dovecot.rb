@@ -111,7 +111,13 @@ node.default['dovecot']['conf']['sql']['password_query'] = [
   'WHERE username = \'%u\' AND active = \'1\'',
 ]
 node.default['dovecot']['conf']['sql']['user_query'] = [
-  "SELECT username AS user, password, concat('#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS home, concat('maildir:#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS mail",
+  'SELECT', 
+    'username AS user,',
+    'password,',
+    "#{node['postfix-dovecot']['vmail']['uid']} as uid,",
+    "#{node['postfix-dovecot']['vmail']['gid']} as gid,",
+    "concat('#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS home,",
+    "concat('maildir:#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS mail",
   'FROM mailbox',
   'WHERE username = \'%u\' AND active = \'1\'',
 ]
