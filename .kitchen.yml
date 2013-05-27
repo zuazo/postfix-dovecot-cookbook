@@ -35,7 +35,7 @@ suites:
     - recipe[postfix-dovecot_test]
   attributes: {
     mysql: {
-      server_root_password: vagrant,
+      server_root_password: vagrant_root,
       server_debian_password: vagrant_debian,
       server_repl_password: vagrant_repl
     },
