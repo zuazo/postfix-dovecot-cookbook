@@ -19,7 +19,18 @@
 
 include_recipe 'postfix-dovecot'
 
-postfixadmin_admin 'admin@admin.org' do
+postfixadmin_admin 'admin@foobar.com' do
   password 'p@ssw0rd1'
+end
+
+postfixadmin_domain 'foobar.com' do
+  login_username 'admin@foobar.com'
+  login_password 'p@ssw0rd1'
+end
+
+postfixadmin_mailbox 'postmaster@foobar.com' do
+  password 'p0stm@st3r1'
+  login_username 'admin@foobar.com'
+  login_password 'p@ssw0rd1'
 end
 
