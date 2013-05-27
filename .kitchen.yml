@@ -31,7 +31,8 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[postfix-dovecot]"]
+  run_list:
+    - recipe[postfix-dovecot_test]
   attributes: {
     mysql: {
       server_root_password: vagrant,

@@ -16,3 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+include_recipe 'postfix-dovecot'
+
+postfixadmin_admin 'admin@admin.org' do
+  password 'p@ssw0rd1'
+end
+
