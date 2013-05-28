@@ -33,17 +33,4 @@ suites:
 - name: default
   run_list:
     - recipe[postfix-dovecot_test]
-  attributes: {
-    mysql: {
-      server_root_password: vagrant_root,
-      server_debian_password: vagrant_debian,
-      server_repl_password: vagrant_repl
-    },
-    postfixadmin: {
-      database: {
-        password: postfix_pass
-      },
-      setup_password: admin,
-      setup_password_salt: salt
-    }
-  }
+  attributes: { }

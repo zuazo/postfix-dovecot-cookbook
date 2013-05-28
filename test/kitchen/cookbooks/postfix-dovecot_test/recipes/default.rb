@@ -17,6 +17,14 @@
 # limitations under the License.
 #
 
+node.default['mysql']['server_root_password'] = 'vagrant_root'
+node.default['mysql']['server_debian_password'] = 'vagrant_debian'
+node.default['mysql']['server_repl_password'] = 'vagrant_repl'
+
+node.default['postfixadmin']['database']['password'] = 'postfix_pass'
+node.default['postfixadmin']['setup_password'] = 'admin'
+node.default['postfixadmin']['setup_password_salt'] = 'salt'
+
 include_recipe 'postfix-dovecot'
 
 postfixadmin_admin 'admin@foobar.com' do
