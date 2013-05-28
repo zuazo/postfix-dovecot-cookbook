@@ -17,11 +17,11 @@
   TIMEOUT='10'
   /opt/chef/embedded/bin/ruby "${BATS_TEST_DIRNAME}/helpers/smtp-send-ham.rb" "${FINGERPRINT}"
   i='0'
-  while [ "${i}" -le "${TIMEOUT}" ] && ! grep -qF "${FINGERPRINT}" /home/vmail/foobar.com/postmaster/new/*
+  while [ "${i}" -le "${TIMEOUT}" ] && ! grep -qF "${FINGERPRINT}" /var/vmail/foobar.com/postmaster/new/*
   do
     [ "${i}" -gt '0' ] && sleep 1
     i="$((i+1))"
   done
-  grep -qF "${FINGERPRINT}" /home/vmail/foobar.com/postmaster/new/*
+  grep -qF "${FINGERPRINT}" /var/vmail/foobar.com/postmaster/new/*
 }
 
