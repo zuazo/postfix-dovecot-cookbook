@@ -32,5 +32,6 @@ platforms:
 suites:
 - name: default
   run_list:
+    - recipe[onddo-spamassassin]
     - recipe[postfix-dovecot_test]
   attributes: { }
