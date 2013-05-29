@@ -11,8 +11,7 @@ supports 'debian'
 supports 'ubuntu'
 
 depends 'dovecot'
+depends 'onddo-spamassassin'
 depends 'postfixadmin'
 depends 'postfix-full'
-
-recommends 'onddo-spamassassin'
 
