@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+node.default['postfix-dovecot']['spamc']['enabled'] = true
+
 node.default['mysql']['server_root_password'] = 'vagrant_root'
 node.default['mysql']['server_debian_password'] = 'vagrant_debian'
 node.default['mysql']['server_repl_password'] = 'vagrant_repl'

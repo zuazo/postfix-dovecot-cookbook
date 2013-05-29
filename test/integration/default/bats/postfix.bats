@@ -14,14 +14,16 @@
 
 @test "should be able to receive mails through smtp" {
   FINGERPRINT="G27XB6yIyYyM99Tv8UXW$(date +%s)"
-  TIMEOUT='10'
-  /opt/chef/embedded/bin/ruby "${BATS_TEST_DIRNAME}/helpers/smtp-send-ham.rb" "${FINGERPRINT}"
+  TIMEOUT='30'
+  MAIL_DIR='/var/vmail/foobar.com/postmaster/new'
+  /opt/chef/embedded/bin/ruby "${BATS_TEST_DIRNAME}/helpers/smtp-send.rb" "${FINGERPRINT}"
   i='0'
-  while [ "${i}" -le "${TIMEOUT}" ] && ! grep -qF "${FINGERPRINT}" /var/vmail/foobar.com/postmaster/new/*
+  while [ "${i}" -le "${TIMEOUT}" ] \
+    && ! ( [ -e "${MAIL_DIR}/" ] && grep -qF "${FINGERPRINT}" "${MAIL_DIR}"/* )
   do
     [ "${i}" -gt '0' ] && sleep 1
     i="$((i+1))"
   done
-  grep -qF "${FINGERPRINT}" /var/vmail/foobar.com/postmaster/new/*
+  grep -qF "${FINGERPRINT}" "${MAIL_DIR}"/*
 }
 

@@ -77,7 +77,7 @@ dovecot_argv = [
   '-d ${recipient}',
 ]
 if node['postfix-dovecot']['spamc']['enabled']
-  dovecot_argv.unshift('/usr/bin/spamc -e')
+  dovecot_argv.unshift("#{node.default['postfix-dovecot']['spamc']['path']} -e")
 end
 node.default['postfix']['master']['dovecot'] = {
   'command' => 'pipe',

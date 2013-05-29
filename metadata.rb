@@ -14,3 +14,5 @@ depends 'dovecot'
 depends 'postfixadmin'
 depends 'postfix-full'
 
+recommends 'onddo-spamassassin'
+
