@@ -4,7 +4,6 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-platforms:
 - name: ubuntu-12.04
   driver_config:
     box: opscode-ubuntu-12.04
