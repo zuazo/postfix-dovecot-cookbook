@@ -54,7 +54,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['spamc']['enabled']</code></td>
-    <td>Wether to enable SpamAssassin</td>
+    <td>Whether to enable SpamAssassin</td>
     <td><code>true</code></td>
   </tr>
   <tr>
