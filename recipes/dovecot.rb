@@ -68,6 +68,8 @@ node.default['dovecot']['protocols']['imap'] = {}
 
 # 90-sieve.conf
 if node['postfix-dovecot']['sieve']['enabled']
+  node.default['dovecot']['plugins']['sieve']['sieve'] = '~/.dovecot.sieve'
+  node.default['dovecot']['plugins']['sieve']['sieve_dir'] = '~/sieve'
   node.default['dovecot']['plugins']['sieve']['sieve_global_path'] = node['postfix-dovecot']['sieve']['global_path']
 end
 
