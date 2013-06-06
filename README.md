@@ -1,14 +1,14 @@
 Description
 ===========
 
-Installs and configures a mail server using Postfix, Dovecot, PostfixAdmin and SpamAssassin.
+Installs and configures a mail server using [Postfix](http://www.postfix.org/), [Dovecot](http://www.dovecot.org/), [PostfixAdmin](http://postfixadmin.sourceforge.net/) and [SpamAssassin](http://spamassassin.apache.org/).
 
 Requirements
 ============
 
 ## Platform:
 
-The following platforms has been tested:
+This cookbook has been tested on the following platforms:
 
 * Centos >= 6.0
 * Debian >= 7.0
@@ -22,6 +22,10 @@ Let me know if you use it successfully on any other platform.
 * onddo-spamassassin
 * postfixadmin
 * [postfix-full](https://github.com/mswart/chef-postfix-full)
+
+## Applications:
+
+* **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
 
 Attributes
 ==========
@@ -116,6 +120,41 @@ Installs and configures PostfixAdmin.
 
 Installs and configures Dovecot 2.
 
+Usage Example
+=============
+
+## Including in a Cookbook Recipe
+
+Running it from a recipe:
+
+```ruby
+include_recipe 'postfix-dovecot::default'
+```
+
+Don't forget to include the `postfix-dovecot` cookbook as a dependency in the metadata.
+
+```ruby
+# metadata.rb
+[...]
+
+depends 'postfix-dovecot'
+```
+
+## Including in the Run List
+
+Another alternative is to include the default recipe in your *Run List*.
+
+```json
+{
+  "name": "mail.onddo.com",
+  [...]
+  "run_list": [
+    [...]
+    "recipe[postfix-dovecot]"
+  ]
+}
+```
+
 Testing
 =======
 
@@ -130,6 +169,8 @@ Testing
 
 ```bash
 $ kitchen test
+$ kitchen verify
+[...]
 ```
 
 Contributing
