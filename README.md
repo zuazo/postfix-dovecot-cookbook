@@ -18,10 +18,10 @@ Let me know if you use it successfully on any other platform.
 
 ## Cookbooks:
 
-* dovecot
-* onddo-spamassassin
-* postfixadmin
-* [postfix-full](https://github.com/mswart/chef-postfix-full)
+* [dovecot](https://github.com/onddo/dovecot-cookbook)
+* [onddo-spamassassin](https://github.com/onddo/spamassassin-cookbook)
+* [postfixadmin](https://github.com/onddo/postfixadmin-cookbook)
+* [postfix-full](https://github.com/mswart/chef-postfix-full) by [@mswart](https://github.com/mswart)
 
 ## Applications:
 
