@@ -128,7 +128,32 @@ Usage Example
 Running it from a recipe:
 
 ```ruby
+node['postfix-dovecot']['postmaster_address'] = 'postmaster@foobar.com'
+node['postfix-dovecot']['hostname'] = 'mail.foobar.com'
+
 include_recipe 'postfix-dovecot::default'
+
+postfixadmin_admin 'admin@admindomain.com' do
+  password 'sup3r-s3cr3t-p4ss'
+  action :create
+end
+
+postfixadmin_domain 'foobar.com' do
+  login_username 'admin@admindomain.com'
+  login_password 'sup3r-s3cr3t-p4ss'
+end
+
+postfixadmin_mailbox 'bob@foobar.com' do
+  password 'alice'
+  login_username 'admin@admindomain.com'
+  login_password 'sup3r-s3cr3t-p4ss'
+end
+
+postfixadmin_alias 'billing@foobar.com' do
+  goto 'bob@foobar.com'
+  login_username 'admin@admindomain.com'
+  login_password 'sup3r-s3cr3t-p4ss'
+end
 ```
 
 Don't forget to include the `postfix-dovecot` cookbook as a dependency in the metadata.
