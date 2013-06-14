@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+node.set_unless['postfixadmin']['server_name'] = node['postfix-dovecot']['hostname']
+
 include_recipe 'postfixadmin::default'
 include_recipe 'postfixadmin::map_files'
 
