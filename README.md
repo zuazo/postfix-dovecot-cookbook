@@ -91,6 +91,29 @@ Attributes
     <td>Virtual mail user home path.</td>
     <td><code>"/var/vmail"</code></td>
   </tr>
+  <tr>
+    <td><code>node['postfix-dovecot']['ses']['enabled']</code></td>
+    <td>Whether to enable <a href="http://aws.amazon.com/ses/">Amazon SES</a>.</td>
+    <td><code>false</code></td>
+  </tr>
+  <tr>
+    <td><code>node['postfix-dovecot']['ses']['username']</code></td>
+    <td>Amazon SES SMTP username. See the <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html"><em>Obtaining Your Amazon SES SMTP Credentials</em> documentation</a>.</td>
+    <td><code>"USERNAME"</code></td>
+  </tr>
+  <tr>
+    <td><code>node['postfix-dovecot']['ses']['password']</code></td>
+    <td>Amazon SES SMTP password.</td>
+    <td><code>"PASSWORD"</code></td>
+  </tr>
+  <tr>
+    <td><code>node['postfix-dovecot']['ses']['servers']</code></td>
+    <td>Amazon SES SMTP servers.</td>
+    <td><code>[<br/>
+      &nbsp;&nbsp;'email-smtp.us-east-1.amazonaws.com:25',<br/>
+      &nbsp;&nbsp;'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25'<br/>
+    ]</code></td>
+  </tr>
 </table>
 
 Recipes
