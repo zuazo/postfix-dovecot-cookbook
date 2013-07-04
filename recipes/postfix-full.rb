@@ -169,7 +169,15 @@ if node['postfix-dovecot']['ses']['enabled']
   node['postfix-dovecot']['ses']['servers'].each do |server|
     node.default['postfix']['tables']['sasl_passwd'][server] = ses_credentials
   end
-  node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-certificates.crt'
+  case node['platform']
+  when 'redhat','centos','scientific','fedora','suse','amazon' then
+    node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-bundle.crt'
+  when 'debian', 'ubuntu' then
+    node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-certificates.crt'
+  else
+    Chef::Log.warn("Unsupported platform: #{node['platform']}, trying to guess CA certificates file location")
+    node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-certificates.crt'
+  end
 end
 
 node['postfix']['main'].each do |key, value|
