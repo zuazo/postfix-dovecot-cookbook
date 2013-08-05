@@ -4,13 +4,13 @@ describe 'postfix-dovecot::default' do
   include Helpers::PostfixDovecotTest
 
   describe 'postfix' do
-    it 'shuold be running' do
+    it 'postfix should be running' do
       service('postfix').must_be_running
     end
   end
 
   describe 'dovecot' do
-    it 'shuold be running' do
+    it 'dovecot should be running' do
       service('dovecot').must_be_running
     end
   end

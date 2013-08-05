@@ -1,0 +1,9 @@
+- name: ses
+  run_list:
+    - recipe[postfix-dovecot_test]
+  attributes:
+    postfix-dovecot:
+      ses:
+        enabled: true
+        username: AMAZON_SES_SMTP_USERNAME
+        password: AMAZON_SES_SMTP_PASSWORD
