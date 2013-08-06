@@ -221,6 +221,11 @@ $ kitchen verify
 [...]
 ```
 
+Amazon SES Tests
+----------------
+
+Use the [.kitchen.local.yml.example](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/.kitchen.local.yml.example) file as a template to see how to run the SES tests.
+
 Contributing
 ============
 
