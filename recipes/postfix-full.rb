@@ -152,6 +152,34 @@ node.default['postfix']['main']['virtual_gid_maps'] = "static:#{node['postfix-do
 node.default['postfix']['main']['virtual_transport'] = 'dovecot'
 node.default['postfix']['main']['dovecot_destination_recipient_limit'] = 1
 
+# Amazon SES
+if node['postfix-dovecot']['ses']['enabled']
+  ses_credentials = "#{node['postfix-dovecot']['ses']['username']}:#{node['postfix-dovecot']['ses']['password']}"
+  node.default['postfix']['main']['relayhost'] = node['postfix-dovecot']['ses']['servers'][0]
+  node.default['postfix']['main']['smtp_sasl_auth_enable'] = true
+  node.default['postfix']['main']['smtp_sasl_security_options'] = 'noanonymous'
+  node.default['postfix']['main']['smtp_use_tls'] = true
+  node.default['postfix']['main']['smtp_tls_security_level'] = 'encrypt'
+  node.default['postfix']['main']['smtp_tls_note_starttls_offer'] = true
+  # node.default['postfix']['main']['smtp_sasl_password_maps'] = 'hash:/etc/postfix/sasl_passwd'
+  node.default['postfix']['tables']['sasl_passwd'] = {
+    '_type' => 'hash',
+    '_add' => { 'smtp_sasl_password_maps' => nil },
+  }
+  node['postfix-dovecot']['ses']['servers'].each do |server|
+    node.default['postfix']['tables']['sasl_passwd'][server] = ses_credentials
+  end
+  case node['platform']
+  when 'redhat','centos','scientific','fedora','suse','amazon' then
+    node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-bundle.crt'
+  when 'debian', 'ubuntu' then
+    node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-certificates.crt'
+  else
+    Chef::Log.warn("Unsupported platform: #{node['platform']}, trying to guess CA certificates file location")
+    node.default['postfix']['main']['smtp_tls_CAfile'] = '/etc/ssl/certs/ca-certificates.crt'
+  end
+end
+
 node['postfix']['main'].each do |key, value|
   if value.kind_of?(Array)
     node.default['postfix']['main'][key] = value.join(', ')

@@ -4,7 +4,7 @@ maintainer_email 'team@onddo.com'
 license          'Apache 2.0'
 description      'Installs and configures a mail server using Postfix, Dovecot, PostfixAdmin and SpamAssassin, including Amazon SES support.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.0'
+version          '0.1.1' # WiP
 
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
@@ -110,4 +110,35 @@ attribute 'postfix-dovecot/vmail/home',
   :type => 'string',
   :required => 'optional',
   :default => '"/var/vmail"'
+
+attribute 'postfix-dovecot/ses/enabled',
+  :display_name => 'ses enabled',
+  :description => 'Whether to enable Amazon SES.',
+  :type => 'string',
+  :required => 'recommended',
+  :default => 'false'
+
+attribute 'postfix-dovecot/ses/username',
+  :display_name => 'ses username',
+  :description => 'Amazon SES SMTP username.',
+  :type => 'string',
+  :required => 'recommended',
+  :default => '"USERNAME"'
+
+attribute 'postfix-dovecot/ses/password',
+  :display_name => 'ses password',
+  :description => 'Amazon SES SMTP password.',
+  :type => 'string',
+  :required => 'recommended',
+  :default => '"PASSWORD"'
+
+attribute 'postfix-dovecot/ses/servers',
+  :display_name => 'ses password',
+  :description => 'Amazon SES SMTP servers.',
+  :type => 'array',
+  :required => 'optional',
+  :default => [
+    'email-smtp.us-east-1.amazonaws.com:25',
+    'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
+  ]
 
