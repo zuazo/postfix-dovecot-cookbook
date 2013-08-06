@@ -9,6 +9,7 @@
 }
 
 @test "should be able to send mails through SES" {
+  TIMEOUT='15'
   PATTERN='postfix/smtp.* to=<to@blackhole.io>, relay=.*.amazonaws.com.*, .*status'
   OK_PATTERN="${PATTERN}=sent"
   if [ -e '/var/log/maillog' ]
@@ -17,7 +18,6 @@
   else
     MAIL_LOG='/var/log/mail.log'
   fi
-  TIMEOUT='15'
   i='0'
   while [ "${i}" -le "${TIMEOUT}" ] \
     && ! grep -q "${PATTERN}" "${MAIL_LOG}"
@@ -25,6 +25,6 @@
     [ "${i}" -gt '0' ] && sleep 1
     i="$((i+1))"
   done
-  grep -q "{OK_PATTERN}" "${MAIL_LOG}"
+  grep -q "${OK_PATTERN}" "${MAIL_LOG}"
 }
 
