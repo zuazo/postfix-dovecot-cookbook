@@ -189,3 +189,17 @@ end
 
 include_recipe 'postfix-full::default'
 
+directory '/var/spool/postfix/etc' do
+  owner 'root'
+  group 'root'
+  mode '00755'
+end
+
+file '/var/spool/postfix/etc/resolv.conf' do
+  owner 'root'
+  group 'root'
+  mode '00644'
+  content IO.read('/etc/resolv.conf')
+  notifies :restart, 'service[postfix]'
+end
+
