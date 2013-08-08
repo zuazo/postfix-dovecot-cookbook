@@ -9,6 +9,8 @@ module Helpers
     def send_test_mail(from, to)
 
       msgstr = <<-EOM
+From: #{from}
+To: #{to}
 Subject: Some cool subject for testing
 
 A blackhole email body.
