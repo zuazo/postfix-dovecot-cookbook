@@ -4,7 +4,7 @@ maintainer_email 'team@onddo.com'
 license          'Apache 2.0'
 description      'Installs and configures a mail server using Postfix, Dovecot, PostfixAdmin and SpamAssassin, including Amazon SES support.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.2.0'
+version          '0.3.0' # WiP
 
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
