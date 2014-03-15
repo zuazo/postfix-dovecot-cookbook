@@ -186,6 +186,10 @@ node['postfix']['main'].each do |key, value|
   end
 end
 
+file node['postfix']['main']['myorigin'] do
+  content node['postfix-dovecot']['hostname']
+end
+
 
 include_recipe 'postfix-full::default'
 
