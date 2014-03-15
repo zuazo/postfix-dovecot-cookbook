@@ -11,6 +11,6 @@ suites:
     postfix-dovecot:
       ses:
         enabled: true
-        email: no-reply@sesdomain.com # SES valid from, only used in tests
-        username: AMAZON_SES_SMTP_USERNAME
-        password: AMAZON_SES_SMTP_PASSWORD
+        email: <%= ENV['AMAZON_SES_EMAIL_FROM'] %> # SES valid from address, only used in tests
+        username: <%= ENV['AMAZON_SES_SMTP_USERNAME'] %>
+        password: <%= ENV['AMAZON_SES_SMTP_PASSWORD'] %>
