@@ -236,7 +236,7 @@ Then, you must configure test-kitchen to use [.kitchen.ses.yml](/blob/master/.ki
 $ export AMAZON_SES_EMAIL_FROM="no-reply@sesdomain.com"
 $ export AMAZON_SES_SMTP_USERNAME="..."
 $ export AMAZON_SES_SMTP_PASSWORD="..."
-$ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
+$ export KITCHEN_LOCAL_YAML=".kitchen.ses.yml"
 $ kitchen list
 [...]
 ```
