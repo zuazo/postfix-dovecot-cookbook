@@ -6,8 +6,10 @@ description      'Installs and configures a mail server using Postfix, Dovecot, 
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.3.0' # WiP
 
+supports 'amazon'
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
+supports 'fedora', '>= 17.0'
 supports 'ubuntu', '>= 12.04'
 
 recipe 'postfix-dovecot::default', 'Installs and configures everything.'

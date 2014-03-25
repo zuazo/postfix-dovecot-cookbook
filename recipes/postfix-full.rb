@@ -18,6 +18,9 @@
 #
 
 package 'postfix'
+package 'sendmail' do
+  action :remove
+end
 case node['platform']
 when 'debian', 'ubuntu' then
   package 'postfix-mysql'
