@@ -1,0 +1,69 @@
+---
+driver:
+  digitalocean_client_id: <%= ENV['DIGITAL_OCEAN_CLIENT_ID'] %>
+  digitalocean_api_key: <%= ENV['DIGITAL_OCEAN_API_KEY'] %>
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  ssh:
+    forward_agent: true
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+- name: centos-6.4
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 562354
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
+
+- name: fedora-17
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 32428
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
+
+- name: ubuntu-1204
+  driver_plugin: digitalocean
+  driver_config:
+    image_id: 1505447
+    flavor_id: 63
+    region_id: 4
+    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
+<% if ENV['SSH_AGENT_PID'].nil? %>
+    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
+<% end %>
+  run_list:
+  - recipe[apt]
+
+- name: amazon-2011.02.1
+  driver_plugin: ec2
+  driver_config:
+    image_id: ami-8e1fece7
+    flavor_id: t1.micro
+    username: ec2-user
+<% if ENV['SSH_AGENT_PID'].nil? %>
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+<% end %>
+
+- name: amazon-2013.09.2
+  driver_plugin: ec2
+  driver_config:
+    image_id: ami-bba18dd2
+    flavor_id: t1.micro
+    username: ec2-user
+<% if ENV['SSH_AGENT_PID'].nil? %>
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+<% end %>

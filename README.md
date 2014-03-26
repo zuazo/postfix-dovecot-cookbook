@@ -10,8 +10,10 @@ Requirements
 
 This cookbook has been tested on the following platforms:
 
+* Amazon Linux
 * CentOS >= 6.0
 * Debian >= 7.0
+* Fedora >= 17.0
 * Ubuntu >= 12.04
 
 Let me know if you use it successfully on any other platform.
@@ -220,9 +222,34 @@ $ kitchen test
 $ kitchen verify
 [...]
 ```
+### Running the tests in the cloud
 
-Amazon SES Tests
-----------------
+#### Requirements:
+
+* `kitchen-vagrant` >= `0.10`
+* `kitchen-digitalocean` >= `0.5`
+* `kitchen-ec2` >= `0.8`
+
+You can run the tests in the cloud instead of using vagrant. First, you must set the following environment variables:
+
+* `AWS_ACCESS_KEY_ID`
+* `AWS_SECRET_ACCESS_KEY`
+* `AWS_KEYPAIR_NAME`: EC2 SSH public key name. This is the name used in Amazon EC2 Console's Key Pars section.
+* `EC2_SSH_KEY_PATH`: EC2 SSH private key local full path. Only when you are not using an SSH Agent.
+* `DIGITAL_OCEAN_CLIENT_ID`
+* `DIGITAL_OCEAN_API_KEY`
+* `DIGITAL_OCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
+* `DIGITAL_OCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path. Only when you are not using an SSH Agent.
+
+Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
+
+```
+$ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
+$ kitchen list
+[...]
+```
+
+## Amazon SES Tests
 
 You need to set the following environment variables:
 
@@ -257,8 +284,8 @@ License and Author
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Xabier de Zuazo (<xabier@onddo.com>)
-| **Copyright:**       | Copyright (c) 2013 Onddo Labs, SL. (www.onddo.com)
+| **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@onddo.com>)
+| **Copyright:**       | Copyright (c) 2013-2014 Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
