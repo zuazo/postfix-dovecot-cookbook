@@ -1,3 +1,4 @@
+name             "postfix-dovecot_test"
 maintainer       "Onddo Labs, Sl."
 maintainer_email "team@onddo.com"
 license          "Apache 2.0"
