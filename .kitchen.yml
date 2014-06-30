@@ -1,21 +1,26 @@
 ---
 driver:
   name: vagrant
-
-provisioner:
-  require_chef_omnibus: latest
+  network:
+  - ["forwarded_port", {guest: 80, host: 8080, auto_correct: true}]
 
 platforms:
 - name: ubuntu-12.04
+  run_list:
+    - recipe[apt]
 - name: centos-6.4
 - name: debian-7.0-chef10
   driver_config:
     box: debian-7.0.0-chef_10.26.0-1-amd64
     box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_10.26.0-1-amd64.box
+  run_list:
+    - recipe[apt]
 - name: debian-7.0-chef11
   driver_config:
     box: debian-7.0.0-chef_11.4.4-2-amd64
     box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_11.4.4-2-amd64.box
+  run_list:
+    - recipe[apt]
 
 suites:
 - name: default
