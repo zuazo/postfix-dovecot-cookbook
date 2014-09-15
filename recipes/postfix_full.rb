@@ -130,7 +130,7 @@ node.default['postfix']['main']['smtpd_recipient_restrictions'] = %w(
 )
 
 # TLS parameters
-cert = ssl_certificate 'postfixadmin' do
+cert = ssl_certificate 'postfix' do
   namespace node['postfix-dovecot']
   notifies :restart, 'service[postfix]'
 end

@@ -14,6 +14,10 @@ group :style do
   gem 'rubocop', '~> 0.24'
 end
 
+group :unit do
+  gem 'chefspec', '~> 4.0'
+end
+
 group :integration do
   gem 'vagrant', github: 'mitchellh/vagrant'
   gem 'test-kitchen', '~> 1.2'
