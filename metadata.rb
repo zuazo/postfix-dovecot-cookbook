@@ -21,8 +21,9 @@ recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
 depends 'dovecot'
 depends 'onddo-spamassassin'
-depends 'postfixadmin', '< 1.0.0'
+depends 'postfixadmin', '>= 1.0.0'
 depends 'postfix-full'
+depends 'ssl_certificate'
 
 attribute 'postfix-dovecot/postmaster_address',
   :display_name => 'postmaster address',

@@ -22,7 +22,7 @@ Let me know if you use it successfully on any other platform.
 
 * [dovecot](https://github.com/onddo/dovecot-cookbook)
 * [onddo-spamassassin](https://github.com/onddo/spamassassin-cookbook)
-* [postfixadmin (&lt; 1.0.0)](https://github.com/onddo/postfixadmin-cookbook)
+* [postfixadmin (&ge; 1.0.0)](https://github.com/onddo/postfixadmin-cookbook)
 * [postfix-full](https://github.com/mswart/chef-postfix-full) by [@mswart](https://github.com/mswart)
 
 ## Applications:
@@ -117,6 +117,17 @@ Attributes
     ]</code></td>
   </tr>
 </table>
+
+## The HTTPS Certificate
+
+This cookbook uses the [`ssl_certificate`](https://supermarket.getchef.com/cookbooks/ssl_certificate) cookbook to create the HTTPS certificate. The namespace used is `node['postfix-dovecot']`. For example:
+
+```ruby
+node.default['postfix-dovecot']['common_name'] = 'mail.example.com'
+include_recipe 'postfix-dovecot'
+```
+
+See the [`ssl_certificate` namespace documentation](https://supermarket.getchef.com/cookbooks/ssl_certificate#namespaces) for more information.
 
 Recipes
 =======

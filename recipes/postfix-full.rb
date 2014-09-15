@@ -124,8 +124,12 @@ node.default['postfix']['main']['smtpd_recipient_restrictions'] = [
 ]
 
 # TLS parameters
-node.default['postfix']['main']['smtpd_tls_cert_file'] = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
-node.default['postfix']['main']['smtpd_tls_key_file'] = '/etc/ssl/private/ssl-cert-snakeoil.key'
+cert = ssl_certificate 'postfixadmin' do
+  namespace node['postfix-dovecot']
+  notifies :restart, 'service[postfix]'
+end
+node.default['postfix']['main']['smtpd_tls_cert_file'] = cert.cert_path
+node.default['postfix']['main']['smtpd_tls_key_file'] = cert.key_path
 node.default['postfix']['main']['smtpd_use_tls'] = true
 node.default['postfix']['main']['smtpd_tls_session_cache_database'] = 'btree:${data_directory}/smtpd_scache'
 node.default['postfix']['main']['smtp_tls_session_cache_database'] = 'btree:${data_directory}/smtp_scache'
@@ -138,16 +142,16 @@ node.default['postfix']['main']['smtpd_tls_auth_only'] = true
 
 # Virtual delivery
 node.default['postfix']['main']['virtual_mailbox_domains'] = [
-  "proxy:mysql:#{tables_path}/mysql_virtual_domains_maps.cf",
+  "proxy:mysql:#{tables_path}/db_virtual_domains_maps.cf",
 ]
 node.default['postfix']['main']['virtual_alias_maps'] = [
-  "proxy:mysql:#{tables_path}/mysql_virtual_alias_maps.cf",
-  "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_maps.cf",
-  "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_catchall_maps.cf",
+  "proxy:mysql:#{tables_path}/db_virtual_alias_maps.cf",
+  "proxy:mysql:#{tables_path}/db_virtual_alias_domain_maps.cf",
+  "proxy:mysql:#{tables_path}/db_virtual_alias_domain_catchall_maps.cf",
 ]
 node.default['postfix']['main']['virtual_mailbox_maps'] = [
-  "proxy:mysql:#{tables_path}/mysql_virtual_mailbox_maps.cf",
-  "proxy:mysql:#{tables_path}/mysql_virtual_alias_domain_mailbox_maps.cf",
+  "proxy:mysql:#{tables_path}/db_virtual_mailbox_maps.cf",
+  "proxy:mysql:#{tables_path}/db_virtual_alias_domain_mailbox_maps.cf",
 ]
 node.default['postfix']['main']['virtual_mailbox_base'] = node['postfix-dovecot']['vmail']['home']
 node.default['postfix']['main']['virtual_uid_maps'] = "static:#{node['postfix-dovecot']['vmail']['uid']}"
