@@ -6,28 +6,28 @@ Installs and configures a mail server using [Postfix](http://www.postfix.org/), 
 Requirements
 ============
 
-## Platform:
+## Supported Platforms
 
 This cookbook has been tested on the following platforms:
 
 * Amazon Linux
-* CentOS >= 6.0
-* Debian >= 7.0
-* Fedora >= 17.0
-* Ubuntu >= 12.04
+* CentOS &ge; 6.0
+* Debian &ge; 7.0
+* Fedora &ge; 17.0
+* Ubuntu &ge; 12.04
 
-Let me know if you use it successfully on any other platform.
+Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/new?title=I%20have%20used%20it%20successfully%20on%20...) if you use it successfully on any other platform.
 
-## Cookbooks:
+## Required Cookbooks
 
-* [dovecot](https://github.com/onddo/dovecot-cookbook)
-* [onddo-spamassassin](https://github.com/onddo/spamassassin-cookbook)
-* [postfixadmin (&ge; 1.0.0)](https://github.com/onddo/postfixadmin-cookbook)
-* [postfix-full](https://github.com/mswart/chef-postfix-full) by [@mswart](https://github.com/mswart)
+* [dovecot](https://supermarket.getchef.com/cookbooks/dovecot)
+* [onddo-spamassassin](https://supermarket.getchef.com/cookbooks/onddo-spamassassin)
+* [postfixadmin (&ge; 1.0.0)](https://supermarket.getchef.com/cookbooks/postfixadmin)
+* [postfix-full](https://supermarket.getchef.com/cookbooks/postfix-full) by [Malte Swart](https://github.com/mswart)
 
-## Applications:
+## Required Applications
 
-* **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
+* **Dovecot &ge; 2**: requires this version of dovecot to be available by the distribution's package manager.
 * Ruby `1.9.3` or higher.
 
 Attributes
@@ -220,79 +220,23 @@ Another alternative is to include the default recipe in your *Run List*.
 Testing
 =======
 
-## Requirements
-
-* `vagrant`
-* `berkshelf` >= `1.4.0`
-* `test-kitchen` >= `1.0.0.alpha`
-* `kitchen-vagrant` >= `0.10.0`
-
-## Running the tests
-
-```bash
-$ kitchen test
-$ kitchen verify
-[...]
-```
-### Running the tests in the cloud
-
-#### Requirements:
-
-* `kitchen-vagrant` >= `0.10`
-* `kitchen-digitalocean` >= `0.5`
-* `kitchen-ec2` >= `0.8`
-
-You can run the tests in the cloud instead of using vagrant. First, you must set the following environment variables:
-
-* `AWS_ACCESS_KEY_ID`
-* `AWS_SECRET_ACCESS_KEY`
-* `AWS_KEYPAIR_NAME`: EC2 SSH public key name. This is the name used in Amazon EC2 Console's Key Pars section.
-* `EC2_SSH_KEY_PATH`: EC2 SSH private key local full path. Only when you are not using an SSH Agent.
-* `DIGITAL_OCEAN_CLIENT_ID`
-* `DIGITAL_OCEAN_API_KEY`
-* `DIGITAL_OCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
-* `DIGITAL_OCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path. Only when you are not using an SSH Agent.
-
-Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
-
-```
-$ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
-$ kitchen list
-[...]
-```
-
-## Amazon SES Tests
-
-You need to set the following environment variables:
-
-* `AMAZON_SES_EMAIL_FROM`: SES valid from address, only used in tests
-* `AMAZON_SES_SMTP_USERNAME`: See [Obtaining Your Amazon SES SMTP Credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html) documentation.
-* `AMAZON_SES_SMTP_PASSWORD`
-
-Then, you must configure test-kitchen to use [.kitchen.ses.yml](/blob/master/.kitchen.ses.yml) configuration file:
-
-```
-$ export AMAZON_SES_EMAIL_FROM="no-reply@sesdomain.com"
-$ export AMAZON_SES_SMTP_USERNAME="..."
-$ export AMAZON_SES_SMTP_PASSWORD="..."
-$ export KITCHEN_LOCAL_YAML=".kitchen.ses.yml"
-$ kitchen list
-[...]
-```
+See [TESTING.md](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/TESTING.md).
 
 Contributing
 ============
 
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+Please do not hesitate to [open an issue](https://github.com/onddo/postfix-dovecot-cookbook/issues/new) with any questions or problems.
+
+See [CONTRIBUTING.md](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/CONTRIBUTING.md).
+
+TODO
+====
+
+See [TODO.md](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/TODO.md).
 
 
 License and Author
-=====================
+==================
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
@@ -300,14 +244,14 @@ License and Author
 | **Copyright:**       | Copyright (c) 2013-2014 Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+        http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
