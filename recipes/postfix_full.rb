@@ -218,16 +218,45 @@ end
 
 include_recipe 'postfix-full'
 
-directory '/var/spool/postfix/etc' do
-  owner 'root'
-  group 'root'
-  mode '00755'
-end
+# Create some chroot dir/files, until postfix-full >= 0.1.3 is released:
+# https://github.com/mswart/chef-postfix-full/pull/8
 
-file '/var/spool/postfix/etc/resolv.conf' do
-  owner 'root'
-  group 'root'
-  mode '00644'
-  content IO.read('/etc/resolv.conf')
-  notifies :restart, 'service[postfix]'
+postfix_chroot = node['postfix']['main']['queue_directory'] || '/var/spool/postfix'
+chroot_files = %w(
+  etc/resolv.conf
+  etc/localtime
+  etc/services
+  etc/resolv.conf
+  etc/hosts
+  etc/nsswitch.conf
+  etc/nss_mdns.config
+)
+
+chroot_files.each do |path|
+  dir_path = ::File.dirname(path)
+  chroot_dir_path = ::File.join(postfix_chroot, dir_path)
+
+  directory chroot_dir_path do
+    owner 'root'
+    group 'root'
+    mode '0755'
+    recursive true
+    only_if do
+      dir_path.length > 0 &&
+      !::File.exist?(chroot_dir_path)
+    end
+  end
+
+  full_path = ::File.join('', path)
+  file_exist = ::File.exist?(full_path)
+  file_content = file_exist ? IO.read(full_path) : nil # avoid ENOENT error
+
+  file ::File.join(postfix_chroot, path) do
+    owner 'root'
+    group 'root'
+    mode '0644'
+    content file_content
+    only_if { file_exist }
+    notifies :restart, 'service[postfix]'
+  end
 end

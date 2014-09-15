@@ -27,6 +27,13 @@ describe 'postfix-dovecot::postfix_full' do
     end
   end
   let(:chef_run) { chef_runner.converge(described_recipe) }
+  before do
+    allow(::File).to receive(:exist?).and_return(false)
+    allow(::File).to receive(:exist?).with('/etc/resolv.conf')
+      .and_return(true)
+    allow(::IO).to receive(:read?).with('/etc/resolv.conf')
+      .and_return('OK')
+  end
 
   it 'should remove sendmail package' do
     expect(chef_run).to remove_package('sendmail')
@@ -63,6 +70,25 @@ describe 'postfix-dovecot::postfix_full' do
 
   it 'should include postfix-full recipe' do
     expect(chef_run).to include_recipe('postfix-full')
+  end
+
+  it 'should create chroot etc directory' do
+    expect(chef_run).to create_directory('/var/spool/postfix/etc')
+      .with_user('root')
+      .with_group('root')
+      .with_mode('0755')
+  end
+
+  it 'should create chroot etc/resolv.conf file' do
+    expect(chef_run).to create_file('/var/spool/postfix/etc/resolv.conf')
+      .with_user('root')
+      .with_group('root')
+      .with_mode('0644')
+  end
+
+  it 'etc/resolv.conf creation should notify postfix restart' do
+    resource = chef_run.file('/var/spool/postfix/etc/resolv.conf')
+    expect(resource).to notify('service[postfix]').to(:restart)
   end
 
 end
