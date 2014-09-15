@@ -1,5 +1,8 @@
 Description
 ===========
+[![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.getchef.com/cookbooks/postfix-dovecot)
+[![Dependency Status](http://img.shields.io/gemnasium/onddo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/postfix-dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/onddo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/onddo/postfix-dovecot-cookbook)
 
 Installs and configures a mail server using [Postfix](http://www.postfix.org/), [Dovecot](http://www.dovecot.org/), [PostfixAdmin](http://postfixadmin.sourceforge.net/) and [SpamAssassin](http://spamassassin.apache.org/), including [Amazon SES](http://aws.amazon.com/ses/) support.
 
