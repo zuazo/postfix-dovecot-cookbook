@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: postfix-dovecot_test
 # Recipe:: default
@@ -43,4 +44,3 @@ postfixadmin_mailbox 'postmaster@foobar.com' do
   login_username 'admin@foobar.com'
   login_password 'p@ssw0rd1'
 end
-

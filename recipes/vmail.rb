@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: postfix-dovecot
 # Recipe:: vmail
@@ -22,14 +23,13 @@ user node['postfix-dovecot']['vmail']['user'] do
   home node['postfix-dovecot']['vmail']['home']
   shell '/bin/false'
   uid node['postfix-dovecot']['vmail']['uid']
-  supports :manage_home => true
+  supports manage_home: true
   system true
 end
 
 group node['postfix-dovecot']['vmail']['group'] do
   gid node['postfix-dovecot']['vmail']['gid']
-  members [ node['postfix-dovecot']['vmail']['user'] ]
+  members [node['postfix-dovecot']['vmail']['user']]
   system true
   append true
 end
-

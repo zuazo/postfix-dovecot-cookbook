@@ -28,6 +28,7 @@ Let me know if you use it successfully on any other platform.
 ## Applications:
 
 * **Dovecot >= 2**: requires this version of dovecot to be available by the distribution's package manager.
+* Ruby `1.9.3` or higher.
 
 Attributes
 ==========
@@ -144,7 +145,7 @@ Creates vmail user.
 
 Installs and configures SpamAssassin.
 
-## postfix-dovecot::postfix-full
+## postfix-dovecot::postfix_full
 
 Installs and configures Postfix.
 
@@ -310,4 +311,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-

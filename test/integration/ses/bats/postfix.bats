@@ -27,4 +27,3 @@
   done
   grep -q "${OK_PATTERN}" "${MAIL_LOG}"
 }
-

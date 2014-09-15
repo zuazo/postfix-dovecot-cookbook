@@ -1,7 +1,9 @@
+# encoding: UTF-8
+
 require 'net/smtp'
 unless ARGV[0]
   puts 'Usage:'
-  puts "  #{$0} FINGERPRINT"
+  puts "  #{$PROGRAM_NAME} FINGERPRINT"
   exit 1
 end
 msgstr = <<-EOM

@@ -1,10 +1,13 @@
-name             'postfix-dovecot'
-maintainer       'Onddo Labs, Sl.'
+# encoding: UTF-8
+
+name 'postfix-dovecot'
+maintainer 'Onddo Labs, Sl.'
 maintainer_email 'team@onddo.com'
-license          'Apache 2.0'
-description      'Installs and configures a mail server using Postfix, Dovecot, PostfixAdmin and SpamAssassin, including Amazon SES support.'
+license 'Apache 2.0'
+description 'Installs and configures a mail server using Postfix, Dovecot, '\
+            'PostfixAdmin and SpamAssassin, including Amazon SES support.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.4.0' # WiP
+version '0.4.0' # WiP
 
 supports 'amazon'
 supports 'centos', '>= 6.0'
@@ -15,7 +18,7 @@ supports 'ubuntu', '>= 12.04'
 recipe 'postfix-dovecot::default', 'Installs and configures everything.'
 recipe 'postfix-dovecot::vmail', 'Creates vmail user.'
 recipe 'postfix-dovecot::spam', 'Installs and configures SpamAssassin.'
-recipe 'postfix-dovecot::postfix-full', 'Installs and configures Postfix.'
+recipe 'postfix-dovecot::postfix_full', 'Installs and configures Postfix.'
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
@@ -26,122 +29,124 @@ depends 'postfix-full'
 depends 'ssl_certificate'
 
 attribute 'postfix-dovecot/postmaster_address',
-  :display_name => 'postmaster address',
-  :description => 'Postmaster mail address.',
-  :type => 'string',
-  :required => 'recommended',
-  :default => '"postmaster@foo.bar"'
+          display_name: 'postmaster address',
+          description: 'Postmaster mail address.',
+          type: 'string',
+          required: 'recommended',
+          default: '"postmaster@foo.bar"'
 
 attribute 'postfix-dovecot/hostname',
-  :display_name => 'hostname',
-  :description => 'Hostname.',
-  :type => 'string',
-  :required => 'recommended',
-  :default => 'node["fqdn"]'
+          display_name: 'hostname',
+          description: 'Hostname.',
+          type: 'string',
+          required: 'recommended',
+          default: 'node["fqdn"]'
 
 grouping 'postfix-dovecot/sieve',
- :title => 'sieve configuration',
- :description => 'Sieve configuration.'
+         title: 'sieve configuration',
+         description: 'Sieve configuration.'
 
 attribute 'postfix-dovecot/sieve/enabled',
-  :display_name => 'sieve enabled',
-  :description => 'Whether to enable sieve.',
-  :type => 'string',
-  :required => 'recommended',
-  :default => 'true'
+          display_name: 'sieve enabled',
+          description: 'Whether to enable sieve.',
+          type: 'string',
+          choice: %w(true false),
+          required: 'recommended',
+          default: 'true'
 
 attribute 'postfix-dovecot/sieve/global_path',
-  :display_name => 'sieve global_path',
-  :description => 'Sieve global path.',
-  :type => 'string',
-  :required => 'optional',
-  :default => '"#{default["dovecot"]["conf_path"]}/sieve/default.sieve"'
+          display_name: 'sieve global_path',
+          description: 'Sieve global path.',
+          type: 'string',
+          required: 'optional',
+          default: '"#{default["dovecot"]["conf_path"]}/sieve/default.sieve"'
 
 grouping 'postfix-dovecot/spamc',
- :title => 'spamc configuration',
- :description => 'Spamc configuration.'
+         title: 'spamc configuration',
+         description: 'Spamc configuration.'
 
 attribute 'postfix-dovecot/spamc/enabled',
-  :display_name => 'spamc enabled',
-  :description => 'Wether to enable SpamAssassin',
-  :type => 'string',
-  :required => 'optional',
-  :default => 'true'
+          display_name: 'spamc enabled',
+          description: 'Whether to enable SpamAssassin',
+          type: 'string',
+          choice: %w(true false),
+          required: 'optional',
+          default: 'true'
 
 attribute 'postfix-dovecot/spamc/recipe',
-  :display_name => 'spamc recipe',
-  :description => 'Spamc recipe name to use.',
-  :type => 'string',
-  :required => 'optional',
-  :default => '"onddo-spamassassin"'
+          display_name: 'spamc recipe',
+          description: 'Spamc recipe name to use.',
+          type: 'string',
+          required: 'optional',
+          default: '"onddo-spamassassin"'
 
 grouping 'postfix-dovecot/vmail',
- :title => 'vmail configuration',
- :description => 'Virtual mail system user configuration.'
+         title: 'vmail configuration',
+         description: 'Virtual mail system user configuration.'
 
 attribute 'postfix-dovecot/vmail/user',
-  :display_name => 'vmail user',
-  :description => 'Virtual mail system user name.',
-  :type => 'string',
-  :required => 'optional',
-  :default => '"vmail"'
+          display_name: 'vmail user',
+          description: 'Virtual mail system user name.',
+          type: 'string',
+          required: 'optional',
+          default: '"vmail"'
 
 attribute 'postfix-dovecot/vmail/group',
-  :display_name => 'vmail group',
-  :description => 'Virtual mail system group name.',
-  :type => 'string',
-  :required => 'optional',
-  :default => 'node["postfix-dovecot"]["vmail"]["user"]'
+          display_name: 'vmail group',
+          description: 'Virtual mail system group name.',
+          type: 'string',
+          required: 'optional',
+          default: 'node["postfix-dovecot"]["vmail"]["user"]'
 
 attribute 'postfix-dovecot/vmail/uid',
-  :display_name => 'vmail uid',
-  :description => 'Virtual mail system user id.',
-  :type => 'string',
-  :required => 'optional',
-  :default => '5000'
+          display_name: 'vmail uid',
+          description: 'Virtual mail system user id.',
+          type: 'string',
+          required: 'optional',
+          default: '5000'
 
 attribute 'postfix-dovecot/vmail/gid',
-  :display_name => 'vmail gid',
-  :description => 'Virtual mail system group id.',
-  :type => 'string',
-  :required => 'optional',
-  :default => 'node["postfix-dovecot"]["vmail"]["uid"]'
+          display_name: 'vmail gid',
+          description: 'Virtual mail system group id.',
+          type: 'string',
+          required: 'optional',
+          default: 'node["postfix-dovecot"]["vmail"]["uid"]'
 
 attribute 'postfix-dovecot/vmail/home',
-  :display_name => 'vmail home',
-  :description => 'Virtual mail user home path.',
-  :type => 'string',
-  :required => 'optional',
-  :default => '"/var/vmail"'
+          display_name: 'vmail home',
+          description: 'Virtual mail user home path.',
+          type: 'string',
+          required: 'optional',
+          default: '"/var/vmail"'
 
 attribute 'postfix-dovecot/ses/enabled',
-  :display_name => 'ses enabled',
-  :description => 'Whether to enable Amazon SES.',
-  :type => 'string',
-  :required => 'recommended',
-  :default => 'false'
+          display_name: 'ses enabled',
+          description: 'Whether to enable Amazon SES.',
+          type: 'string',
+          choice: %w(true false),
+          required: 'recommended',
+          default: 'false'
 
 attribute 'postfix-dovecot/ses/username',
-  :display_name => 'ses username',
-  :description => 'Amazon SES SMTP username.',
-  :type => 'string',
-  :required => 'recommended',
-  :default => '"USERNAME"'
+          display_name: 'ses username',
+          description: 'Amazon SES SMTP username.',
+          type: 'string',
+          required: 'recommended',
+          default: '"USERNAME"'
 
 attribute 'postfix-dovecot/ses/password',
-  :display_name => 'ses password',
-  :description => 'Amazon SES SMTP password.',
-  :type => 'string',
-  :required => 'recommended',
-  :default => '"PASSWORD"'
+          display_name: 'ses password',
+          description: 'Amazon SES SMTP password.',
+          type: 'string',
+          required: 'recommended',
+          default: '"PASSWORD"'
 
 attribute 'postfix-dovecot/ses/servers',
-  :display_name => 'ses password',
-  :description => 'Amazon SES SMTP servers.',
-  :type => 'array',
-  :required => 'optional',
-  :default => [
-    'email-smtp.us-east-1.amazonaws.com:25',
-    'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
-  ]
-
+          display_name: 'ses password',
+          description: 'Amazon SES SMTP servers.',
+          type: 'array',
+          required: 'optional',
+          default: "[
+            'email-smtp.us-east-1.amazonaws.com:25',
+            'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
+          ]"

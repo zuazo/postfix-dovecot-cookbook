@@ -18,7 +18,7 @@
   FINGERPRINT="${GTUBE} - $(date +%s)"
   TIMEOUT='30'
   SPAM_DIR='/var/vmail/foobar.com/postmaster/.Spam/new'
-  /opt/chef/embedded/bin/ruby "${BATS_TEST_DIRNAME}/helpers/smtp-send.rb" "${FINGERPRINT}"
+  /opt/chef/embedded/bin/ruby "${BATS_TEST_DIRNAME}/helpers/smtp_send.rb" "${FINGERPRINT}"
   i='0'
   while [ "${i}" -le "${TIMEOUT}" ] \
     && ! ( [ -e "${SPAM_DIR}/" ] && grep -qF "${FINGERPRINT}" "${SPAM_DIR}"/* )
@@ -28,4 +28,3 @@
   done
   grep -qF "${FINGERPRINT}" "${SPAM_DIR}"/*
 }
-

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'net/smtp'
 msgstr = <<-EOM
 Subject: Some cool subject for testing

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require File.expand_path('../support/helpers', __FILE__)
 
 describe 'postfix-dovecot::default' do
@@ -23,4 +25,3 @@ describe 'postfix-dovecot::default' do
   end
 
 end
-

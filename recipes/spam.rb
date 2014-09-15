@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: postfix-dovecot
 # Recipe:: spam
@@ -20,20 +21,22 @@
 if node['postfix-dovecot']['spamc']['enabled']
   if node['postfix-dovecot']['spamc']['recipe'] == 'onddo-spamassassin'
     node.default['onddo-spamassassin']['spamd']['enabled'] = true
-    node.default['onddo-spamassassin']['spamd']['options'] = [
-      '--create-prefs',
-      '--max-children 3',
-      '--helper-home-dir',
-    ]
+    node.default['onddo-spamassassin']['spamd']['options'] = %w(
+      --create-prefs
+      --max-children 3
+      --helper-home-dir
+    )
     # local.cf
-    node.default['onddo-spamassassin']['conf']['rewrite_header'] = [ 'Subject' => '[SPAM]' ]
+    node.default['onddo-spamassassin']['conf']['rewrite_header'] = [
+      Subject: '[SPAM]'
+    ]
     node.default['onddo-spamassassin']['conf']['report_safe'] = false
     node.default['onddo-spamassassin']['conf']['lock_method'] = 'flock'
-    node.default['postfix-dovecot']['spamc']['path'] = node['onddo-spamassassin']['spamc']['path']
+    node.default['postfix-dovecot']['spamc']['path'] =
+      node['onddo-spamassassin']['spamc']['path']
 
     include_recipe node['postfix-dovecot']['spamc']['recipe']
   else
     node.default['postfix-dovecot']['spamc']['path'] = '/usr/bin/spamc'
   end
 end
-
