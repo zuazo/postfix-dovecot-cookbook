@@ -20,6 +20,6 @@
 
 include_recipe 'postfix-dovecot::vmail'
 include_recipe 'postfix-dovecot::spam'
-include_recipe 'postfix-dovecot::postfix_full'
+include_recipe 'postfix-dovecot::postfix'
 include_recipe 'postfix-dovecot::postfixadmin'
 include_recipe 'postfix-dovecot::dovecot'

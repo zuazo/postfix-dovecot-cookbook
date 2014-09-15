@@ -18,7 +18,7 @@ supports 'ubuntu', '>= 12.04'
 recipe 'postfix-dovecot::default', 'Installs and configures everything.'
 recipe 'postfix-dovecot::vmail', 'Creates vmail user.'
 recipe 'postfix-dovecot::spam', 'Installs and configures SpamAssassin.'
-recipe 'postfix-dovecot::postfix_full', 'Installs and configures Postfix.'
+recipe 'postfix-dovecot::postfix', 'Installs and configures Postfix.'
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 

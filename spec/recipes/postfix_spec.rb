@@ -19,7 +19,7 @@
 
 require 'spec_helper'
 
-describe 'postfix-dovecot::postfix_full' do
+describe 'postfix-dovecot::postfix' do
   let(:hostname) { 'my_hostname' }
   let(:chef_runner) do
     ChefSpec::Runner.new do |node|

@@ -145,7 +145,7 @@ Creates vmail user.
 
 Installs and configures SpamAssassin.
 
-## postfix-dovecot::postfix_full
+## postfix-dovecot::postfix
 
 Installs and configures Postfix.
 

@@ -19,22 +19,17 @@
 
 require 'spec_helper'
 
-describe 'postfix-dovecot::default' do
+describe 'postfix-dovecot::postfix_full' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
-  before do
-    stub_command('/usr/sbin/apache2 -t').and_return(true)
+
+  it 'should print a deprecation notice' do
+    allow(Chef::Log).to receive(:warn)
+    expect(Chef::Log).to receive(:warn).with(/^Deprecation Notice/)
+    chef_run
   end
 
-  %w(
-    postfix-dovecot::vmail
-    postfix-dovecot::spam
-    postfix-dovecot::postfix
-    postfix-dovecot::postfixadmin
-    postfix-dovecot::dovecot
-  ).each do |recipe|
-    it "should include #{recipe} recipe" do
-      expect(chef_run).to include_recipe(recipe)
-    end
+  it 'should include postfix-dovecot::postfix recipe' do
+    expect(chef_run).to include_recipe('postfix-dovecot::postfix')
   end
 
 end
