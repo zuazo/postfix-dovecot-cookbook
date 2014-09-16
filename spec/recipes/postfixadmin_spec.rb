@@ -34,6 +34,10 @@ describe 'postfix-dovecot::postfixadmin' do
     expect(chef_run.node['postfixadmin']['server_name']).to eq(hostname)
   end
 
+  it 'should set node["postfixadmin"]["common_name"] attribute' do
+    expect(chef_run.node['postfixadmin']['common_name']).to eq(hostname)
+  end
+
   it 'should include postfixadmin recipe' do
     expect(chef_run).to include_recipe('postfixadmin')
   end
