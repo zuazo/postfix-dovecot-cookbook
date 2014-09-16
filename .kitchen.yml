@@ -8,19 +8,15 @@ platforms:
 - name: ubuntu-12.04
   run_list:
     - recipe[apt]
-- name: centos-6.4
-- name: debian-7.0-chef10
-  driver_config:
-    box: debian-7.0.0-chef_10.26.0-1-amd64
-    box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_10.26.0-1-amd64.box
+- name: ubuntu-14.04
   run_list:
     - recipe[apt]
-- name: debian-7.0-chef11
-  driver_config:
-    box: debian-7.0.0-chef_11.4.4-2-amd64
-    box_url: https://onddo-vm.s3.amazonaws.com/vagrant/debian-7.0.0-chef_11.4.4-2-amd64.box
+- name: debian-7.6
   run_list:
     - recipe[apt]
+- name: centos-6.5
+- name: fedora-19
+- name: fedora-20
 
 suites:
 - name: default
