@@ -21,13 +21,23 @@ require 'spec_helper'
 
 describe 'postfix-dovecot::postfixadmin' do
   let(:hostname) { 'my_hostname' }
+  let(:db_type) { 'postgresql' }
+  let(:db_name) { 'postfixadmin_db' }
+  let(:db_password) { 'postfixadmin_pass' }
   let(:chef_run) do
     ChefSpec::Runner.new do |node|
       node.set['postfix-dovecot']['hostname'] = hostname
+      node.set['postfix-dovecot']['database']['type'] = db_type
+      node.set['postfixadmin']['database']['name'] = db_name
+      node.set['postgresql']['password']['postgres'] = db_password
     end.converge(described_recipe)
   end
   before do
     stub_command('/usr/sbin/apache2 -t').and_return(true)
+    stub_command(
+      "psql -c 'SELECT lanname FROM pg_catalog.pg_language' #{db_name} "\
+      "| grep '^ plpgsql$'"
+    ).and_return(false)
   end
 
   it 'should set node["postfixadmin"]["server_name"] attribute' do
@@ -36,6 +46,10 @@ describe 'postfix-dovecot::postfixadmin' do
 
   it 'should set node["postfixadmin"]["common_name"] attribute' do
     expect(chef_run.node['postfixadmin']['common_name']).to eq(hostname)
+  end
+
+  it 'should set node["postfixadmin"]["database"]["type"] attribute' do
+    expect(chef_run.node['postfixadmin']['database']['type']).to eq(db_type)
   end
 
   it 'should include postfixadmin recipe' do

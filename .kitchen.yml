@@ -19,7 +19,22 @@ platforms:
 - name: fedora-20
 
 suites:
-- name: default
+- name: mysql
   run_list:
     - recipe[postfix-dovecot_test]
-  attributes: { }
+  attributes: {}
+- name: postgresql
+  excludes:
+  # https://github.com/hw-cookbooks/postgresql/issues/97
+  # https://github.com/hw-cookbooks/postgresql/issues/108
+  - ubuntu-12.04
+  - ubuntu-14.04
+  - debian-6.0.10
+  - debian-7.6
+  - debian-7-0-x64
+  run_list:
+  - recipe[postfix-dovecot_test]
+  attributes:
+    postfix-dovecot:
+      database:
+        type: postgresql

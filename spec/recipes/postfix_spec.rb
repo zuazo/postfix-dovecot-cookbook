@@ -54,9 +54,21 @@ describe 'postfix-dovecot::postfix' do
       chef_runner.node.automatic['platform'] = 'ubuntu'
     end
 
-    it 'should install postfix-mysql packaged' do
+    it 'should install postfix-mysql package' do
       expect(chef_run).to install_package('postfix-mysql')
     end
+
+    context 'with PostgreSQL' do
+      before do
+        chef_runner.node.set['postfix-dovecot']['database']['type'] =
+          'postgresql'
+      end
+
+      it 'should install postfix-pgsql package' do
+        expect(chef_run).to install_package('postfix-pgsql')
+      end
+    end
+
   end
 
   it 'should generate SMTP SSL certificate' do

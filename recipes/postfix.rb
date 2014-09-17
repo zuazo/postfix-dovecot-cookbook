@@ -22,9 +22,22 @@ package 'postfix'
 package 'sendmail' do
   action :remove
 end
+
+db_type =
+  case node['postfix-dovecot']['database']['type']
+  when 'mysql'
+    'mysql'
+  when 'postgresql'
+    'pgsql'
+  else
+    nil
+  end
+
 case node['platform']
 when 'debian', 'ubuntu' then
-  package 'postfix-mysql'
+  package "postfix-#{db_type}" do
+    not_if { db_type.nil? }
+  end
 end
 
 tables_path = "#{node['postfix']['base_dir']}/tables"
@@ -152,16 +165,16 @@ node.default['postfix']['main']['smtpd_tls_auth_only'] = true
 
 # Virtual delivery
 node.default['postfix']['main']['virtual_mailbox_domains'] = [
-  "proxy:mysql:#{tables_path}/db_virtual_domains_maps.cf"
+  "proxy:#{db_type}:#{tables_path}/db_virtual_domains_maps.cf"
 ]
 node.default['postfix']['main']['virtual_alias_maps'] = [
-  "proxy:mysql:#{tables_path}/db_virtual_alias_maps.cf",
-  "proxy:mysql:#{tables_path}/db_virtual_alias_domain_maps.cf",
-  "proxy:mysql:#{tables_path}/db_virtual_alias_domain_catchall_maps.cf"
+  "proxy:#{db_type}:#{tables_path}/db_virtual_alias_maps.cf",
+  "proxy:#{db_type}:#{tables_path}/db_virtual_alias_domain_maps.cf",
+  "proxy:#{db_type}:#{tables_path}/db_virtual_alias_domain_catchall_maps.cf"
 ]
 node.default['postfix']['main']['virtual_mailbox_maps'] = [
-  "proxy:mysql:#{tables_path}/db_virtual_mailbox_maps.cf",
-  "proxy:mysql:#{tables_path}/db_virtual_alias_domain_mailbox_maps.cf"
+  "proxy:#{db_type}:#{tables_path}/db_virtual_mailbox_maps.cf",
+  "proxy:#{db_type}:#{tables_path}/db_virtual_alias_domain_mailbox_maps.cf"
 ]
 node.default['postfix']['main']['virtual_mailbox_base'] =
   node['postfix-dovecot']['vmail']['home']

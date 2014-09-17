@@ -18,6 +18,15 @@
 # limitations under the License.
 #
 
+def sql_concat(*args)
+  case node['postfix-dovecot']['database']['type']
+  when 'postgresql'
+    args.join(' || ')
+  else # when 'mysql'
+    "CONCAT(#{args.join(', ')})"
+  end
+end
+
 node.default['dovecot']['conf_files_group'] =
   node['postfix-dovecot']['vmail']['user']
 
@@ -105,7 +114,16 @@ node.default['dovecot']['auth']['static']['userdb']['args'] = [
 node.default['dovecot']['auth']['system'] = {}
 
 # dovecot-sql.conf.ext
-node.default['dovecot']['conf']['sql']['driver'] = 'mysql'
+db_type =
+  case node['postfix-dovecot']['database']['type']
+  when 'mysql'
+    'mysql'
+  when 'postgresql'
+    'pgsql'
+  else
+    nil
+  end
+node.default['dovecot']['conf']['sql']['driver'] = db_type
 node.default['dovecot']['conf']['sql']['connect'] = [
   "host=#{node['postfixadmin']['database']['host']}",
   "dbname=#{node['postfixadmin']['database']['name']}",
@@ -137,9 +155,12 @@ node.default['dovecot']['conf']['sql']['user_query'] = [
   '  password,',
   "  #{node['postfix-dovecot']['vmail']['uid']} as uid,",
   "  #{node['postfix-dovecot']['vmail']['gid']} as gid,",
-  "  CONCAT('#{node['postfix-dovecot']['vmail']['home']}/', maildir) AS home,",
-  "  CONCAT('maildir:#{node['postfix-dovecot']['vmail']['home']}/', maildir)",
-  '    AS mail',
+  "  #{sql_concat(
+        "'#{node['postfix-dovecot']['vmail']['home']}/'", 'maildir'
+      )} AS home,",
+  "  #{sql_concat(
+        "'maildir:#{node['postfix-dovecot']['vmail']['home']}/'", 'maildir'
+      )} AS mail",
   'FROM mailbox',
   'WHERE username = \'%u\' AND active = \'1\''
 ]

@@ -22,6 +22,10 @@ require 'spec_helper'
 describe 'postfix-dovecot::spam' do
   let(:chef_runner) { ChefSpec::Runner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
+  before do
+    stub_command("grep -e \" --daemonize\\| -d\" /etc/sysconfig/spamassassin")
+      .and_return(false)
+  end
 
   it 'should not include onddo-spamassassin recipe by default' do
     expect(chef_run).to_not include_recipe('onddo-spamassassin')

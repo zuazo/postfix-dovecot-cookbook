@@ -42,6 +42,18 @@ attribute 'postfix-dovecot/hostname',
           required: 'recommended',
           default: 'node["fqdn"]'
 
+grouping 'postfix-dovecot/database',
+         title: 'postfix database',
+         description: 'Postfix database configuration options'
+
+attribute 'postfix-dovecot/database/type',
+          display_name: 'postfix database type',
+          description: 'Postfix database type',
+          choice: %w("mysql" "postgresql"),
+          type: 'string',
+          required: 'optional',
+          default: '"mysql"'
+
 grouping 'postfix-dovecot/sieve',
          title: 'sieve configuration',
          description: 'Sieve configuration.'

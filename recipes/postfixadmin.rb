@@ -22,6 +22,8 @@ node.set_unless['postfixadmin']['server_name'] =
   node['postfix-dovecot']['hostname']
 node.set_unless['postfixadmin']['common_name'] =
   node['postfix-dovecot']['hostname']
+node.default['postfixadmin']['database']['type'] =
+  node['postfix-dovecot']['database']['type']
 
 include_recipe 'postfixadmin'
 include_recipe 'postfixadmin::map_files'

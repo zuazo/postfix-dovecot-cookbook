@@ -53,6 +53,11 @@ Attributes
     <td><code>node["fqdn"]</code></td>
   </tr>
   <tr>
+    <td><code>node['postfix-dovecot']['database']['type']</code></td>
+    <td>Database type. Possible values are: <code>"mysql"</code>, <code>"postgresql"</code></td>
+    <td><code>"mysql"</code> (<em>PostgreSQL</em> support should be considered <strong>experimental</strong>)</td>
+  </tr>
+  <tr>
     <td><code>node['postfix-dovecot']['sieve']['enabled']</code></td>
     <td>Whether to enable sieve.</td>
     <td><code>true</code></td>
