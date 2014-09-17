@@ -54,8 +54,8 @@ Attributes
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['database']['type']</code></td>
-    <td>Database type. Possible values are: <code>"mysql"</code>, <code>"postgresql"</code></td>
-    <td><code>"mysql"</code> (<em>PostgreSQL</em> support should be considered <strong>experimental</strong>)</td>
+    <td>Database type. Possible values are: <code>"mysql"</code>, <code>"postgresql"</code> (<em>PostgreSQL</em> support should be considered <strong>experimental</strong>)</td>
+    <td><code>"mysql"</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['sieve']['enabled']</code></td>
