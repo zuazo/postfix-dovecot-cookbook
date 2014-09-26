@@ -4,7 +4,15 @@
 
 site :opscode
 
+def local_cookbook(name, version = '>= 0.0.0', options = {})
+  cookbook(name, version, {
+    path: "../../cookbooks/#{name}"
+   }.merge(options))
+end
+
 metadata
+local_cookbook 'postfixadmin'
+local_cookbook 'onddo-spamassassin'
 cookbook 'minitest-handler'
 cookbook 'apt'
 cookbook 'yum'
