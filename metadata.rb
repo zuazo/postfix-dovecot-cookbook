@@ -22,11 +22,11 @@ recipe 'postfix-dovecot::postfix', 'Installs and configures Postfix.'
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
-depends 'dovecot'
-depends 'onddo-spamassassin'
-depends 'postfixadmin', '>= 1.0.0'
-depends 'postfix-full'
-depends 'ssl_certificate'
+depends 'dovecot', '~> 1.0'
+depends 'onddo-spamassassin', '~> 0.2'
+depends 'postfixadmin', '~> 1.0'
+depends 'postfix-full', '~> 0.1'
+depends 'ssl_certificate', '~> 0.2'
 
 attribute 'postfix-dovecot/postmaster_address',
           display_name: 'postmaster address',

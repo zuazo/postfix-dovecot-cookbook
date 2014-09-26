@@ -25,8 +25,9 @@ Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/n
 
 * [dovecot](https://supermarket.getchef.com/cookbooks/dovecot)
 * [onddo-spamassassin](https://supermarket.getchef.com/cookbooks/onddo-spamassassin)
-* [postfixadmin (&ge; 1.0.0)](https://supermarket.getchef.com/cookbooks/postfixadmin)
+* [postfixadmin](https://supermarket.getchef.com/cookbooks/postfixadmin)
 * [postfix-full](https://supermarket.getchef.com/cookbooks/postfix-full) by [Malte Swart](https://github.com/mswart)
+* [ssl_certificate](https://supermarket.getchef.com/cookbooks/ssl_certificate)
 
 ## Required Applications
 
