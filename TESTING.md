@@ -11,7 +11,7 @@ Testing
 * `test-kitchen`
 * `kitchen-vagrant`
 
-### Installing the Requirements
+## Installing the Requirements
 
 You must have [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) installed.
 
