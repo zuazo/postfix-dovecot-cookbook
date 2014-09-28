@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+
 @test "mysql should be running" {
-  LSOF="$(which lsof || true)"
-  [ x"${LSOF}" = x ] && LSOF='/usr/sbin/lsof'
-  "${LSOF}" -cmysqld -a -iTCP:mysql
+  lsof -cmysqld -a -iTCP:mysql
 }
