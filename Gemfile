@@ -19,7 +19,7 @@ group :unit do
 end
 
 group :integration do
-  gem 'vagrant-wrapper'
+  gem 'vagrant-wrapper', '~> 1.2'
   gem 'test-kitchen', '~> 1.2'
   gem 'kitchen-vagrant', '~> 0.10'
 end
