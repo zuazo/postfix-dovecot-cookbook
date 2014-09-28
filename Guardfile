@@ -75,4 +75,4 @@ group :integration do
 
 end # group integration
 
-scope groups: %i(style unit)
+scope groups: [:style, :unit]
