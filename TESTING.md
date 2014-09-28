@@ -79,3 +79,21 @@ Then, you must configure test-kitchen to use [.kitchen.ses.yml](/.kitchen.ses.ym
     $ export KITCHEN_LOCAL_YAML=".kitchen.ses.yml"
     $ bundle exec kitchen list
     [...]
+
+## Using Vagrant with the Vagrantfile
+
+### Vagrantfile Requirements
+
+* ChefDK: https://downloads.getchef.com/chef-dk/
+* Berkhelf and Omnibus vagrant plugins:
+    $ vagrant plugin install vagrant-berkshelf vagrant-omnibus
+* The path correctly set for ChefDK:
+    $ export PATH="/opt/chefdk/bin:${PATH}"
+
+### Vagrantfile Usage
+
+    $ vagrant up
+
+To run Chef again on the same machine:
+
+    $ vagrant provision
