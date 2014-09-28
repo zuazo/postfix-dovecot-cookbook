@@ -2,7 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-site :opscode
+source 'https://supermarket.getchef.com'
 
 metadata
 cookbook 'minitest-handler'
