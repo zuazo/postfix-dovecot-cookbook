@@ -10,14 +10,15 @@ Vagrant.configure('2') do |config|
 
   config.vm.hostname = 'postfix-dovecot.local'
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  # config.vm.box = 'Berkshelf-CentOS-6.3-x86_64-minimal'
+  # Opscode Chef Vagrant box to use.
+  # More boxes here: https://github.com/opscode/bento
   opscode_box = 'opscode-ubuntu-12.04'
+
+  # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = opscode_box
 
   # The url from where the 'config.vm.box' box will be fetched if it doesn't
   # already exist on the user's system.
-  # More boxes here: https://github.com/opscode/bento
   config.vm.box_url =
     'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/'\
     "#{opscode_box.sub('-', '_')}_chef-provisionerless.box"
