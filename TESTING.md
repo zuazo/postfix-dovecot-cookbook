@@ -100,3 +100,7 @@ $ export PATH="/opt/chefdk/bin:${PATH}"
 To run Chef again on the same machine:
 
     $ vagrant provision
+
+To destroy the machine:
+
+    $ vagrant destroy
