@@ -14,10 +14,10 @@ Requirements
 This cookbook has been tested on the following platforms:
 
 * Amazon Linux
-* CentOS &ge; 6.0
-* Debian &ge; 7.0
-* Fedora &ge; 17.0
-* Ubuntu &ge; 12.04
+* CentOS `>= 6.0`
+* Debian `>= 7.0`
+* Fedora `>= 17.0`
+* Ubuntu `>= 12.04`
 
 Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/new?title=I%20have%20used%20it%20successfully%20on%20...) if you use it successfully on any other platform.
 
@@ -31,9 +31,9 @@ Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/n
 
 ## Required Applications
 
-* **Dovecot &ge; 2**: requires this version of dovecot to be available by the distribution's package manager.
-* Ruby `1.9.3` or higher.
-* Chef `>= 11.14.2`.
+* **Dovecot &ge; 2**: requires this version of dovecot to be available by the distribution's package manager
+* Ruby `>= 1.9.3`
+* Chef `>= 11.14.2`
 
 Attributes
 ==========
