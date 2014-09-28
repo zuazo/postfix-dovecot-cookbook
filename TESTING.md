@@ -1,7 +1,7 @@
 Testing
 =======
 
-## Requirements
+## Required Gems
 
 * `vagrant`
 * `foodcritic`
@@ -10,6 +10,8 @@ Testing
 * `chefspec`
 * `test-kitchen`
 * `kitchen-vagrant`
+
+### Installing the Requirements
 
 You must have [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) installed.
 
@@ -69,13 +71,11 @@ You need to set the following environment variables:
 * `AMAZON_SES_SMTP_USERNAME`: See [Obtaining Your Amazon SES SMTP Credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html) documentation.
 * `AMAZON_SES_SMTP_PASSWORD`
 
-Then, you must configure test-kitchen to use [.kitchen.ses.yml](/blob/master/.kitchen.ses.yml) configuration file:
+Then, you must configure test-kitchen to use [.kitchen.ses.yml](/.kitchen.ses.yml) configuration file:
 
-```
-$ export AMAZON_SES_EMAIL_FROM="no-reply@sesdomain.com"
-$ export AMAZON_SES_SMTP_USERNAME="..."
-$ export AMAZON_SES_SMTP_PASSWORD="..."
-$ export KITCHEN_LOCAL_YAML=".kitchen.ses.yml"
-$ bundle exec kitchen list
-[...]
-```
+    $ export AMAZON_SES_EMAIL_FROM="no-reply@sesdomain.com"
+    $ export AMAZON_SES_SMTP_USERNAME="..."
+    $ export AMAZON_SES_SMTP_PASSWORD="..."
+    $ export KITCHEN_LOCAL_YAML=".kitchen.ses.yml"
+    $ bundle exec kitchen list
+    [...]

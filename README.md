@@ -33,6 +33,7 @@ Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/n
 
 * **Dovecot &ge; 2**: requires this version of dovecot to be available by the distribution's package manager.
 * Ruby `1.9.3` or higher.
+* Chef `>= 11.14.2`.
 
 Attributes
 ==========
