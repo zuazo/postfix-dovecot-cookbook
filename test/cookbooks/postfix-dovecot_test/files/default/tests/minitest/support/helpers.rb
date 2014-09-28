@@ -9,7 +9,8 @@ module Helpers
     include MiniTest::Chef::Context
     include MiniTest::Chef::Resources
 
-    TEMPLATE <<-EOM
+    def template(from, to)
+      <<-EOM
 From: #{from}
 To: #{to}
 Subject: Some cool subject for testing
@@ -17,11 +18,12 @@ Subject: Some cool subject for testing
 A blackhole email body.
 
 EOM
+    end
 
     def send_test_mail(from, to)
       Net::SMTP.start('localhost', 25) do |smtp|
         smtp.send_message(
-          TEMPLATE,
+          template(from, to),
           from,
           to
         )
