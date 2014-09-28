@@ -18,9 +18,9 @@
 # limitations under the License.
 #
 
-node.default_unless['postfixadmin']['server_name'] =
+node.default['postfixadmin']['server_name'] =
   node['postfix-dovecot']['hostname']
-node.default_unless['postfixadmin']['common_name'] =
+node.default['postfixadmin']['common_name'] =
   node['postfix-dovecot']['hostname']
 node.default['postfixadmin']['database']['type'] =
   node['postfix-dovecot']['database']['type']
