@@ -19,6 +19,16 @@
 
 require 'spec_helper'
 
-describe process('/usr/sbin/spamd') do
+family = os[:family].downcase
+spamd =
+  if %w(debian ubuntu).include?(family)
+    '/usr/sbin/spamd'
+  elsif %w(redhat centos fedora scientific amazon).include?(family)
+    'spamd'
+  else
+    'spamd'
+  end
+
+describe process(spamd) do
   it { should be_running }
 end

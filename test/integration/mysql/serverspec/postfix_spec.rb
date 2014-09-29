@@ -38,14 +38,24 @@ describe port(587) do
   it { should be_listening.with('tcp') }
 end
 
-describe file('/etc/ssl/certs/postfix.pem') do
+family = os[:family].downcase
+key_dir, cert_dir =
+  if %w(debian ubuntu).include?(family)
+    %w(/etc/ssl/private /etc/ssl/certs)
+  elsif %w(redhat centos fedora scientific amazon).include?(family)
+    %w(/etc/pki/tls/private /etc/pki/tls/certs)
+  else
+    %w(/etc /etc)
+  end
+
+describe file("#{cert_dir}/postfix.pem") do
   it { should be_file }
   it { should be_mode 644 }
   it { should be_owned_by 'root' }
   it { should be_grouped_into 'root' }
 end
 
-describe file('/etc/ssl/private/postfix.key') do
+describe file("#{key_dir}/postfix.key") do
   it { should be_file }
   it { should be_mode 600 }
   it { should be_owned_by 'root' }
