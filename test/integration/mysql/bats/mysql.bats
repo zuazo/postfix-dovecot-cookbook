@@ -2,6 +2,10 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 
-@test "mysql should be running" {
-  lsof -cmysqld -a -iTCP:mysql
+@test "mysqld should be running" {
+  ps axu | grep -q 'mysql[d]'
+}
+
+@test "mysqld should be listening" {
+  lsof -itcp:'mysql' -a -c'mysqld'
 }

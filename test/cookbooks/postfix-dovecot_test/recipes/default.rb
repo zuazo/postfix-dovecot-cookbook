@@ -18,8 +18,6 @@
 # limitations under the License.
 #
 
-package 'lsof'
-
 node.default['postfix-dovecot']['spamc']['enabled'] = true
 
 node.default['mysql']['server_root_password'] = 'vagrant_root'
@@ -48,3 +46,6 @@ postfixadmin_mailbox 'postmaster@foobar.com' do
   login_username 'admin@foobar.com'
   login_password 'p@ssw0rd1'
 end
+
+package 'lsof' # required for integration tests
+package 'wget' # required for integration tests

@@ -3,5 +3,9 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 
 @test "postgresql should be running" {
-  lsof -cpostmaster -a -iTCP:postgres
+  ps axu | grep -q 'postmaste[r]'
+}
+
+@test "postgresql should be listening" {
+  lsof -itcp:'postgres' -a -c'postmaster'
 }

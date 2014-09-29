@@ -1,11 +1,25 @@
 #!/usr/bin/env bats
 
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+
 @test "postfix should be running" {
   ps axu | grep -q 'postfi[x]'
 }
 
 @test "postconf should run without errors" {
   /usr/sbin/postconf > /dev/null
+}
+
+@test "master should be listening on smtp" {
+  lsof -itcp:'smtp' -a -c'master'
+}
+
+@test "master should be listening on ssmtp" {
+  lsof -itcp:'ssmtp' -a -c'master'
+}
+
+@test "master should be listening on submission" {
+  lsof -itcp:'submission' -a -c'master'
 }
 
 @test "should be able to login using submission (plain)" {
