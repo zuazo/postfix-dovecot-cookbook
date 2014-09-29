@@ -7,13 +7,13 @@ driver:
 platforms:
 - name: ubuntu-12.04
   run_list:
-    - recipe[apt]
+  - recipe[apt]
 - name: ubuntu-14.04
   run_list:
-    - recipe[apt]
+  - recipe[apt]
 - name: debian-7.6
   run_list:
-    - recipe[apt]
+  - recipe[apt]
 - name: centos-6.5
 - name: fedora-19
 - name: fedora-20
@@ -24,14 +24,6 @@ suites:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]
 - name: postgresql
-  excludes:
-  # https://github.com/hw-cookbooks/postgresql/issues/97
-  # https://github.com/hw-cookbooks/postgresql/issues/108
-  - ubuntu-12.04
-  - ubuntu-14.04
-  - debian-6.0.10
-  - debian-7.6
-  - debian-7-0-x64
   run_list:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]

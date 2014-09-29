@@ -4,6 +4,9 @@
 
 source 'https://supermarket.getchef.com'
 
+# https://github.com/hw-cookbooks/postgresql/issues/108
+cookbook 'locale'
+
 metadata
 cookbook 'minitest-handler'
 cookbook 'apt'

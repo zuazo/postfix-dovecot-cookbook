@@ -18,6 +18,13 @@
 # limitations under the License.
 #
 
+# Debian/Ubuntu requires locale cookbook:
+# https://github.com/hw-cookbooks/postgresql/issues/108
+# https://github.com/hw-cookbooks/postgresql/issues/108
+ENV['LANGUAGE'] = ENV['LANG'] = node['locale']['lang']
+ENV['LC_ALL'] = node['locale']['lang']
+include_recipe 'locale'
+
 node.default['postfix-dovecot']['spamc']['enabled'] = true
 
 node.default['mysql']['server_root_password'] = 'vagrant_root'
