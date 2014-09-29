@@ -19,7 +19,15 @@
 
 require 'spec_helper'
 
-describe process('postmaster') do
+family = os[:family].downcase
+postgres =
+  if %w(redhat centos fedora scientific amazon).include?(family)
+    'postmaster'
+  else
+    'postgres'
+  end
+
+describe process(postgres) do
   it { should be_running }
 end
 
