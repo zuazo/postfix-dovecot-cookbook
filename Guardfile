@@ -8,6 +8,7 @@ group :style,
       halt_on_fail: true do
 
   guard :foodcritic,
+        cli: '--exclude spec',
         cookbook_paths: '.',
         all_on_start: false do
     watch(/attributes\/.+\.rb$/)
