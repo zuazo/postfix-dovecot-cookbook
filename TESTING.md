@@ -62,8 +62,7 @@ You can run the tests in the cloud instead of using vagrant. First, you must set
 * `AWS_SECRET_ACCESS_KEY`
 * `AWS_KEYPAIR_NAME`: EC2 SSH public key name. This is the name used in Amazon EC2 Console's Key Pars section.
 * `EC2_SSH_KEY_PATH`: EC2 SSH private key local full path. Only when you are not using an SSH Agent.
-* `DIGITALOCEAN_CLIENT_ID`
-* `DIGITALOCEAN_API_KEY`
+* `DIGITALOCEAN_ACCESS_TOKEN`
 * `DIGITALOCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
 * `DIGITALOCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path. Only when you are not using an SSH Agent.
 
