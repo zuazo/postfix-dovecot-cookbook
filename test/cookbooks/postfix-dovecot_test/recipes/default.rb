@@ -18,8 +18,11 @@
 # limitations under the License.
 #
 
+if node['postfix-dovecot']['database']['type'] == 'postgresql'
+  include_recipe 'postfix-dovecot_test::postgresql_memory'
+end
+
 # Debian/Ubuntu requires locale cookbook:
-# https://github.com/hw-cookbooks/postgresql/issues/108
 # https://github.com/hw-cookbooks/postgresql/issues/108
 ENV['LANGUAGE'] = ENV['LANG'] = node['locale']['lang']
 ENV['LC_ALL'] = node['locale']['lang']

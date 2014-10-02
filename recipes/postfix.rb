@@ -18,7 +18,6 @@
 # limitations under the License.
 #
 
-package 'postfix'
 package 'sendmail' do
   action :remove
 end
@@ -26,19 +25,14 @@ end
 db_type =
   case node['postfix-dovecot']['database']['type']
   when 'mysql'
+    include_recipe 'postfix-dovecot::postfix_mysql'
     'mysql'
   when 'postgresql'
+    include_recipe 'postfix-dovecot::postfix_postgresql'
     'pgsql'
   else
     nil
   end
-
-case node['platform']
-when 'debian', 'ubuntu' then
-  package "postfix-#{db_type}" do
-    not_if { db_type.nil? }
-  end
-end
 
 tables_path = "#{node['postfix']['base_dir']}/tables"
 # check if we can get the tables path from the postfixadmin cookbook

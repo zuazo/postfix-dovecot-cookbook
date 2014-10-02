@@ -39,36 +39,30 @@ describe 'postfix-dovecot::postfix' do
     expect(chef_run).to remove_package('sendmail')
   end
 
-  context 'on CentOS' do
+  it 'should include postfix_mysql recipe by default' do
+    expect(chef_run).to include_recipe('postfix-dovecot::postfix_mysql')
+  end
+
+  context 'with MySQL' do
     before do
-      chef_runner.node.automatic['platform'] = 'centos'
+      chef_runner.node.set['postfix-dovecot']['database']['type'] =
+        'mysql'
     end
 
-    it 'should not install postfix-mysql packaged' do
-      expect(chef_run).to_not install_package('postfix-mysql')
+    it 'should include postfix_mysql recipe' do
+      expect(chef_run).to include_recipe('postfix-dovecot::postfix_mysql')
     end
   end
 
-  context 'on Ubuntu' do
+  context 'with PostgreSQL' do
     before do
-      chef_runner.node.automatic['platform'] = 'ubuntu'
+      chef_runner.node.set['postfix-dovecot']['database']['type'] =
+        'postgresql'
     end
 
-    it 'should install postfix-mysql package' do
-      expect(chef_run).to install_package('postfix-mysql')
+    it 'should include postfix_postgresql recipe' do
+      expect(chef_run).to include_recipe('postfix-dovecot::postfix_postgresql')
     end
-
-    context 'with PostgreSQL' do
-      before do
-        chef_runner.node.set['postfix-dovecot']['database']['type'] =
-          'postgresql'
-      end
-
-      it 'should install postfix-pgsql package' do
-        expect(chef_run).to install_package('postfix-pgsql')
-      end
-    end
-
   end
 
   it 'should generate SMTP SSL certificate' do

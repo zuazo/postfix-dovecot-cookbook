@@ -24,6 +24,9 @@ suites:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]
 - name: postgresql
+  excludes:
+  - amazon-2011.02.1
+  - amazon-2013.09.2
   run_list:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]
@@ -31,3 +34,9 @@ suites:
     postfix-dovecot:
       database:
         type: postgresql
+- name: postfixpgsql
+  excludes:
+  - amazon-2011.02.1
+  - amazon-2013.09.2
+  run_list:
+  - recipe[postfix-dovecot_test::postfix_postgresql]

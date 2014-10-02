@@ -15,7 +15,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 }
 
 @test "master should be listening on ssmtp" {
-  lsof -itcp:'ssmtp' -a -c'master'
+  lsof -itcp:'465' -a -c'master'
 }
 
 @test "master should be listening on submission" {

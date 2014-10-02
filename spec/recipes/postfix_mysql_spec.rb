@@ -19,18 +19,32 @@
 
 require 'spec_helper'
 
-family = os[:family].downcase
-postgres =
-  if %w(centos redhat scientific amazon).include?(family)
-    'postmaster'
-  else
-    'postgres'
+describe 'postfix-dovecot::postfix_mysql' do
+  let(:chef_runner) { ChefSpec::Runner.new }
+  let(:chef_run) { chef_runner.converge(described_recipe) }
+
+  it 'should install postfix package' do
+    expect(chef_run).to install_package('postfix')
   end
 
-describe process(postgres) do
-  it { should be_running }
-end
+  context 'on CentOS' do
+    before do
+      chef_runner.node.automatic['platform'] = 'centos'
+    end
 
-describe port(5432) do
-  it { should be_listening }
+    it 'should not install postfix-mysql package' do
+      expect(chef_run).to_not install_package('postfix-mysql')
+    end
+  end
+
+  context 'on Ubuntu' do
+    before do
+      chef_runner.node.automatic['platform'] = 'ubuntu'
+    end
+
+    it 'should install postfix-mysql package' do
+      expect(chef_run).to install_package('postfix-mysql')
+    end
+  end
+
 end

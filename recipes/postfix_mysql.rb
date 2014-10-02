@@ -1,8 +1,9 @@
 # encoding: UTF-8
 #
-# Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
-# License:: Apache License, Version 2.0
+# Cookbook Name:: postfix-dovecot
+# Recipe:: postfix_mysql
+#
+# Copyright 2014, Onddo Labs, Sl.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,20 +18,9 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+package 'postfix'
 
-family = os[:family].downcase
-postgres =
-  if %w(centos redhat scientific amazon).include?(family)
-    'postmaster'
-  else
-    'postgres'
-  end
-
-describe process(postgres) do
-  it { should be_running }
-end
-
-describe port(5432) do
-  it { should be_listening }
+case node['platform']
+when 'debian', 'ubuntu' then
+  package 'postfix-mysql'
 end

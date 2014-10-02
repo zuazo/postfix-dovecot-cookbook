@@ -19,6 +19,10 @@ recipe 'postfix-dovecot::default', 'Installs and configures everything.'
 recipe 'postfix-dovecot::vmail', 'Creates vmail user.'
 recipe 'postfix-dovecot::spam', 'Installs and configures SpamAssassin.'
 recipe 'postfix-dovecot::postfix', 'Installs and configures Postfix.'
+recipe 'postfix-dovecot::postfix_mysql',
+       'Installs Postfix package with MySQL support.'
+recipe 'postfix-dovecot::postfix_postgresql',
+       'Installs Postfix package with PostgreSQL support.'
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
@@ -27,6 +31,7 @@ depends 'onddo-spamassassin', '~> 0.2'
 depends 'postfixadmin', '~> 1.0'
 depends 'postfix-full', '~> 0.1'
 depends 'ssl_certificate', '~> 0.2'
+depends 'yum', '~> 3.0'
 
 attribute 'postfix-dovecot/postmaster_address',
           display_name: 'postmaster address',
@@ -162,3 +167,38 @@ attribute 'postfix-dovecot/ses/servers',
             'email-smtp.us-east-1.amazonaws.com:25',
             'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
           ]"
+
+attribute 'postfix-dovecot/yum',
+          display_name: 'yum repositories',
+          description:
+            'A list of yum repositories to add to include the source SRPMs.',
+          type: 'hash',
+          required: 'optional',
+          calculated: true
+
+attribute 'postfix-dovecot/srpm/packages',
+          display_name: 'srpm packages',
+          description: 'Packages required for compiling Postfix from sources.',
+          type: 'array',
+          required: 'optional',
+          calculated: true
+
+attribute 'postfix-dovecot/srpm/rpm_regexp',
+          display_name: 'srpm rpm regexp',
+          description:
+            'An array with two values, a pattern and a replacement. This'\
+            'Regexp is used to get the final Postfix RPM name from the SRPM '\
+            'name.',
+          type: 'array',
+          required: 'optional',
+          calculated: true
+
+attribute 'postfix-dovecot/srpm/rpm_regexp',
+          display_name: 'srpm rpm regexp',
+          description:
+            'A string with the arguments to pass to rpmbuild application. '\
+            'Normally contains the required option to enable PostgreSQL in '\
+            'the Postfix SRPM.',
+          type: 'hash',
+          required: 'optional',
+          calculated: true

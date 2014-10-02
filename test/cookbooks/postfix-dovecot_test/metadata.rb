@@ -11,3 +11,4 @@ version '0.0.1'
 
 depends 'postfix-dovecot'
 depends 'locale'
+depends 'sysctl'
