@@ -65,7 +65,7 @@ group :unit do
       "spec/resources/#{m[1]}_spec.rb"
     end
     watch(/^spec\/.+_spec\.rb$/)
-    watch('spec/spec_helper.rb')   { 'spec' }
+    watch('spec/spec_helper.rb') { 'spec' }
   end
 
 end # group unit
