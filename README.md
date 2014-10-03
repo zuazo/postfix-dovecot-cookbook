@@ -259,7 +259,7 @@ include_recipe 'postfix-dovecot'
 
 Tha lastest CentOS and Fedora versions come without PostgreSQL support in their Postfix package. So we need to recompile it using the SRPM, enabling the PostgreSQL support.
 
-The `postfix-dovecot::postfix_postgresql` takes care of it transparently. Has been tested using `test-kitchen`, but it may not work for all cases. This recipe has been tested in the following platforms:
+The `postfix-dovecot::postfix_postgresql` recipe takes care of it transparently. This recipe has been tested using `test-kitchen`, but it may not work for all cases. This code has been tested in the following platforms:
 
 * CentOS `6.5` and `7.0`
 * Fedora `19` and `20`.
