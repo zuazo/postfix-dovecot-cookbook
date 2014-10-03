@@ -3,11 +3,32 @@
 # vi: set ft=ruby :
 
 source 'https://supermarket.getchef.com'
+my_cookbook = ::File.basename(Dir.pwd)
+
+# Helper to include a local cookbook from disk
+def local_cookbook(name, version = '>= 0.0.0', options = {})
+  cookbook(name, version, {
+    path: "../../cookbooks/#{name}"
+  }.merge(options))
+end
 
 # https://github.com/hw-cookbooks/postgresql/issues/108
 cookbook 'locale'
 
 metadata
-cookbook 'minitest-handler'
 cookbook 'apt'
-cookbook 'postfix-dovecot_test', path: './test/cookbooks/postfix-dovecot_test'
+
+# Minitest Chef Handler
+# More info at https://github.com/calavera/minitest-chef-handler
+if ::File.directory?(::File.join('files', 'default', 'tests', 'minitest')) ||
+   ::File.directory?(::File.join(
+     'test', 'cookbooks', 'postfix-dovecot_test', 'files', 'default', 'tests',
+     'minitest'
+   ))
+  cookbook 'minitest-handler'
+end
+
+# Integration tests cookbook:
+if ::File.directory?("./test/cookbooks/#{my_cookbook}_test")
+  cookbook "#{my_cookbook}_test", path: "./test/cookbooks/#{my_cookbook}_test"
+end
