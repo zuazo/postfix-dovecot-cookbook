@@ -1,7 +1,9 @@
 # encoding: UTF-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-# Based on magic_shell cookbook code, thanks Seth.
+# Based on magic_shell cookbook code, thanks @sethvargo.
+
+# More info at https://github.com/jimweirich/rake/blob/master/doc/rakefile.rdoc
 
 require 'bundler/setup'
 

@@ -4,6 +4,11 @@
 
 # More info at https://github.com/guard/guard#readme
 
+# Style Tests
+# ===========
+# - Foodcritic
+# - RuboCop
+
 group :style,
       halt_on_fail: true do
 
@@ -35,6 +40,14 @@ group :style,
 
 end # group style
 
+# Unit Tests
+# ==========
+# - spec/unit/${library}_spec.rb: Unit tests for libraries.
+# - spec/functional/${library}_spec.rb: Functional tests for libraries.
+# - spec/integration/${library}_spec.rb: Integration tests for libraries.
+# - spec/recipes/${recipe}_spec.rb: ChefSpec tests for recipes.
+# - spec/resources/${resource}_spec.rb: ChefSpec tests for resources.
+
 group :unit do
 
   guard :rspec,
@@ -56,6 +69,10 @@ group :unit do
   end
 
 end # group unit
+
+# Integration Tests
+# =================
+# - test-kitchen
 
 group :integration do
 
