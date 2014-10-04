@@ -36,6 +36,9 @@ group :style,
     watch('Podfile')
     watch('Thorfile')
     watch('Vagrantfile')
+    watch('Berksfile')
+    watch('Cheffile')
+    watch('Vagabondfile')
   end
 
 end # group style
