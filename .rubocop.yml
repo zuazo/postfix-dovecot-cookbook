@@ -1,6 +1,4 @@
-# Common configuration.
 AllCops:
-  # Include gemspec and Rakefile
   Include:
   - '**/*.gemspec'
   - '**/*.podspec'
@@ -13,6 +11,17 @@ AllCops:
   - '**/Podfile'
   - '**/Thorfile'
   - '**/Vagrantfile'
+  - '**/Berksfile'
+  - '**/Cheffile'
+  - '**/Vagabondfile'
+Style/FileName:
+  Exclude:
+  - '**/Rakefile'
+  - '**/Gemfile'
+  - '**/Capfile'
+  - '**/Vagrantfile'
+  - '**/Podfile'
+  - '**/Thorfile'
   - '**/Berksfile'
   - '**/Cheffile'
   - '**/Vagabondfile'
