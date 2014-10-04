@@ -1,0 +1,18 @@
+# Common configuration.
+AllCops:
+  # Include gemspec and Rakefile
+  Include:
+  - '**/*.gemspec'
+  - '**/*.podspec'
+  - '**/*.jbuilder'
+  - '**/*.rake'
+  - '**/Gemfile'
+  - '**/Rakefile'
+  - '**/Capfile'
+  - '**/Guardfile'
+  - '**/Podfile'
+  - '**/Thorfile'
+  - '**/Vagrantfile'
+  - '**/Berksfile'
+  - '**/Cheffile'
+  - '**/Vagabondfile'
