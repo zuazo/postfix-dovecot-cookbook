@@ -253,7 +253,7 @@ chroot_files.each do |path|
     recursive true
     only_if do
       dir_path.length > 0 &&
-      !::File.exist?(chroot_dir_path)
+        !::File.exist?(chroot_dir_path)
     end
   end
 

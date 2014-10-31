@@ -189,7 +189,7 @@ directory sieve_global_dir do
   recursive true
   not_if do
     ::File.exist?(sieve_global_dir) ||
-    !node['postfix-dovecot']['sieve']['enabled']
+      !node['postfix-dovecot']['sieve']['enabled']
   end
 end
 

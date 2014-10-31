@@ -74,7 +74,7 @@ when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
     package('yum-utils').run_action(:install)
 
     cmd = Mixlib::ShellOut.new('yumdownloader --source --urls postfix')
-      .run_command
+          .run_command
     cmd.error!
     url = cmd.stdout.split("\n")[-1]
 
