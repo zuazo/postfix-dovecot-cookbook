@@ -26,7 +26,7 @@ recipe 'postfix-dovecot::postfix_postgresql',
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
-depends 'dovecot', '~> 1.0'
+depends 'dovecot', '~> 2.0'
 depends 'onddo-spamassassin', '~> 0.2'
 depends 'postfixadmin', '~> 1.0'
 depends 'postfix-full', '~> 0.1'
