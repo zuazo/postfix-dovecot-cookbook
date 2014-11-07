@@ -51,17 +51,16 @@ end
 #   -o smtpd_sasl_auth_enable=yes
 #   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 #   -o milter_macro_daemon_name=ORIGINATING
-node.default['postfix']['master']['inet:submission'] = {
-  command: 'smtpd',
-  private: false,
-  args: [
+node.default['postfix']['master']['inet:submission']['command'] = 'smtpd'
+node.default['postfix']['master']['inet:submission']['private'] = false
+node.default['postfix']['master']['inet:submission']['args'] =
+  [
     '-o syslog_name=postfix/submission',
     '-o smtpd_tls_security_level=encrypt',
     '-o smtpd_sasl_auth_enable=yes',
     '-o smtpd_client_restrictions=permit_sasl_authenticated,reject',
     '-o milter_macro_daemon_name=ORIGINATING'
   ]
-}
 
 # smtps     inet  n       -       -       -       -       smtpd
 #   -o syslog_name=postfix/smtps
@@ -69,17 +68,16 @@ node.default['postfix']['master']['inet:submission'] = {
 #   -o smtpd_sasl_auth_enable=yes
 #   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 #   -o milter_macro_daemon_name=ORIGINATING
-node.default['postfix']['master']['inet:smtps'] = {
-  command: 'smtpd',
-  private: false,
-  args: [
+node.default['postfix']['master']['inet:smtps']['command'] = 'smtps'
+node.default['postfix']['master']['inet:smtps']['private'] = false
+node.default['postfix']['master']['inet:smtps']['args'] =
+  [
     '-o syslog_name=postfix/smtps',
     '-o smtpd_tls_wrappermode=yes',
     '-o smtpd_sasl_auth_enable=yes',
     '-o smtpd_client_restrictions=permit_sasl_authenticated,reject',
     '-o milter_macro_daemon_name=ORIGINATING'
   ]
-}
 
 # dovecot   unix  -       n       n       -       -       pipe
 #   flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver
@@ -92,16 +90,15 @@ dovecot_argv = [
 if node['postfix-dovecot']['spamc']['enabled']
   dovecot_argv.unshift("#{node.default['postfix-dovecot']['spamc']['path']} -e")
 end
-node.default['postfix']['master']['dovecot'] = {
-  command: 'pipe',
-  unpriv: false,
-  chroot: false,
-  args: [
+node.default['postfix']['master']['dovecot']['command'] = 'pipe'
+node.default['postfix']['master']['dovecot']['unpriv'] = false
+node.default['postfix']['master']['dovecot']['chroot'] = false
+node.default['postfix']['master']['dovecot']['args'] =
+  [
     "flags=DRhu user=#{node['postfix-dovecot']['vmail']['user']}:"\
     "#{node['postfix-dovecot']['vmail']['group']} "\
     "argv=#{dovecot_argv.join(' ')}"
   ]
-}
 
 #
 # main.cf
@@ -110,14 +107,12 @@ node.default['postfix']['master']['dovecot'] = {
 node.default['postfix']['main']['mynetworks'] =
   '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128'
 node.default['postfix']['main']['recipient_delimiter'] = '+'
-node.default['postfix']['tables']['aliases'] = {
-  _type: 'hash',
-  _set: 'alias_maps',
-  _add: 'alias_database',
-  _file: '/etc/aliases',
-  _cmd: 'postalias',
-  'postmaster:' => 'root'
-}
+node.default['postfix']['tables']['aliases']['_type'] = 'hash'
+node.default['postfix']['tables']['aliases']['_set'] = 'alias_maps'
+node.default['postfix']['tables']['aliases']['_add'] = 'alias_database'
+node.default['postfix']['tables']['aliases']['_file'] = '/etc/aliases'
+node.default['postfix']['tables']['aliases']['_cmd'] = 'postalias'
+node.default['postfix']['tables']['aliases']['postmaster:'] = 'root'
 
 node.default['postfix']['main']['smtpd_banner'] = '$myhostname ESMTP $mail_name'
 node.default['postfix']['main']['biff'] = false
@@ -200,10 +195,9 @@ if node['postfix-dovecot']['ses']['enabled']
   node.default['postfix']['main']['smtp_tls_note_starttls_offer'] = true
   # node.default['postfix']['main']['smtp_sasl_password_maps'] =
   #   'hash:/etc/postfix/sasl_passwd'
-  node.default['postfix']['tables']['sasl_passwd'] = {
-    _type: 'hash',
-    _add: { smtp_sasl_password_maps: nil }
-  }
+  node.default['postfix']['tables']['sasl_passwd']['_type'] = 'hash'
+  node.default['postfix']['tables']['sasl_passwd']['_add'] =
+    'smtp_sasl_password_maps'
   node['postfix-dovecot']['ses']['servers'].each do |server|
     node.default['postfix']['tables']['sasl_passwd'][server] = ses_credentials
   end
