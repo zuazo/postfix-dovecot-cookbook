@@ -68,7 +68,7 @@ node.default['postfix']['master']['inet:submission']['args'] =
 #   -o smtpd_sasl_auth_enable=yes
 #   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 #   -o milter_macro_daemon_name=ORIGINATING
-node.default['postfix']['master']['inet:smtps']['command'] = 'smtps'
+node.default['postfix']['master']['inet:smtps']['command'] = 'smtpd'
 node.default['postfix']['master']['inet:smtps']['private'] = false
 node.default['postfix']['master']['inet:smtps']['args'] =
   [
