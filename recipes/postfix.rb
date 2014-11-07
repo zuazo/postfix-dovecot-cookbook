@@ -110,8 +110,14 @@ node.default['postfix']['master']['dovecot'] = {
 node.default['postfix']['main']['mynetworks'] =
   '127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128'
 node.default['postfix']['main']['recipient_delimiter'] = '+'
-node.default['postfix']['main']['alias_maps'] = 'hash:/etc/aliases'
-node.default['postfix']['main']['alias_database'] = 'hash:/etc/aliases'
+node.default['postfix']['tables']['aliases'] = {
+  _type: 'hash',
+  _set: 'alias_maps',
+  _add: 'alias_database',
+  _file: '/etc/aliases',
+  _cmd: 'postalias',
+  'postmaster:' => 'root'
+}
 
 node.default['postfix']['main']['smtpd_banner'] = '$myhostname ESMTP $mail_name'
 node.default['postfix']['main']['biff'] = false
