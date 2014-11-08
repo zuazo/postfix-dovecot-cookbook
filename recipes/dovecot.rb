@@ -18,6 +18,10 @@
 # limitations under the License.
 #
 
+Chef::Recipe.send(:include, Chef::EncryptedAttributesHelpers)
+self.encrypted_attributes_enabled = node['postfixadmin']['encrypt_attributes']
+password = encrypted_attribute_read(%w(postfixadmin database password))
+
 def sql_concat(*args)
   case node['postfix-dovecot']['database']['type']
   when 'postgresql'
@@ -128,7 +132,7 @@ node.default['dovecot']['conf']['sql']['connect'] = [
   "host=#{node['postfixadmin']['database']['host']}",
   "dbname=#{node['postfixadmin']['database']['name']}",
   "user=#{node['postfixadmin']['database']['user']}",
-  "password=#{node['postfixadmin']['database']['password']}"
+  "password=#{password}"
 ]
 case node['postfixadmin']['conf']['encrypt']
 when 'md5crypt'
