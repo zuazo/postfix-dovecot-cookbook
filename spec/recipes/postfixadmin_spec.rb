@@ -40,23 +40,23 @@ describe 'postfix-dovecot::postfixadmin' do
     ).and_return(false)
   end
 
-  it 'should set node["postfixadmin"]["server_name"] attribute' do
+  it 'sets node["postfixadmin"]["server_name"] attribute' do
     expect(chef_run.node['postfixadmin']['server_name']).to eq(hostname)
   end
 
-  it 'should set node["postfixadmin"]["common_name"] attribute' do
+  it 'sets node["postfixadmin"]["common_name"] attribute' do
     expect(chef_run.node['postfixadmin']['common_name']).to eq(hostname)
   end
 
-  it 'should set node["postfixadmin"]["database"]["type"] attribute' do
+  it 'sets node["postfixadmin"]["database"]["type"] attribute' do
     expect(chef_run.node['postfixadmin']['database']['type']).to eq(db_type)
   end
 
-  it 'should include postfixadmin recipe' do
+  it 'includes postfixadmin recipe' do
     expect(chef_run).to include_recipe('postfixadmin')
   end
 
-  it 'should include postfixadmin::map_files recipe' do
+  it 'includes postfixadmin::map_files recipe' do
     expect(chef_run).to include_recipe('postfixadmin::map_files')
   end
 

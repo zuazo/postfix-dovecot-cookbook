@@ -33,11 +33,11 @@ describe 'postfix-dovecot::postfix' do
       .and_return('OK')
   end
 
-  it 'should remove sendmail package' do
+  it 'removes sendmail package' do
     expect(chef_run).to remove_package('sendmail')
   end
 
-  it 'should include postfix_mysql recipe by default' do
+  it 'includes postfix_mysql recipe by default' do
     expect(chef_run).to include_recipe('postfix-dovecot::postfix_mysql')
   end
 
@@ -47,7 +47,7 @@ describe 'postfix-dovecot::postfix' do
         'mysql'
     end
 
-    it 'should include postfix_mysql recipe' do
+    it 'includes postfix_mysql recipe' do
       expect(chef_run).to include_recipe('postfix-dovecot::postfix_mysql')
     end
   end
@@ -58,39 +58,39 @@ describe 'postfix-dovecot::postfix' do
         'postgresql'
     end
 
-    it 'should include postfix_postgresql recipe' do
+    it 'includes postfix_postgresql recipe' do
       expect(chef_run).to include_recipe('postfix-dovecot::postfix_postgresql')
     end
   end
 
-  it 'should generate SMTP SSL certificate' do
+  it 'generates SMTP SSL certificate' do
     expect(chef_run).to create_ssl_certificate('postfix')
   end
 
-  it 'should create myorigin file' do
+  it 'creates myorigin file' do
     expect(chef_run).to create_file('/etc/mailname')
       .with_content(hostname)
   end
 
-  it 'should include postfix-full recipe' do
+  it 'includes postfix-full recipe' do
     expect(chef_run).to include_recipe('postfix-full')
   end
 
-  it 'should create chroot etc directory' do
+  it 'creates chroot etc directory' do
     expect(chef_run).to create_directory('/var/spool/postfix/etc')
       .with_user('root')
       .with_group('root')
       .with_mode('0755')
   end
 
-  it 'should create chroot etc/resolv.conf file' do
+  it 'creates chroot etc/resolv.conf file' do
     expect(chef_run).to create_file('/var/spool/postfix/etc/resolv.conf')
       .with_user('root')
       .with_group('root')
       .with_mode('0644')
   end
 
-  it 'etc/resolv.conf creation should notify postfix restart' do
+  it 'etc/resolv.conf creation notifies postfix restart' do
     resource = chef_run.file('/var/spool/postfix/etc/resolv.conf')
     expect(resource).to notify('service[postfix]').to(:restart)
   end

@@ -22,7 +22,7 @@ require 'spec_helper'
 describe 'postfix-dovecot::vmail' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
-  it 'should create vmail user' do
+  it 'creates vmail user' do
     expect(chef_run).to create_user('vmail')
       .with_comment('Vmail')
       .with_home('/var/vmail')
@@ -32,7 +32,7 @@ describe 'postfix-dovecot::vmail' do
       .with_system(true)
   end
 
-  it 'should create vmail group' do
+  it 'creates vmail group' do
     expect(chef_run).to create_group('vmail')
       .with_gid(5000)
       .with_members(%w(vmail))

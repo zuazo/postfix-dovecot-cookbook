@@ -2,31 +2,31 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 
-@test "postfix should be running" {
+@test "postfix is running" {
   ps axu | grep -q 'postfi[x]'
 }
 
-@test "postconf should run without errors" {
+@test "postconf runs without errors" {
   /usr/sbin/postconf > /dev/null
 }
 
-@test "master should be listening on smtp" {
+@test "master is listening on smtp" {
   lsof -itcp:'smtp' -a -c'master'
 }
 
-@test "master should be listening on ssmtp" {
+@test "master is listening on ssmtp" {
   lsof -itcp:'465' -a -c'master'
 }
 
-@test "master should be listening on submission" {
+@test "master is listening on submission" {
   lsof -itcp:'submission' -a -c'master'
 }
 
-@test "should be able to login using submission (plain)" {
+@test "is able to login using submission (plain)" {
   /opt/chef/embedded/bin/ruby "${BATS_TEST_DIRNAME}/helpers/submission_plain.rb"
 }
 
-@test "should be able to receive mails through smtp" {
+@test "is able to receive mails through smtp" {
   FINGERPRINT="G27XB6yIyYyM99Tv8UXW$(date +%s)"
   TIMEOUT='30'
   MAIL_DIR='/var/vmail/foobar.com/postmaster/new'

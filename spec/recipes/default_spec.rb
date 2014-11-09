@@ -32,7 +32,7 @@ describe 'postfix-dovecot::default' do
     postfix-dovecot::postfixadmin
     postfix-dovecot::dovecot
   ).each do |recipe|
-    it "should include #{recipe} recipe" do
+    it "includes #{recipe} recipe" do
       expect(chef_run).to include_recipe(recipe)
     end
   end

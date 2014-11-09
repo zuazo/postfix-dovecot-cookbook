@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
 
-@test "postfix should have postgresql enabled" {
+@test "postfix has postgresql enabled" {
   postconf -m | grep -Fq 'pgsql'
 }

@@ -23,26 +23,26 @@ describe 'postfix-dovecot::postfix_mysql' do
   let(:chef_runner) { ChefSpec::Runner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
 
-  it 'should install postfix package' do
+  it 'installs postfix package' do
     expect(chef_run).to install_package('postfix')
   end
 
-  context 'on CentOS' do
+  context 'with CentOS' do
     before do
       chef_runner.node.automatic['platform'] = 'centos'
     end
 
-    it 'should not install postfix-mysql package' do
+    it 'does not install postfix-mysql package' do
       expect(chef_run).to_not install_package('postfix-mysql')
     end
   end
 
-  context 'on Ubuntu' do
+  context 'with Ubuntu' do
     before do
       chef_runner.node.automatic['platform'] = 'ubuntu'
     end
 
-    it 'should install postfix-mysql package' do
+    it 'installs postfix-mysql package' do
       expect(chef_run).to install_package('postfix-mysql')
     end
   end

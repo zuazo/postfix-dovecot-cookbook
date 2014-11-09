@@ -15,6 +15,7 @@ group :style do
 end
 
 group :unit do
+  gem 'should_not', '~> 1.1'
   gem 'chefspec', '~> 4.0'
   gem 'chef-vault', '~> 2.3'
 end

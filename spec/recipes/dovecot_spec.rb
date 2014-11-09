@@ -21,15 +21,13 @@ require 'spec_helper'
 
 describe 'postfix-dovecot::dovecot' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
-  before do
-    allow(::File).to receive(:exist?).and_return(false)
-  end
+  before { allow(::File).to receive(:exist?).and_return(false) }
 
-  it 'should include dovecot recipe' do
+  it 'includes dovecot recipe' do
     expect(chef_run).to include_recipe('dovecot')
   end
 
-  it 'should create sieve_global_dir directory' do
+  it 'creates sieve_global_dir directory' do
     expect(chef_run).to create_directory('/etc/dovecot/sieve')
       .with_owner('root')
       .with_group('root')
@@ -37,14 +35,14 @@ describe 'postfix-dovecot::dovecot' do
       .with_recursive(true)
   end
 
-  it 'should create sieve_global_path file' do
+  it 'creates sieve_global_path file' do
     expect(chef_run).to create_template('/etc/dovecot/sieve/default.sieve')
       .with_owner('root')
       .with_group('root')
       .with_mode('00644')
   end
 
-  it 'sieve_global_path file should notify sievec' do
+  it 'sieve_global_path file notifies sievec' do
     resource = chef_run.template('/etc/dovecot/sieve/default.sieve')
     expect(resource).to notify('execute[sievec sieve_global_path]')
       .to(:run).delayed

@@ -1,14 +1,14 @@
 #!/usr/bin/env bats
 
-@test "postfix should be running" {
+@test "postfix is running" {
   ps axu | grep -q 'postfi[x]'
 }
 
-@test "postconf should run without errors" {
+@test "postconf runs without errors" {
   /usr/sbin/postconf > /dev/null
 }
 
-@test "should be able to send mails through SES" {
+@test "is able to send mails through SES" {
   TIMEOUT='15'
   PATTERN='postfix/smtp.* to=<to@blackhole.io>, relay=.*.amazonaws.com.*, .*status'
   OK_PATTERN="${PATTERN}=sent"

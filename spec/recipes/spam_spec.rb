@@ -27,16 +27,16 @@ describe 'postfix-dovecot::spam' do
       .and_return(false)
   end
 
-  it 'should not include onddo-spamassassin recipe by default' do
+  it 'does not include onddo-spamassassin recipe by default' do
     expect(chef_run).to_not include_recipe('onddo-spamassassin')
   end
 
-  context 'When spamc enabled' do
+  context 'with spamc enabled' do
     before do
       chef_runner.node.set['postfix-dovecot']['spamc']['enabled'] = true
     end
 
-    it 'should include onddo-spamassassin recipe by default' do
+    it 'includes onddo-spamassassin recipe by default' do
       expect(chef_run).to include_recipe('onddo-spamassassin')
     end
   end

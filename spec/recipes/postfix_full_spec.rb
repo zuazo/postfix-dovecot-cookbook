@@ -22,13 +22,13 @@ require 'spec_helper'
 describe 'postfix-dovecot::postfix_full' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
-  it 'should print a deprecation notice' do
+  it 'prints a deprecation notice' do
     allow(Chef::Log).to receive(:warn)
     expect(Chef::Log).to receive(:warn).with(/^Deprecation Notice/)
     chef_run
   end
 
-  it 'should include postfix-dovecot::postfix recipe' do
+  it 'includes postfix-dovecot::postfix recipe' do
     expect(chef_run).to include_recipe('postfix-dovecot::postfix')
   end
 

@@ -1,19 +1,19 @@
 #!/usr/bin/env bats
 
-@test 'spamc should be installed' {
+@test 'spamc is installed' {
   which spamc
 }
 
-@test 'spamd should be running' {
+@test 'spamd is running' {
   ps axu | grep -q 'spam[d]'
 }
 
-@test 'should detect spam correctly' {
+@test 'detects spam correctly' {
   GTUBE='XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X'
   echo "${GTUBE}" | spamc | grep -qF 'X-Spam-Flag: YES'
 }
 
-@test "should filter spam correctly" {
+@test "filters spam correctly" {
   GTUBE='XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X'
   FINGERPRINT="${GTUBE} - $(date +%s)"
   TIMEOUT='30'

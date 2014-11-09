@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
 
-@test "postfix should have mysql enabled" {
+@test "postfix has mysql enabled" {
   postconf -m | grep -Fq 'mysql'
 }
