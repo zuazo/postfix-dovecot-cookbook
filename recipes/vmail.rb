@@ -2,8 +2,9 @@
 #
 # Cookbook Name:: postfix-dovecot
 # Recipe:: vmail
-#
-# Copyright 2013, Onddo Labs, Sl.
+# Author:: Xabier de Zuazo (<xabier@onddo.com>)
+# Copyright:: Copyright (c) 2013 Onddo Labs, SL. (www.onddo.com)
+# License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
