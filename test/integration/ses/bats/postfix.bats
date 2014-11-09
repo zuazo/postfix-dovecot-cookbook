@@ -10,7 +10,7 @@
 
 @test "is able to send mails through SES" {
   TIMEOUT='15'
-  PATTERN='postfix/smtp.* to=<to@blackhole.io>, relay=.*.amazonaws.com.*, .*status'
+  PATTERN='postfix/smtp.* to=<blackhole@zuazo.org>, relay=.*.amazonaws.com.*, .*status'
   OK_PATTERN="${PATTERN}=sent"
   if [ -e '/var/log/maillog' ]
   then

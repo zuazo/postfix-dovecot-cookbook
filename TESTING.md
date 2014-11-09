@@ -76,15 +76,17 @@ Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration 
 
 You need to set the following environment variables:
 
-* `AMAZON_SES_EMAIL_FROM`: SES valid from address, only used in tests
+* `AMAZON_SES_EMAIL_FROM`: SES valid from address, only used in tests.
 * `AMAZON_SES_SMTP_USERNAME`: See [Obtaining Your Amazon SES SMTP Credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html) documentation.
 * `AMAZON_SES_SMTP_PASSWORD`
+* `AMAZON_SES_REGION`: Amazon SES region (optional).
 
 Then, you must configure test-kitchen to use [.kitchen.ses.yml](/.kitchen.ses.yml) configuration file:
 
     $ export AMAZON_SES_EMAIL_FROM="no-reply@sesdomain.com"
     $ export AMAZON_SES_SMTP_USERNAME="..."
     $ export AMAZON_SES_SMTP_PASSWORD="..."
+    $ export AMAZON_SES_REGION="..."
     $ export KITCHEN_LOCAL_YAML=".kitchen.ses.yml"
     $ bundle exec kitchen list
     [...]

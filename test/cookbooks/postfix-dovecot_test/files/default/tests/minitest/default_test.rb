@@ -30,7 +30,9 @@ describe 'postfix-dovecot::default' do
 
     it 'should be able to send mails through SES' do
       skip unless node['postfix-dovecot']['ses']['enabled']
-      send_test_mail(node['postfix-dovecot']['ses']['email'], 'to@blackhole.io')
+      send_test_mail(
+        node['postfix-dovecot']['ses']['email'], 'blackhole@zuazo.org'
+      )
     end
 
   end

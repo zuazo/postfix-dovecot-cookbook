@@ -64,6 +64,7 @@ You can use `node['postfix-dovecot']['ses']['enabled']` to enable SES for sendin
 | `node['postfix-dovecot']['ses']['source']`   | `'attributes'` | Where to read the credentials from. Possible values: `'attributes'`,  `'chef-vault'`.
 | `node['postfix-dovecot']['ses']['vault']`    | `'amazon'`     | Chef Vault bag to read SES credentials from.
 | `node['postfix-dovecot']['ses']['item']`     | `'ses'`        | Chef Vault item.
+| `node['postfix-dovecot']['ses']['region']`   | `'us-east-1'`  | Amazon AWS region, used to calculate the servers.
 | `node['postfix-dovecot']['ses']['servers']`  | *calcualted*   | Amazon SES SMTP servers array.
 | `node['postfix-dovecot']['ses']['username']` | `'USERNAME'`   | SES SMTP username. See [Obtaining Your Amazon SES SMTP Credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html) documentation.
 | `node['postfix-dovecot']['ses']['password']` | `'PASSWORD'`   | Amazon SES SMTP password.

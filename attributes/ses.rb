@@ -25,7 +25,7 @@ default['postfix-dovecot']['ses']['vault'] = 'amazon'
 default['postfix-dovecot']['ses']['item'] = 'ses'
 default['postfix-dovecot']['ses']['username'] = 'USERNAME'
 default['postfix-dovecot']['ses']['password'] = 'PASSWORD'
-default['postfix-dovecot']['ses']['servers'] = %w(
-  email-smtp.us-east-1.amazonaws.com:25
-  ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25
-)
+default['postfix-dovecot']['ses']['region'] = 'us-east-1'
+default['postfix-dovecot']['ses']['servers'] = [
+  "email-smtp.#{node['postfix-dovecot']['ses']['region']}.amazonaws.com:587"
+]
