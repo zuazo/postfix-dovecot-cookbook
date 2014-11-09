@@ -193,12 +193,8 @@ describe 'postfix-dovecot::postfix' do
 
       it 'sets vault credentials inside sasl_passwd file' do
         credentials = "#{vault_username}:#{vault_password}"
-        sasl_passwd_content = [
-          "email-smtp.us-east-1.amazonaws.com:25 #{credentials}",
-          'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25'\
-          " #{credentials}"
-
-        ].join("\n")
+        sasl_passwd_content =
+          "email-smtp.us-east-1.amazonaws.com:587 #{credentials}"
         expect(chef_run).to create_file('/etc/postfix/tables/sasl_passwd')
           .with_content(sasl_passwd_content + "\n")
       end
@@ -243,12 +239,8 @@ describe 'postfix-dovecot::postfix' do
 
       it 'sets vault credentials inside sasl_passwd file' do
         credentials = "#{attr_username}:#{attr_password}"
-        sasl_passwd_content = [
-          "email-smtp.us-east-1.amazonaws.com:25 #{credentials}",
-          'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25'\
-          " #{credentials}"
-
-        ].join("\n")
+        sasl_passwd_content =
+          "email-smtp.us-east-1.amazonaws.com:587 #{credentials}"
         expect(chef_run).to create_file('/etc/postfix/tables/sasl_passwd')
           .with_content(sasl_passwd_content + "\n")
       end
