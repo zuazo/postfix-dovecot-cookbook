@@ -47,17 +47,17 @@ Attributes
   <tr>
     <td><code>node['postfix-dovecot']['postmaster_address']</code></td>
     <td>Postmaster mail address.</td>
-    <td><code>"postmaster@foo.bar"</code></td>
+    <td><code>'postmaster@foo.bar'</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['hostname']</code></td>
     <td>Hostname.</td>
-    <td><code>node["fqdn"]</code></td>
+    <td><code>node['fqdn']</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['database']['type']</code></td>
-    <td>Database type. Possible values are: <code>"mysql"</code>, <code>"postgresql"</code> (Please, see <a href="#postgresql-support">below<a/>)</td>
-    <td><code>"mysql"</code></td>
+    <td>Database type. Possible values are: <code>'mysql'</code>, <code>'postgresql'</code> (Please, see <a href="#postgresql-support">below<a/>)</td>
+    <td><code>'mysql'</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['sieve']['enabled']</code></td>
@@ -67,7 +67,7 @@ Attributes
   <tr>
     <td><code>node['postfix-dovecot']['sieve']['global_path']</code></td>
     <td>Sieve global path.</td>
-    <td><code>"#{default["dovecot"]["conf_path"]}/sieve/default.sieve"</code></td>
+    <td><code>"#{default['dovecot']['conf_path']}/sieve/default.sieve"</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['spamc']['enabled']</code></td>
@@ -77,17 +77,17 @@ Attributes
   <tr>
     <td><code>node['postfix-dovecot']['spamc']['recipe']</code></td>
     <td>Spamc recipe name to use.</td>
-    <td><code>"onddo-spamassassin"</code></td>
+    <td><code>'onddo-spamassassin'</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['vmail']['user']</code></td>
     <td>Virtual mail system user name.</td>
-    <td><code>"vmail"</code></td>
+    <td><code>'vmail'</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['vmail']['group']</code></td>
     <td>Virtual mail system group name.</td>
-    <td><code>node["postfix-dovecot"]["vmail"]["user"]</code></td>
+    <td><code>node['postfix-dovecot']['vmail']['user']</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['vmail']['uid']</code></td>
@@ -97,12 +97,12 @@ Attributes
   <tr>
     <td><code>node['postfix-dovecot']['vmail']['gid']</code></td>
     <td>Virtual mail system group id.</td>
-    <td><code>node["postfix-dovecot"]["vmail"]["uid"]</code></td>
+    <td><code>node['postfix-dovecot']['vmail']['uid']</code></td>
   </tr>
   <tr>
     <td><code>node['postfix-dovecot']['vmail']['home']</code></td>
     <td>Virtual mail user home path.</td>
-    <td><code>"/var/vmail"</code></td>
+    <td><code>'/var/vmail'</code></td>
   </tr>
 </table>
 
