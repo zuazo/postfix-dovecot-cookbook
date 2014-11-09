@@ -42,6 +42,14 @@ if node['postfixadmin'] && node['postfixadmin']['map_files'] &&
   tables_path = node['postfixadmin']['map_files']['path']
 end
 
+directory tables_path do
+  recursive true
+  owner 'root'
+  group 'root'
+  mode 00755
+  action :create
+end
+
 #
 # master.cf
 #
@@ -210,24 +218,24 @@ if node['postfix-dovecot']['ses']['enabled']
   node.default['postfix']['main']['smtp_tls_note_starttls_offer'] = true
 
   node.default['postfix']['main']['smtp_sasl_password_maps'] =
-    'hash:/etc/postfix/tables/sasl_passwd'
+    "hash:#{tables_path}/sasl_passwd"
   sasl_passwd_content =
     node['postfix-dovecot']['ses']['servers'].reduce('') do |r, server|
       r + "#{server} #{ses_credentials}\n"
     end
 
-  execute 'postmap /etc/postfix/tables/sasl_passwd' do
+  execute "postmap #{tables_path}/sasl_passwd" do
     user 'root'
     group 0
     action :nothing
   end
 
-  file '/etc/postfix/tables/sasl_passwd' do
+  file "#{tables_path}/sasl_passwd" do
     owner 'root'
     group 0
     mode '00640'
     content sasl_passwd_content
-    notifies :run, 'execute[postmap /etc/postfix/tables/sasl_passwd]'
+    notifies :run, "execute[postmap #{tables_path}/sasl_passwd]"
   end
 
   node.default['postfix']['main']['smtp_tls_CAfile'] =
