@@ -16,6 +16,7 @@ end
 
 group :unit do
   gem 'chefspec', '~> 4.0'
+  gem 'chef-vault', '~> 2.3'
 end
 
 group :integration do

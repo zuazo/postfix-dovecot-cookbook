@@ -182,10 +182,20 @@ node.default['postfix']['main']['dovecot_destination_recipient_limit'] = 1
 
 # Amazon SES
 if node['postfix-dovecot']['ses']['enabled']
+  ses_credentials_hs =
+    case node['postfix-dovecot']['ses']['source']
+    when 'chef-vault', 'vault'
+      ses_vault = node['postfix-dovecot']['ses']['vault']
+      include_recipe 'chef-vault'
+      chef_vault_item(ses_vault, node['postfix-dovecot']['ses']['item'])
+    else
+      node['postfix-dovecot']['ses']
+    end
   ses_credentials = [
-    node['postfix-dovecot']['ses']['username'],
-    node['postfix-dovecot']['ses']['password']
+    ses_credentials_hs['username'],
+    ses_credentials_hs['password']
   ].join(':')
+
   node.default['postfix']['main']['relayhost'] =
     node['postfix-dovecot']['ses']['servers'][0]
   node.default['postfix']['main']['smtp_sasl_auth_enable'] = true
@@ -193,14 +203,28 @@ if node['postfix-dovecot']['ses']['enabled']
   node.default['postfix']['main']['smtp_use_tls'] = true
   node.default['postfix']['main']['smtp_tls_security_level'] = 'encrypt'
   node.default['postfix']['main']['smtp_tls_note_starttls_offer'] = true
-  # node.default['postfix']['main']['smtp_sasl_password_maps'] =
-  #   'hash:/etc/postfix/sasl_passwd'
-  node.default['postfix']['tables']['sasl_passwd']['_type'] = 'hash'
-  node.default['postfix']['tables']['sasl_passwd']['_add'] =
-    'smtp_sasl_password_maps'
-  node['postfix-dovecot']['ses']['servers'].each do |server|
-    node.default['postfix']['tables']['sasl_passwd'][server] = ses_credentials
+
+  node.default['postfix']['main']['smtp_sasl_password_maps'] =
+    'hash:/etc/postfix/tables/sasl_passwd'
+  sasl_passwd_content =
+    node['postfix-dovecot']['ses']['servers'].reduce('') do |r, server|
+      r + "#{server} #{ses_credentials}\n"
+    end
+
+  execute 'postmap /etc/postfix/tables/sasl_passwd' do
+    user 'root'
+    group 0
+    action :nothing
   end
+
+  file '/etc/postfix/tables/sasl_passwd' do
+    owner 'root'
+    group 0
+    mode '00640'
+    content sasl_passwd_content
+    notifies :run, 'execute[postmap /etc/postfix/tables/sasl_passwd]'
+  end
+
   case node['platform']
   when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon' then
     node.default['postfix']['main']['smtp_tls_CAfile'] =

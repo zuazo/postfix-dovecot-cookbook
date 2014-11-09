@@ -21,13 +21,11 @@ require 'spec_helper'
 
 describe 'postfix-dovecot::postfix' do
   let(:hostname) { 'my_hostname' }
-  let(:chef_runner) do
-    ChefSpec::Runner.new do |node|
-      node.set['postfix-dovecot']['hostname'] = hostname
-    end
-  end
+  let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
+  let(:node) { chef_runner.node }
   before do
+    node.set['postfix-dovecot']['hostname'] = hostname
     allow(::File).to receive(:exist?).and_return(false)
     allow(::File).to receive(:exist?).with('/etc/resolv.conf')
       .and_return(true)
@@ -96,5 +94,135 @@ describe 'postfix-dovecot::postfix' do
     resource = chef_run.file('/var/spool/postfix/etc/resolv.conf')
     expect(resource).to notify('service[postfix]').to(:restart)
   end
+
+  context 'with SES enabled' do
+    let(:attr_username) { 'AMAZON_SES_USERNAME_ATTR' }
+    let(:attr_password) { 'AMAZON_SES_PASSWORD_ATTR' }
+    let(:attr_credentials) do
+      {
+        'username' => attr_username,
+        'password' => attr_password
+      }
+    end
+    let(:vault_username) { 'AMAZON_SES_USERNAME_VAULT' }
+    let(:vault_password) { 'AMAZON_SES_PASSWORD_VAULT' }
+    let(:vault_credentials) do
+      {
+        'username' => vault_username,
+        'password' => vault_password
+      }
+    end
+    before do
+      node.set['postfix-dovecot']['ses']['enabled'] = true
+      node.set['postfix-dovecot']['ses']['username'] = attr_username
+      node.set['postfix-dovecot']['ses']['password'] = attr_password
+      allow(ChefVault::Item).to receive(:load).and_return(vault_credentials)
+    end
+
+    it 'does not use chef-vault by default' do
+      chef_run
+      expect(node['postfix-dovecot']['ses']['source']).to eq('attributes')
+    end
+
+    context 'with Chef Vault' do
+      before do
+        node.set['postfix-dovecot']['ses']['source'] = 'chef-vault'
+      end
+
+      it 'includes chef-vault recipe' do
+        expect(chef_run).to include_recipe('chef-vault')
+      end
+
+      it 'reads chef vault' do
+        expect(ChefVault::Item).to receive(:load)
+          .with('amazon', 'ses').once.and_return(vault_credentials)
+        chef_run
+      end
+
+      it 'creates postmap sasl_passwd resource' do
+        resource = chef_run.execute('postmap /etc/postfix/tables/sasl_passwd')
+        expect(resource).to do_nothing
+      end
+
+      it 'creates sasl_passwd file' do
+        expect(chef_run).to create_file('/etc/postfix/tables/sasl_passwd')
+          .with_owner('root')
+          .with_group(0)
+          .with_mode('00640')
+      end
+
+      it 'sets vault credentials inside sasl_passwd file' do
+        credentials = "#{vault_username}:#{vault_password}"
+        sasl_passwd_content = [
+          "email-smtp.us-east-1.amazonaws.com:25 #{credentials}",
+          'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25'\
+          " #{credentials}"
+
+        ].join("\n")
+        expect(chef_run).to create_file('/etc/postfix/tables/sasl_passwd')
+          .with_content(sasl_passwd_content + "\n")
+      end
+
+      context 'sasl_passwd file' do
+        let(:resource) { chef_run.file('/etc/postfix/tables/sasl_passwd') }
+
+        it 'notifies postmap sasl_passwd' do
+          expect(resource)
+            .to notify('execute[postmap /etc/postfix/tables/sasl_passwd]')
+            .to(:run).delayed
+        end
+      end # context sasl_passwd file
+    end # context with Chef Vault
+
+    context 'without Chef Vault' do
+      before do
+        node.set['postfix-dovecot']['ses']['source'] = 'attributes'
+      end
+
+      it 'does not include chef-vault recipe' do
+        expect(chef_run).to_not include_recipe('chef-vault')
+      end
+
+      it 'does not read the chef vault' do
+        expect(ChefVault::Item).to_not receive(:load)
+          .with('api_dev_kinton_eu', 'ses')
+        chef_run
+      end
+
+      it 'creates postmap sasl_passwd resource' do
+        resource = chef_run.execute('postmap /etc/postfix/tables/sasl_passwd')
+        expect(resource).to do_nothing
+      end
+
+      it 'creates sasl_passwd file' do
+        expect(chef_run).to create_file('/etc/postfix/tables/sasl_passwd')
+          .with_owner('root')
+          .with_group(0)
+          .with_mode('00640')
+      end
+
+      it 'sets vault credentials inside sasl_passwd file' do
+        credentials = "#{attr_username}:#{attr_password}"
+        sasl_passwd_content = [
+          "email-smtp.us-east-1.amazonaws.com:25 #{credentials}",
+          'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25'\
+          " #{credentials}"
+
+        ].join("\n")
+        expect(chef_run).to create_file('/etc/postfix/tables/sasl_passwd')
+          .with_content(sasl_passwd_content + "\n")
+      end
+
+      context 'sasl_passwd file' do
+        let(:resource) { chef_run.file('/etc/postfix/tables/sasl_passwd') }
+
+        it 'notifies postmap sasl_passwd' do
+          expect(resource)
+            .to notify('execute[postmap /etc/postfix/tables/sasl_passwd]')
+            .to(:run).delayed
+        end
+      end # context sasl_passwd file
+    end # context without Chef Vault
+  end # context with SES enabled
 
 end

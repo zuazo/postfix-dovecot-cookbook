@@ -1,6 +1,9 @@
 # encoding: UTF-8
 
 default['postfix-dovecot']['ses']['enabled'] = false
+default['postfix-dovecot']['ses']['source'] = 'attributes'
+default['postfix-dovecot']['ses']['vault'] = 'amazon'
+default['postfix-dovecot']['ses']['item'] = 'ses'
 default['postfix-dovecot']['ses']['username'] = 'USERNAME'
 default['postfix-dovecot']['ses']['password'] = 'PASSWORD'
 default['postfix-dovecot']['ses']['servers'] = %w(

@@ -26,6 +26,7 @@ recipe 'postfix-dovecot::postfix_postgresql',
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
+depends 'chef-vault', '~> 1.1'
 depends 'dovecot', '~> 2.0'
 depends 'onddo-spamassassin', '~> 0.2'
 depends 'postfixadmin', '~> 1.0'
@@ -144,6 +145,38 @@ attribute 'postfix-dovecot/ses/enabled',
           required: 'recommended',
           default: 'false'
 
+attribute 'postfix-dovecot/ses/source',
+          display_name: 'ses credentials source',
+          description: 'Where to read the credentials from.',
+          type: 'string',
+          choice: %w("attributes" "chef-vault"),
+          required: 'recommended',
+          default: '"attributes"'
+
+attribute 'postfix-dovecot/ses/vault',
+          display_name: 'ses credentials vault',
+          description: 'Chef Vault bag to read SES credentials from.',
+          type: 'string',
+          required: 'recommended',
+          default: '"amazon"'
+
+attribute 'postfix-dovecot/ses/item',
+          display_name: 'ses credentials vault item',
+          description: 'Chef Vault item.',
+          type: 'string',
+          required: 'recommended',
+          default: '"ses"'
+
+attribute 'postfix-dovecot/ses/servers',
+          display_name: 'ses password',
+          description: 'Amazon SES SMTP servers.',
+          type: 'array',
+          required: 'optional',
+          default: "[
+            'email-smtp.us-east-1.amazonaws.com:25',
+            'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
+          ]"
+
 attribute 'postfix-dovecot/ses/username',
           display_name: 'ses username',
           description: 'Amazon SES SMTP username.',
@@ -157,16 +190,6 @@ attribute 'postfix-dovecot/ses/password',
           type: 'string',
           required: 'recommended',
           default: '"PASSWORD"'
-
-attribute 'postfix-dovecot/ses/servers',
-          display_name: 'ses password',
-          description: 'Amazon SES SMTP servers.',
-          type: 'array',
-          required: 'optional',
-          default: "[
-            'email-smtp.us-east-1.amazonaws.com:25',
-            'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
-          ]"
 
 attribute 'postfix-dovecot/yum',
           display_name: 'yum repositories',

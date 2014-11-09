@@ -104,30 +104,34 @@ Attributes
     <td>Virtual mail user home path.</td>
     <td><code>"/var/vmail"</code></td>
   </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['ses']['enabled']</code></td>
-    <td>Whether to enable <a href="http://aws.amazon.com/ses/">Amazon SES</a>.</td>
-    <td><code>false</code></td>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['ses']['username']</code></td>
-    <td>Amazon SES SMTP username. See the <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html"><em>Obtaining Your Amazon SES SMTP Credentials</em> documentation</a>.</td>
-    <td><code>"USERNAME"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['ses']['password']</code></td>
-    <td>Amazon SES SMTP password.</td>
-    <td><code>"PASSWORD"</code></td>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['ses']['servers']</code></td>
-    <td>Amazon SES SMTP servers.</td>
-    <td><code>[<br/>
-      &nbsp;&nbsp;'email-smtp.us-east-1.amazonaws.com:25',<br/>
-      &nbsp;&nbsp;'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25'<br/>
-    ]</code></td>
-  </tr>
 </table>
+
+## Amazon SES Attributes
+
+You can use `node['postfix-dovecot']['ses']['enabled']` to enable SES for sending emails.
+
+| Attribute                                    | Default        | Description                       |
+|:---------------------------------------------|:---------------|:----------------------------------|
+| `node['postfix-dovecot']['ses']['enabled']`  | `false`        | Whether to enable [Amazon SES](http://aws.amazon.com/ses/).
+| `node['postfix-dovecot']['ses']['source']`   | `'attributes'` | Where to read the credentials from. Possible values: `'attributes'`,  `'chef-vault'`.
+| `node['postfix-dovecot']['ses']['vault']`    | `'amazon'`     | Chef Vault bag to read SES credentials from.
+| `node['postfix-dovecot']['ses']['item']`     | `'ses'`        | Chef Vault item.
+| `node['postfix-dovecot']['ses']['servers']`  | *calcualted*   | Amazon SES SMTP servers array.
+| `node['postfix-dovecot']['ses']['username']` | `'USERNAME'`   | SES SMTP username. See [Obtaining Your Amazon SES SMTP Credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html) documentation.
+| `node['postfix-dovecot']['ses']['password']` | `'PASSWORD'`   | Amazon SES SMTP password.
+
+When Chef Vault is disabled in `node['postfix-dovecot']['ses']['source']`, this is the default behavior, the credentials are read from `['username']` and `['password']` attributes.
+
+When credentials should be read using `chef-vault`, the Chef Vault bag must have the following estructure:
+
+```json
+{
+  "username": "AMAZON_USERNAME",
+  "password": "AMAZON_PASSWORD"
+}
+```
+
+See the [Chef-Vault documentation](https://github.com/Nordstrom/chef-vault/blob/master/README.md) to learn how to create chef-vault bags.
 
 ## The HTTPS Certificate
 
