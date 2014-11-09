@@ -173,20 +173,6 @@ Don't forget to include the `postfix-dovecot` cookbook as a dependency in the me
 depends 'postfix-dovecot'
 ```
 
-## Enabling Some RBLs
-
-You can enable some [RBLs](http://en.wikipedia.org/wiki/DNSBL) to avoid spam:
-
-```ruby
-node.default['postfix-dovecot']['rbls'] = %w(
-  dnsbl.sorbs.net
-  zen.spamhaus.org
-  bl.spamcop.net
-  cbl.abuseat.org
-)
-include_recipe 'postfix-dovecot::default'
-```
-
 ## Including in the Run List
 
 Another alternative is to include the default recipe in your *Run List*.
@@ -200,6 +186,20 @@ Another alternative is to include the default recipe in your *Run List*.
     "recipe[postfix-dovecot]"
   ]
 }
+```
+
+## Enabling Some RBLs
+
+You can enable some [RBLs](http://en.wikipedia.org/wiki/DNSBL) to avoid spam:
+
+```ruby
+node.default['postfix-dovecot']['rbls'] = %w(
+  dnsbl.sorbs.net
+  zen.spamhaus.org
+  bl.spamcop.net
+  cbl.abuseat.org
+)
+include_recipe 'postfix-dovecot::default'
 ```
 
 PostgreSQL Support
