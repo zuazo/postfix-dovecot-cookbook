@@ -127,8 +127,8 @@ Installs and configures PostfixAdmin.
 
 Installs and configures Dovecot 2.
 
-Usage Example
-=============
+Usage Examples
+==============
 
 ## Including in a Cookbook Recipe
 
