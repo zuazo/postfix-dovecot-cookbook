@@ -42,6 +42,7 @@ Attributes
 |:--------------------------------------------------|:-----------------------|:----------------------------------|
 | `node['postfix-dovecot']['postmaster_address']`   | `'postmaster@foo.bar'` | Postmaster mail address.
 | `node['postfix-dovecot']['hostname']`             | `node['fqdn']`         | Hostname.
+| `node['postfix-dovecot']['rbls']`                 | `[]`                   | Mail RBLs array.
 | `node['postfix-dovecot']['database']['type']`     | `'mysql'`              | Database type. Possible values are: `'mysql'`, `'postgresql'` (Please, see [below](#postgresql-support)).
 | `node['postfix-dovecot']['sieve']['enabled']`     | `true`                 | Whether to enable sieve.
 | `node['postfix-dovecot']['sieve']['global_path']` | `"#{default['dovecot']['conf_path']}/sieve/default.sieve"` | Sieve global path.
@@ -169,6 +170,20 @@ Don't forget to include the `postfix-dovecot` cookbook as a dependency in the me
 [...]
 
 depends 'postfix-dovecot'
+```
+
+## Enabling Some RBLs
+
+You can enable some [RBLs](http://en.wikipedia.org/wiki/DNSBL) to avoid spam:
+
+```ruby
+node.default['postfix-dovecot']['rbls'] = %w(
+  dnsbl.sorbs.net
+  zen.spamhaus.org
+  bl.spamcop.net
+  cbl.abuseat.org
+)
+include_recipe 'postfix-dovecot::default'
 ```
 
 ## Including in the Run List

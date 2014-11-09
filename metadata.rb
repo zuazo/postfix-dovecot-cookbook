@@ -59,6 +59,13 @@ attribute 'postfix-dovecot/postmaster_address',
           required: 'recommended',
           default: '"postmaster@foo.bar"'
 
+attribute 'postfix-dovecot/rbls',
+          display_name: 'postfix rbls',
+          description: 'Mail RBLs array.',
+          type: 'array',
+          required: 'recommended',
+          default: []
+
 attribute 'postfix-dovecot/hostname',
           display_name: 'hostname',
           description: 'Hostname.',

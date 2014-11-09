@@ -109,6 +109,24 @@ describe 'postfix-dovecot::postfix' do
     expect(resource).to notify('service[postfix]').to(:restart)
   end
 
+  context 'with RBLs' do
+    before do
+      node.set['postfix-dovecot']['rbls'] = %w(
+        dnsbl.sorbs.net
+        zen.spamhaus.org
+        bl.spamcop.net
+        cbl.abuseat.org
+      )
+    end
+
+    it 'adds blacklists to the smtpd_recipient_restrictions' do
+      chef_run
+      expect(node['postfix']['main']['smtpd_recipient_restrictions'])
+        .to match(/, reject_rbl_client zen\.spamhaus\.org,/)
+    end
+
+  end
+
   context 'with SES enabled' do
     let(:attr_username) { 'AMAZON_SES_USERNAME_ATTR' }
     let(:attr_password) { 'AMAZON_SES_PASSWORD_ATTR' }

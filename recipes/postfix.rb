@@ -126,7 +126,7 @@ node.default['postfix']['main']['smtpd_helo_restrictions'] = %w(
   reject_invalid_hostname
   permit
 )
-node.default['postfix']['main']['smtpd_recipient_restrictions'] = %w(
+smtpd_recipient_restrictions = %w(
   permit_mynetworks
   permit_sasl_authenticated
   reject_invalid_hostname
@@ -135,8 +135,12 @@ node.default['postfix']['main']['smtpd_recipient_restrictions'] = %w(
   reject_unknown_recipient_domain
   reject_unauth_pipelining
   reject_unauth_destination
-  permit
 )
+smtpd_recipient_restrictions +=
+  node['postfix-dovecot']['rbls'].map { |rbl| "reject_rbl_client #{rbl}" }
+smtpd_recipient_restrictions << 'permit'
+node.default['postfix']['main']['smtpd_recipient_restrictions'] =
+  smtpd_recipient_restrictions
 
 # TLS parameters
 node.default_unless['postfix-dovecot']['common_name'] =
