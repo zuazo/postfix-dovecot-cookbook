@@ -273,6 +273,16 @@ describe 'postfix-dovecot::postfix_postgresql' do
         chef_run
       end
 
+      it 'creates /root/rpmbuild/SRPMS directory' do
+        expect(chef_run).to create_directory('/root/rpmbuild/SRPMS')
+          .with_recursive(true)
+      end
+
+      it 'links SRPM to /usr/src/srpm/debug/' do
+        expect(chef_run).to create_link("/root/rpmbuild/SRPMS/#{srpm}")
+          .with_to("/usr/src/srpm/debug/#{srpm}")
+      end
+
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc

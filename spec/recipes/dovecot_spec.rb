@@ -27,6 +27,11 @@ describe 'postfix-dovecot::dovecot' do
     expect(chef_run).to include_recipe('dovecot')
   end
 
+  it 'creates sievec resource' do
+    resource = chef_run.execute('sievec sieve_global_path')
+    expect(resource).to do_nothing
+  end
+
   it 'creates sieve_global_dir directory' do
     expect(chef_run).to create_directory('/etc/dovecot/sieve')
       .with_owner('root')

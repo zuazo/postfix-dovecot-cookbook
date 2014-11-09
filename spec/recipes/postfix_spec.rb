@@ -24,13 +24,25 @@ describe 'postfix-dovecot::postfix' do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
+  chroot_files = %w(
+    etc/resolv.conf
+    etc/localtime
+    etc/services
+    etc/resolv.conf
+    etc/hosts
+    etc/nsswitch.conf
+    etc/nss_mdns.config
+  )
   before do
     node.set['postfix-dovecot']['hostname'] = hostname
-    allow(::File).to receive(:exist?).and_return(false)
-    allow(::File).to receive(:exist?).with('/etc/resolv.conf')
-      .and_return(true)
-    allow(::IO).to receive(:read?).with('/etc/resolv.conf')
-      .and_return('OK')
+    allow(::File).to receive(:exist?).and_call_original
+    allow(::IO).to receive(:read).and_call_original
+    chroot_files.each do |chroot_file|
+      allow(::File).to receive(:exist?).with("/#{chroot_file}")
+        .and_return(true)
+      allow(::IO).to receive(:read).with("/#{chroot_file}")
+        .and_return("content:#{chroot_file}")
+    end
   end
 
   it 'removes sendmail package' do
@@ -83,12 +95,14 @@ describe 'postfix-dovecot::postfix' do
       .with_mode('0755')
   end
 
-  it 'creates chroot etc/resolv.conf file' do
-    expect(chef_run).to create_file('/var/spool/postfix/etc/resolv.conf')
-      .with_user('root')
-      .with_group('root')
-      .with_mode('0644')
-  end
+  chroot_files.each do |chroot_file|
+    it "creates chroot #{chroot_file} file" do
+      expect(chef_run).to create_file("/var/spool/postfix/#{chroot_file}")
+        .with_user('root')
+        .with_group('root')
+        .with_mode('0644')
+    end
+  end # each chroot_file
 
   it 'etc/resolv.conf creation notifies postfix restart' do
     resource = chef_run.file('/var/spool/postfix/etc/resolv.conf')
