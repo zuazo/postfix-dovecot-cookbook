@@ -226,20 +226,18 @@ if node['postfix-dovecot']['ses']['enabled']
     notifies :run, 'execute[postmap /etc/postfix/tables/sasl_passwd]'
   end
 
-  case node['platform']
-  when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon' then
-    node.default['postfix']['main']['smtp_tls_CAfile'] =
+  node.default['postfix']['main']['smtp_tls_CAfile'] =
+    case node['platform']
+    when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon' then
       '/etc/ssl/certs/ca-bundle.crt'
-  when 'debian', 'ubuntu' then
-    node.default['postfix']['main']['smtp_tls_CAfile'] =
+    when 'debian', 'ubuntu' then
       '/etc/ssl/certs/ca-certificates.crt'
-  else
-    Chef::Log.warn("Unsupported platform: #{node['platform']}, trying to "\
-      'guess CA certificates file location'
-    )
-    node.default['postfix']['main']['smtp_tls_CAfile'] =
+    else
+      Chef::Log.warn("Unsupported platform: #{node['platform']}, trying to "\
+        'guess CA certificates file location'
+      )
       '/etc/ssl/certs/ca-certificates.crt'
-  end
+    end
 end
 
 node['postfix']['main'].each do |key, value|
