@@ -65,13 +65,13 @@ You can use `node['postfix-dovecot']['ses']['enabled']` to enable SES for sendin
 | `node['postfix-dovecot']['ses']['vault']`    | `'amazon'`     | Chef Vault bag to read SES credentials from.
 | `node['postfix-dovecot']['ses']['item']`     | `'ses'`        | Chef Vault item.
 | `node['postfix-dovecot']['ses']['region']`   | `'us-east-1'`  | Amazon AWS region, used to calculate the servers.
-| `node['postfix-dovecot']['ses']['servers']`  | *calcualted*   | Amazon SES SMTP servers array.
+| `node['postfix-dovecot']['ses']['servers']`  | *calculated*   | Amazon SES SMTP servers array.
 | `node['postfix-dovecot']['ses']['username']` | `'USERNAME'`   | SES SMTP username. See [Obtaining Your Amazon SES SMTP Credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html) documentation.
 | `node['postfix-dovecot']['ses']['password']` | `'PASSWORD'`   | Amazon SES SMTP password.
 
 When Chef Vault is disabled in `node['postfix-dovecot']['ses']['source']`, this is the default behavior, the credentials are read from `['username']` and `['password']` attributes.
 
-When credentials should be read using `chef-vault`, the Chef Vault bag must have the following estructure:
+When credentials should be read using `chef-vault`, the Chef Vault bag must have the following structure:
 
 ```json
 {
@@ -224,7 +224,7 @@ include_recipe 'postfix-dovecot'
 
 ## PostgreSQL Support on CentOS and Fedora
 
-Tha lastest CentOS and Fedora versions come without PostgreSQL support in their Postfix package. So we need to recompile it using the SRPM, enabling the PostgreSQL support.
+The latest CentOS and Fedora versions come without PostgreSQL support in their Postfix package. So we need to recompile it using the SRPM, enabling the PostgreSQL support.
 
 The `postfix-dovecot::postfix_postgresql` recipe takes care of it transparently. This recipe has been tested using `test-kitchen`, but it may not work for all cases. This code has been tested in the following platforms:
 
