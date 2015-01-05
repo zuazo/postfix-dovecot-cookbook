@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe 'postfix-dovecot::postfix_full' do
-  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
 
   it 'prints a deprecation notice' do
     allow(Chef::Log).to receive(:warn)

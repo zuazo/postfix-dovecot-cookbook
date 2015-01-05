@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe 'postfix-dovecot::postfix_mysql' do
-  let(:chef_runner) { ChefSpec::Runner.new }
+  let(:chef_runner) { ChefSpec::ServerRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
 
   it 'installs postfix package' do

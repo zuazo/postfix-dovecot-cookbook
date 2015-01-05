@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe 'postfix-dovecot::vmail' do
-  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
 
   it 'creates vmail user' do
     expect(chef_run).to create_user('vmail')
