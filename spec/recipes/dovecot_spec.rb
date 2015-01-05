@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,10 @@ require 'spec_helper'
 describe 'postfix-dovecot::dovecot' do
   let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
   before { allow(::File).to receive(:exist?).and_return(false) }
+
+  it 'generates SMTP SSL certificate' do
+    expect(chef_run).to create_ssl_certificate('dovecot')
+  end
 
   it 'includes dovecot recipe' do
     expect(chef_run).to include_recipe('dovecot')

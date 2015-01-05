@@ -82,14 +82,16 @@ When credentials should be read using `chef-vault`, the Chef Vault bag must have
 
 See the [Chef-Vault documentation](https://github.com/Nordstrom/chef-vault/blob/master/README.md) to learn how to create chef-vault bags.
 
-## The HTTPS Certificate
+## The SSL Certificate
 
-This cookbook uses the [`ssl_certificate`](https://supermarket.getchef.com/cookbooks/ssl_certificate) cookbook to create the HTTPS certificate. The namespace used is `node['postfix-dovecot']`. For example:
+This cookbook uses the [`ssl_certificate`](https://supermarket.getchef.com/cookbooks/ssl_certificate) cookbook to create the SSL certificate. The namespace used is `node['postfix-dovecot']`. For example:
 
 ```ruby
 node.default['postfix-dovecot']['common_name'] = 'mail.example.com'
 include_recipe 'postfix-dovecot'
 ```
+
+This certificate is used for Postfix and Dovecot. For PostfixAdmin, you should use the `node['postfixadmin']` namespace.
 
 See the [`ssl_certificate` namespace documentation](https://supermarket.getchef.com/cookbooks/ssl_certificate#namespaces) for more information.
 
@@ -303,7 +305,7 @@ License and Author
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@onddo.com>)
-| **Copyright:**       | Copyright (c) 2013-2014 Onddo Labs, SL. (www.onddo.com)
+| **Copyright:**       | Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
     Licensed under the Apache License, Version 2.0 (the "License");

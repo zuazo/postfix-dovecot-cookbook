@@ -3,7 +3,7 @@
 # Cookbook Name:: postfix-dovecot
 # Recipe:: dovecot
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -71,6 +71,14 @@ node.default['dovecot']['services']['auth']['listeners'] = [
     }
   }
 ]
+
+# 10-ssl.conf
+cert = ssl_certificate 'dovecot' do
+  namespace node['postfix-dovecot']
+  notifies :restart, 'service[dovecot]'
+end
+node.default['dovecot']['conf']['ssl_cert'] = "<#{cert.chain_combined_path}"
+node.default['dovecot']['conf']['ssl_key'] = "<#{cert.key_path}"
 
 # 15-lda.conf
 node.default['dovecot']['conf']['postmaster_address'] =

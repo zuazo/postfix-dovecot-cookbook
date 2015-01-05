@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,8 @@ require 'spec_helper'
 
 describe 'postfix-dovecot::postfix_postgresql' do
   let(:chef_runner) { ChefSpec::Runner.new }
-  let(:node) { chef_runner.node }
   let(:chef_run) { chef_runner.converge(described_recipe) }
+  let(:node) { chef_runner.node }
   let(:buildroot) { '/root/rpmbuild' }
 
   context 'with RPM platforms' do

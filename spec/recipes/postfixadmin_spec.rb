@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,20 +24,22 @@ describe 'postfix-dovecot::postfixadmin' do
   let(:db_type) { 'postgresql' }
   let(:db_name) { 'postfixadmin_db' }
   let(:db_password) { 'postfixadmin_pass' }
-  let(:chef_run) do
-    ChefSpec::Runner.new do |node|
-      node.set['postfix-dovecot']['hostname'] = hostname
-      node.set['postfix-dovecot']['database']['type'] = db_type
-      node.set['postfixadmin']['database']['name'] = db_name
-      node.set['postgresql']['password']['postgres'] = db_password
-    end.converge(described_recipe)
-  end
+  let(:chef_runner) { ChefSpec::Runner.new }
+  let(:chef_run) { chef_runner.converge(described_recipe) }
+  let(:node) { chef_runner.node }
   before do
+    node.set['postfix-dovecot']['hostname'] = hostname
+    node.set['postfix-dovecot']['database']['type'] = db_type
+    node.set['postfixadmin']['database']['name'] = db_name
+    node.set['postgresql']['password']['postgres'] = db_password
+
     stub_command('/usr/sbin/apache2 -t').and_return(true)
     stub_command(
       "psql -c 'SELECT lanname FROM pg_catalog.pg_language' #{db_name} "\
       "| grep '^ plpgsql$'"
     ).and_return(false)
+    stub_command('ls /var/lib/postgresql/9.1/main/recovery.conf')
+      .and_return(true)
   end
 
   it 'sets node["postfixadmin"]["server_name"] attribute' do
