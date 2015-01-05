@@ -36,5 +36,4 @@ describe 'postfix-dovecot::default' do
       expect(chef_run).to include_recipe(recipe)
     end
   end
-
 end

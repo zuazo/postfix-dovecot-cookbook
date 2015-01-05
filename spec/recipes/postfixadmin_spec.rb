@@ -61,5 +61,4 @@ describe 'postfix-dovecot::postfixadmin' do
   it 'includes postfixadmin::map_files recipe' do
     expect(chef_run).to include_recipe('postfixadmin::map_files')
   end
-
 end

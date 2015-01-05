@@ -125,8 +125,6 @@ db_type =
     'mysql'
   when 'postgresql'
     'pgsql'
-  else
-    nil
   end
 node.default['dovecot']['conf']['sql']['driver'] = db_type
 node.default['dovecot']['conf']['sql']['connect'] = [

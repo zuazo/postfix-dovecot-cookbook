@@ -31,8 +31,6 @@ db_type =
   when 'postgresql'
     include_recipe 'postfix-dovecot::postfix_postgresql'
     'pgsql'
-  else
-    nil
   end
 
 tables_path = "#{node['postfix']['base_dir']}/tables"

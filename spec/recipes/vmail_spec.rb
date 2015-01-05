@@ -39,5 +39,4 @@ describe 'postfix-dovecot::vmail' do
       .with_system(true)
       .with_append(true)
   end
-
 end

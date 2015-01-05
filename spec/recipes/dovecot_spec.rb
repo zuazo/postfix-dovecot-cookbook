@@ -56,5 +56,4 @@ describe 'postfix-dovecot::dovecot' do
     expect(resource).to notify('execute[sievec sieve_global_path]')
       .to(:run).delayed
   end
-
 end

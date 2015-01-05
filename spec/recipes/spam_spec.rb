@@ -40,5 +40,4 @@ describe 'postfix-dovecot::spam' do
       expect(chef_run).to include_recipe('onddo-spamassassin')
     end
   end
-
 end

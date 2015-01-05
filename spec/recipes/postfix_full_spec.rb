@@ -31,5 +31,4 @@ describe 'postfix-dovecot::postfix_full' do
   it 'includes postfix-dovecot::postfix recipe' do
     expect(chef_run).to include_recipe('postfix-dovecot::postfix')
   end
-
 end

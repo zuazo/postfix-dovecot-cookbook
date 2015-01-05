@@ -46,5 +46,4 @@ describe 'postfix-dovecot::postfix_mysql' do
       expect(chef_run).to install_package('postfix-mysql')
     end
   end
-
 end

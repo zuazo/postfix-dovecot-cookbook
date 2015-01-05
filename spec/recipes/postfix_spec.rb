@@ -132,7 +132,6 @@ describe 'postfix-dovecot::postfix' do
       expect(node['postfix']['main']['smtpd_recipient_restrictions'])
         .to match(/, reject_rbl_client zen\.spamhaus\.org,/)
     end
-
   end
 
   context 'with SES enabled' do
@@ -256,5 +255,4 @@ describe 'postfix-dovecot::postfix' do
       end # context sasl_passwd file
     end # context without Chef Vault
   end # context with SES enabled
-
 end

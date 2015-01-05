@@ -11,7 +11,6 @@
 
 group :style,
       halt_on_fail: true do
-
   guard :foodcritic,
         cli: '--exclude spec',
         cookbook_paths: '.',
@@ -40,7 +39,6 @@ group :style,
     watch('Cheffile')
     watch('Vagabondfile')
   end
-
 end # group style
 
 # Unit Tests
@@ -52,7 +50,6 @@ end # group style
 # - spec/resources/${resource}_spec.rb: ChefSpec tests for resources.
 
 group :unit do
-
   guard :rspec,
         cmd: 'bundle exec rspec',
         all_on_start: false do
@@ -70,7 +67,6 @@ group :unit do
     watch(/^spec\/.+_spec\.rb$/)
     watch('spec/spec_helper.rb') { 'spec' }
   end
-
 end # group unit
 
 # Integration Tests
@@ -78,7 +74,6 @@ end # group unit
 # - test-kitchen
 
 group :integration do
-
   guard 'kitchen',
         all_on_start: false do
     watch(/attributes\/.+\.rb$/)
@@ -93,7 +88,6 @@ group :integration do
     watch(/test\/.+$/)
     watch('Berksfile')
   end
-
 end # group integration
 
 scope groups: [:style, :unit]

@@ -87,8 +87,8 @@ describe 'postfix-dovecot::postfix_postgresql' do
         [/\.src\./, '.x86_64.']
     }.each do |rpm, rpm_regexp|
       it "returns #{rpm} using #{rpm_regexp} RPM regexp" do
-        chef_runner.node
-          .set['postfix-dovecot']['postfix']['srpm']['rpm_regexp'] = rpm_regexp
+        node.set['postfix-dovecot']['postfix']['srpm']['rpm_regexp'] =
+          rpm_regexp
         expect(chef_run).to run_execute('install postfix from SRPM')
           .with_command(
             "rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'"
@@ -307,13 +307,10 @@ describe 'postfix-dovecot::postfix_postgresql' do
           )
       end
     end # context on Amazon
-
   end # context on RPM platforms
 
   context 'with APT platforms' do
-    before do
-      chef_runner.node.automatic['platform'] = 'ubuntu'
-    end
+    before { node.automatic['platform'] = 'ubuntu' }
 
     it 'installs postfix package' do
       expect(chef_run).to install_package('postfix')
@@ -325,14 +322,10 @@ describe 'postfix-dovecot::postfix_postgresql' do
   end
 
   context 'with Unknown platforms' do
-    before do
-      chef_runner.node.automatic['platform'] = 'unknown'
-    end
+    before { node.automatic['platform'] = 'unknown' }
 
     it 'installs postfix package' do
       expect(chef_run).to install_package('postfix')
     end
-
   end # context on APT platforms
-
 end

@@ -23,7 +23,6 @@ describe 'postfix-dovecot::default' do
   include Helpers::PostfixDovecotTest
 
   describe 'postfix' do
-
     it 'postfix should be running' do
       service('postfix').must_be_running
     end
@@ -34,7 +33,6 @@ describe 'postfix-dovecot::default' do
         node['postfix-dovecot']['ses']['email'], 'blackhole@zuazo.org'
       )
     end
-
   end
 
   describe 'dovecot' do
@@ -42,5 +40,4 @@ describe 'postfix-dovecot::default' do
       service('dovecot').must_be_running
     end
   end
-
 end
