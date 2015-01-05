@@ -1,7 +1,8 @@
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1.0
+  - 2.1
+sudo: false
 bundler_args: --without integration integration_cloud guard
 script:
   - bundle exec rake travis:ci
