@@ -157,7 +157,8 @@ cert = ssl_certificate 'postfix' do
   namespace node['postfix-dovecot']
   notifies :restart, 'service[postfix]'
 end
-node.default['postfix']['main']['smtpd_tls_cert_file'] = cert.cert_path
+node.default['postfix']['main']['smtpd_tls_cert_file'] =
+  cert.chain_combined_path
 node.default['postfix']['main']['smtpd_tls_key_file'] = cert.key_path
 node.default['postfix']['main']['smtpd_use_tls'] = true
 node.default['postfix']['main']['smtpd_tls_session_cache_database'] =

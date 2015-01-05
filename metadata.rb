@@ -49,7 +49,7 @@ depends 'dovecot', '~> 2.0'
 depends 'onddo-spamassassin', '~> 0.2'
 depends 'postfixadmin', '~> 1.0'
 depends 'postfix-full', '~> 0.1'
-depends 'ssl_certificate', '~> 0.2'
+depends 'ssl_certificate', '~> 1.1'
 depends 'yum', '~> 3.0'
 
 attribute 'postfix-dovecot/postmaster_address',
