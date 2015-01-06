@@ -18,6 +18,14 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
   lsof -itcp:'465' -a -c'master'
 }
 
+@test "connects to smtp SSL" {
+  echo | openssl s_client -connect 127.0.0.1:465
+}
+
+@test "connects to smtp with starttls" {
+  echo | openssl s_client -starttls smtp -connect 127.0.0.1:smtp
+}
+
 @test "master is listening on submission" {
   lsof -itcp:'submission' -a -c'master'
 }

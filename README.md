@@ -93,6 +93,14 @@ include_recipe 'postfix-dovecot'
 
 This certificate is used for Postfix and Dovecot. For PostfixAdmin, you should use the `node['postfixadmin']` namespace.
 
+You can also tweak the supported SSL ciphers [setting the `node['ssl_certificate']['service']['compatibility']` attribute](https://github.com/onddo/ssl_certificate-cookbook#securing-server-side-tls):
+
+```ruby
+node.default['ssl_certificate']['service']['compatibility'] = :modern
+
+include_recipe 'postfix-dovecot'
+```
+
 See the [`ssl_certificate` namespace documentation](https://supermarket.getchef.com/cookbooks/ssl_certificate#namespaces) for more information.
 
 Recipes

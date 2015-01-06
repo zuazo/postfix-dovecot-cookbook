@@ -173,9 +173,15 @@ node.default['dovecot']['conf']['sql']['iterate_query'] = [
   'FROM mailbox WHERE active = \'1\''
 ]
 
+# 10-ssl.conf (1/2)
+self.class.send(:include, Chef::SslCertificateCookbook::ServiceHelpers)
+@ssl_config = ssl_config_for_service('dovecot')
+node.default['dovecot']['conf']['ssl_protocols'] = @ssl_config['protocols']
+node.default['dovecot']['conf']['ssl_cipher_list'] = @ssl_config['cipher_suite']
+
 include_recipe 'dovecot'
 
-# 10-ssl.conf
+# 10-ssl.conf (2/2)
 cert = ssl_certificate 'dovecot' do
   namespace node['postfix-dovecot']
   notifies :restart, 'service[dovecot]'

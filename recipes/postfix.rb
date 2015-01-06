@@ -163,6 +163,11 @@ node.default['postfix']['main']['smtpd_tls_session_cache_database'] =
   'btree:${data_directory}/smtpd_scache'
 node.default['postfix']['main']['smtp_tls_session_cache_database'] =
   'btree:${data_directory}/smtp_scache'
+self.class.send(:include, Chef::SslCertificateCookbook::ServiceHelpers)
+@ssl_config = ssl_config_for_service('postfix')
+node.default['postfix']['main']['smtpd_tls_mandatory_ciphers'] = 'high'
+node.default['postfix']['main']['smtpd_tls_mandatory_protocols'] =
+  @ssl_config['protocols']
 
 # SASL authentication
 node.default['postfix']['main']['smtpd_sasl_auth_enable'] = true
