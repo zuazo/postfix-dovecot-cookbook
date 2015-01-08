@@ -24,7 +24,7 @@ describe 'postfix-dovecot::dovecot' do
   before { allow(::File).to receive(:exist?).and_return(false) }
 
   it 'generates SMTP SSL certificate' do
-    expect(chef_run).to create_ssl_certificate('dovecot')
+    expect(chef_run).to create_ssl_certificate('dovecot2')
   end
 
   it 'includes dovecot recipe' do
