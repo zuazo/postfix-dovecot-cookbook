@@ -173,21 +173,19 @@ node.default['dovecot']['conf']['sql']['iterate_query'] = [
   'FROM mailbox WHERE active = \'1\''
 ]
 
-# 10-ssl.conf (1/2)
+# 10-ssl.conf
 self.class.send(:include, Chef::SslCertificateCookbook::ServiceHelpers)
 @ssl_config = ssl_config_for_service('dovecot')
 node.default['dovecot']['conf']['ssl_protocols'] = @ssl_config['protocols']
 node.default['dovecot']['conf']['ssl_cipher_list'] = @ssl_config['cipher_suite']
-
-include_recipe 'dovecot'
-
-# 10-ssl.conf (2/2)
-cert = ssl_certificate 'dovecot' do
+cert = ssl_certificate 'dovecot2' do
   namespace node['postfix-dovecot']
   notifies :restart, 'service[dovecot]'
 end
 node.default['dovecot']['conf']['ssl_cert'] = "<#{cert.chain_combined_path}"
 node.default['dovecot']['conf']['ssl_key'] = "<#{cert.key_path}"
+
+include_recipe 'dovecot'
 
 # this should go after installing dovecot, sievec is required
 execute 'sievec sieve_global_path' do

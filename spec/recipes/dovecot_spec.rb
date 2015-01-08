@@ -23,12 +23,12 @@ describe 'postfix-dovecot::dovecot' do
   let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
   before { allow(::File).to receive(:exist?).and_return(false) }
 
-  it 'includes dovecot recipe' do
-    expect(chef_run).to include_recipe('dovecot')
-  end
-
   it 'generates SMTP SSL certificate' do
     expect(chef_run).to create_ssl_certificate('dovecot')
+  end
+
+  it 'includes dovecot recipe' do
+    expect(chef_run).to include_recipe('dovecot')
   end
 
   it 'creates sievec resource' do
