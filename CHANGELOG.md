@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of `postfix-dovecot`.
 
+## v1.2.0 (2015-01-09)
+
+* Add Dovecot SSL certificate generation.
+* Integrate with `ssl_certificate` cookbook version `1.2`.
+* metadata: Fix attributes default types.
+* Gemfile: Update RuboCop to `0.28.0`.
+* README: Fix some typos and update Supermarket links.
+
 ## v1.1.0 (2014-11-09)
 
 * Add RBL support.
