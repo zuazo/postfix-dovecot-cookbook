@@ -57,7 +57,7 @@ attribute 'postfix-dovecot/postmaster_address',
           description: 'Postmaster mail address.',
           type: 'string',
           required: 'recommended',
-          default: '"postmaster@foo.bar"'
+          default: 'postmaster@foo.bar'
 
 attribute 'postfix-dovecot/rbls',
           display_name: 'postfix rbls',
@@ -71,7 +71,7 @@ attribute 'postfix-dovecot/hostname',
           description: 'Hostname.',
           type: 'string',
           required: 'recommended',
-          default: 'node["fqdn"]'
+          calculated: true
 
 grouping 'postfix-dovecot/database',
          title: 'postfix database',
@@ -80,10 +80,10 @@ grouping 'postfix-dovecot/database',
 attribute 'postfix-dovecot/database/type',
           display_name: 'postfix database type',
           description: 'Postfix database type.',
-          choice: %w("mysql" "postgresql"),
+          choice: %w(mysql postgresql),
           type: 'string',
           required: 'optional',
-          default: '"mysql"'
+          default: 'mysql'
 
 grouping 'postfix-dovecot/sieve',
          title: 'sieve configuration',
@@ -102,7 +102,7 @@ attribute 'postfix-dovecot/sieve/global_path',
           description: 'Sieve global path.',
           type: 'string',
           required: 'optional',
-          default: '"#{default["dovecot"]["conf_path"]}/sieve/default.sieve"'
+          calculated: true
 
 grouping 'postfix-dovecot/spamc',
          title: 'spamc configuration',
@@ -121,7 +121,7 @@ attribute 'postfix-dovecot/spamc/recipe',
           description: 'Spamc recipe name to use.',
           type: 'string',
           required: 'optional',
-          default: '"onddo-spamassassin"'
+          default: 'onddo-spamassassin'
 
 grouping 'postfix-dovecot/vmail',
          title: 'vmail configuration',
@@ -132,14 +132,14 @@ attribute 'postfix-dovecot/vmail/user',
           description: 'Virtual mail system user name.',
           type: 'string',
           required: 'optional',
-          default: '"vmail"'
+          default: 'vmail'
 
 attribute 'postfix-dovecot/vmail/group',
           display_name: 'vmail group',
           description: 'Virtual mail system group name.',
           type: 'string',
           required: 'optional',
-          default: 'node["postfix-dovecot"]["vmail"]["user"]'
+          calculated: true
 
 attribute 'postfix-dovecot/vmail/uid',
           display_name: 'vmail uid',
@@ -153,14 +153,14 @@ attribute 'postfix-dovecot/vmail/gid',
           description: 'Virtual mail system group id.',
           type: 'string',
           required: 'optional',
-          default: 'node["postfix-dovecot"]["vmail"]["uid"]'
+          calculated: true
 
 attribute 'postfix-dovecot/vmail/home',
           display_name: 'vmail home',
           description: 'Virtual mail user home path.',
           type: 'string',
           required: 'optional',
-          default: '"/var/vmail"'
+          default: '/var/vmail'
 
 attribute 'postfix-dovecot/ses/enabled',
           display_name: 'ses enabled',
@@ -174,54 +174,54 @@ attribute 'postfix-dovecot/ses/source',
           display_name: 'ses credentials source',
           description: 'Where to read the credentials from.',
           type: 'string',
-          choice: %w("attributes" "chef-vault"),
+          choice: %w(attributes chef-vault),
           required: 'recommended',
-          default: '"attributes"'
+          default: 'attributes'
 
 attribute 'postfix-dovecot/ses/vault',
           display_name: 'ses credentials vault',
           description: 'Chef Vault bag to read SES credentials from.',
           type: 'string',
           required: 'recommended',
-          default: '"amazon"'
+          default: 'amazon'
 
 attribute 'postfix-dovecot/ses/item',
           display_name: 'ses credentials vault item',
           description: 'Chef Vault item.',
           type: 'string',
           required: 'recommended',
-          default: '"ses"'
+          default: 'ses'
 
 attribute 'postfix-dovecot/ses/region',
           display_name: 'ses region',
           description: 'Amazon AWS region, used to calculate the servers.',
           type: 'string',
           required: 'optional',
-          default: '"us-east-1"'
+          default: 'us-east-1'
 
 attribute 'postfix-dovecot/ses/servers',
           display_name: 'ses servers',
           description: 'Amazon SES SMTP servers.',
           type: 'array',
           required: 'optional',
-          default: "[
-            'email-smtp.us-east-1.amazonaws.com:25',
-            'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25',
-          ]"
+          default: %w(
+            email-smtp.us-east-1.amazonaws.com:25
+            ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:25
+          )
 
 attribute 'postfix-dovecot/ses/username',
           display_name: 'ses username',
           description: 'Amazon SES SMTP username.',
           type: 'string',
           required: 'recommended',
-          default: '"USERNAME"'
+          default: 'USERNAME'
 
 attribute 'postfix-dovecot/ses/password',
           display_name: 'ses password',
           description: 'Amazon SES SMTP password.',
           type: 'string',
           required: 'recommended',
-          default: '"PASSWORD"'
+          default: 'PASSWORD'
 
 attribute 'postfix-dovecot/yum',
           display_name: 'yum repositories',
