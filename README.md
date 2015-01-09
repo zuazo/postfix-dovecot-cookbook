@@ -1,6 +1,6 @@
 Description
 ===========
-[![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.getchef.com/cookbooks/postfix-dovecot)
+[![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/postfix-dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/onddo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/postfix-dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/onddo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/onddo/postfix-dovecot-cookbook)
 
@@ -23,11 +23,11 @@ Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/n
 
 ## Required Cookbooks
 
-* [dovecot](https://supermarket.getchef.com/cookbooks/dovecot)
-* [onddo-spamassassin](https://supermarket.getchef.com/cookbooks/onddo-spamassassin)
-* [postfixadmin](https://supermarket.getchef.com/cookbooks/postfixadmin)
-* [postfix-full](https://supermarket.getchef.com/cookbooks/postfix-full) by [Malte Swart](https://github.com/mswart)
-* [ssl_certificate](https://supermarket.getchef.com/cookbooks/ssl_certificate)
+* [dovecot](https://supermarket.chef.io/cookbooks/dovecot)
+* [onddo-spamassassin](https://supermarket.chef.io/cookbooks/onddo-spamassassin)
+* [postfixadmin](https://supermarket.chef.io/cookbooks/postfixadmin)
+* [postfix-full](https://supermarket.chef.io/cookbooks/postfix-full) by [Malte Swart](https://github.com/mswart)
+* [ssl_certificate](https://supermarket.chef.io/cookbooks/ssl_certificate)
 
 ## Required Applications
 
@@ -84,7 +84,7 @@ See the [Chef-Vault documentation](https://github.com/Nordstrom/chef-vault/blob/
 
 ## The SSL Certificate
 
-This cookbook uses the [`ssl_certificate`](https://supermarket.getchef.com/cookbooks/ssl_certificate) cookbook to create the SSL certificate. The namespace used is `node['postfix-dovecot']`. For example:
+This cookbook uses the [`ssl_certificate`](https://supermarket.chef.io/cookbooks/ssl_certificate) cookbook to create the SSL certificate. The namespace used is `node['postfix-dovecot']`. For example:
 
 ```ruby
 node.default['postfix-dovecot']['common_name'] = 'mail.example.com'
@@ -101,7 +101,7 @@ node.default['ssl_certificate']['service']['compatibility'] = :modern
 include_recipe 'postfix-dovecot'
 ```
 
-See the [`ssl_certificate` namespace documentation](https://supermarket.getchef.com/cookbooks/ssl_certificate#namespaces) for more information.
+See the [`ssl_certificate` namespace documentation](https://supermarket.chef.io/cookbooks/ssl_certificate#namespaces) for more information.
 
 Recipes
 =======
