@@ -25,7 +25,7 @@ license 'Apache 2.0'
 description 'Installs and configures a mail server using Postfix, Dovecot, '\
             'PostfixAdmin and SpamAssassin, including Amazon SES support.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '1.2.0'
+version '1.3.0' # WiP
 
 supports 'amazon'
 supports 'centos', '>= 6.0'
