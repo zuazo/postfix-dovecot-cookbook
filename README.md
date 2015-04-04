@@ -178,7 +178,7 @@ Don't forget to include the `postfix-dovecot` cookbook as a dependency in the me
 
 ```ruby
 # metadata.rb
-[...]
+# [...]
 
 depends 'postfix-dovecot'
 ```

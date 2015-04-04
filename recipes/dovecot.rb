@@ -159,10 +159,10 @@ node.default['dovecot']['conf']['sql']['user_query'] = [
   "  #{node['postfix-dovecot']['vmail']['uid']} as uid,",
   "  #{node['postfix-dovecot']['vmail']['gid']} as gid,",
   "  #{sql_concat(
-        "'#{node['postfix-dovecot']['vmail']['home']}/'", 'maildir'
+    "'#{node['postfix-dovecot']['vmail']['home']}/'", 'maildir'
       )} AS home,",
   "  #{sql_concat(
-        "'maildir:#{node['postfix-dovecot']['vmail']['home']}/'", 'maildir'
+    "'maildir:#{node['postfix-dovecot']['vmail']['home']}/'", 'maildir'
       )} AS mail",
   'FROM mailbox',
   'WHERE username = \'%u\' AND active = \'1\''
