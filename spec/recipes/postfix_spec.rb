@@ -18,6 +18,7 @@
 #
 
 require 'spec_helper'
+require 'chef-vault'
 
 describe 'postfix-dovecot::postfix' do
   let(:hostname) { 'my_hostname' }
@@ -143,6 +144,7 @@ describe 'postfix-dovecot::postfix' do
         'password' => attr_password
       }
     end
+    let(:vault_item) { 'ses' }
     let(:vault_username) { 'AMAZON_SES_USERNAME_VAULT' }
     let(:vault_password) { 'AMAZON_SES_PASSWORD_VAULT' }
     let(:vault_credentials) do
@@ -155,6 +157,9 @@ describe 'postfix-dovecot::postfix' do
       node.set['postfix-dovecot']['ses']['enabled'] = true
       node.set['postfix-dovecot']['ses']['username'] = attr_username
       node.set['postfix-dovecot']['ses']['password'] = attr_password
+      node.set['postfix-dovecot']['ses']['item'] = vault_item
+      allow(Chef::DataBag).to receive(:load)
+        .and_return("#{vault_item}_keys" => {})
       allow(ChefVault::Item).to receive(:load).and_return(vault_credentials)
     end
 
