@@ -17,6 +17,7 @@ cookbook 'locale'
 
 metadata
 cookbook 'apt'
+cookbook 'selinux'
 
 # Minitest Chef Handler
 # More info at https://github.com/calavera/minitest-chef-handler

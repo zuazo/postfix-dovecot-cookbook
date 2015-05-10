@@ -21,20 +21,20 @@
 
 if node['postfix-dovecot']['spamc']['enabled']
   if node['postfix-dovecot']['spamc']['recipe'] == 'onddo-spamassassin'
-    node.default['onddo-spamassassin']['spamd']['enabled'] = true
-    node.default['onddo-spamassassin']['spamd']['options'] = %w(
+    node.default['spamassassin']['spamd']['enabled'] = true
+    node.default['spamassassin']['spamd']['options'] = %w(
       --create-prefs
       --max-children 3
       --helper-home-dir
     )
     # local.cf
-    node.default['onddo-spamassassin']['conf']['rewrite_header'] = [
+    node.default['spamassassin']['conf']['rewrite_header'] = [
       Subject: '[SPAM]'
     ]
-    node.default['onddo-spamassassin']['conf']['report_safe'] = false
-    node.default['onddo-spamassassin']['conf']['lock_method'] = 'flock'
+    node.default['spamassassin']['conf']['report_safe'] = false
+    node.default['spamassassin']['conf']['lock_method'] = 'flock'
     node.default['postfix-dovecot']['spamc']['path'] =
-      node['onddo-spamassassin']['spamc']['path']
+      node['spamassassin']['spamc']['path']
 
     include_recipe node['postfix-dovecot']['spamc']['recipe']
   else

@@ -23,11 +23,13 @@ if node['postfix-dovecot']['database']['type'] == 'postgresql'
   include_recipe 'postfix-dovecot_test::postgresql_memory'
 end
 
-# Debian/Ubuntu requires locale cookbook:
-# https://github.com/hw-cookbooks/postgresql/issues/108
-ENV['LANGUAGE'] = ENV['LANG'] = node['locale']['lang']
-ENV['LC_ALL'] = node['locale']['lang']
-include_recipe 'locale'
+if node['platform_family'] == 'debian'
+  # Debian/Ubuntu requires locale cookbook:
+  # https://github.com/hw-cookbooks/postgresql/issues/108
+  ENV['LANGUAGE'] = ENV['LANG'] = node['locale']['lang']
+  ENV['LC_ALL'] = node['locale']['lang']
+  include_recipe 'locale'
+end
 
 node.default['postfix-dovecot']['spamc']['enabled'] = true
 

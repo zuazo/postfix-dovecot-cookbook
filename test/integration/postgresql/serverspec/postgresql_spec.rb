@@ -19,10 +19,20 @@
 
 require 'spec_helper'
 
+def centos?
+  File.exist?('/etc/centos-release')
+end
+
 family = os[:family].downcase
+release = os[:release].to_i
+
 postgres =
   if %w(centos redhat scientific amazon).include?(family)
-    'postmaster'
+    if centos? && release >= 7
+      'postgres'
+    else
+      'master'
+    end
   else
     'postgres'
   end
