@@ -249,8 +249,9 @@ if node['postfix-dovecot']['ses']['enabled']
     when 'debian', 'ubuntu' then
       '/etc/ssl/certs/ca-certificates.crt'
     else
-      Chef::Log.warn("Unsupported platform: #{node['platform']}, trying to "\
-        'guess CA certificates file location'
+      Chef::Log.warn(
+        "Unsupported platform: #{node['platform']}, trying to guess CA "\
+        'certificates file location'
       )
       '/etc/ssl/certs/ca-certificates.crt'
     end
