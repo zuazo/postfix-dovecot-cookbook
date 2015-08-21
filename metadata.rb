@@ -27,6 +27,13 @@ description 'Installs and configures a mail server using Postfix, Dovecot, '\
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '2.1.0' # WiP
 
+if respond_to?(:source_url)
+  source_url "https://github.com/zuazo/#{name}-cookbook"
+end
+if respond_to?(:issues_url)
+  issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
+end
+
 supports 'amazon'
 supports 'centos', '>= 6.0'
 supports 'debian', '>= 7.0'
