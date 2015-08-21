@@ -2,7 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-source 'https://supermarket.getchef.com'
+source 'https://supermarket.chef.io'
 my_cookbook = ::File.basename(Dir.pwd).sub(/[-_]?cookbook$/, '')
 
 # Helper to include a local cookbook from disk

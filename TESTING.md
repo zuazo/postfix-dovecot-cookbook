@@ -96,7 +96,7 @@ Then, you must configure test-kitchen to use [.kitchen.ses.yml](/.kitchen.ses.ym
 
 ### Vagrantfile Requirements
 
-* ChefDK: https://downloads.getchef.com/chef-dk/
+* ChefDK: https://downloads.chef.io/chef-dk/
 * Berkhelf and Omnibus vagrant plugins:
 ```
 $ vagrant plugin install vagrant-berkshelf vagrant-omnibus

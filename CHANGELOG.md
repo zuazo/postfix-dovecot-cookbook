@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of `postfix-dovecot`.
 
+## v2.0.0 (2015-08-18)
+
+* Update RuboCop to `0.29.1` (new offenses fixed).
+* Fix ChefSpec unit tests to work with latest chef-vault cookbook.
+* Gemfile: Fix Ruby `1.9` support.
+* Update some cookbook dependencies:
+  * [...]
+* Gemfile: Update RuboCop version to `0.30.1`.
+
 ## v1.2.0 (2015-01-09)
 
 * Add Dovecot SSL certificate generation.
