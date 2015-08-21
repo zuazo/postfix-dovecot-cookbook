@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe 'postfix-dovecot::postfix_full' do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }

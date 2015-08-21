@@ -17,23 +17,27 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+require_relative '../spec_helper'
 
-describe 'postfix-dovecot::default' do
-  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+describe 'postfix-dovecot::spam' do
+  let(:chef_runner) { ChefSpec::SoloRunner.new }
+  let(:chef_run) { chef_runner.converge(described_recipe) }
   before do
-    stub_command('/usr/sbin/apache2 -t').and_return(true)
+    stub_command("grep -e \" --daemonize\\| -d\" /etc/sysconfig/spamassassin")
+      .and_return(false)
   end
 
-  %w(
-    postfix-dovecot::vmail
-    postfix-dovecot::spam
-    postfix-dovecot::postfix
-    postfix-dovecot::postfixadmin
-    postfix-dovecot::dovecot
-  ).each do |recipe|
-    it "includes #{recipe} recipe" do
-      expect(chef_run).to include_recipe(recipe)
+  it 'does not include onddo-spamassassin recipe by default' do
+    expect(chef_run).to_not include_recipe('onddo-spamassassin')
+  end
+
+  context 'with spamc enabled' do
+    before do
+      chef_runner.node.set['postfix-dovecot']['spamc']['enabled'] = true
+    end
+
+    it 'includes onddo-spamassassin recipe by default' do
+      expect(chef_run).to include_recipe('onddo-spamassassin')
     end
   end
 end

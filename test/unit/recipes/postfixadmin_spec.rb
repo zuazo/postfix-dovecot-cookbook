@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe 'postfix-dovecot::postfixadmin' do
   let(:hostname) { 'my_hostname' }

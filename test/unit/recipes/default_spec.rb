@@ -17,33 +17,23 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+require_relative '../spec_helper'
 
-describe 'postfix-dovecot::postfix_mysql' do
-  let(:chef_runner) { ChefSpec::SoloRunner.new }
-  let(:chef_run) { chef_runner.converge(described_recipe) }
-
-  it 'installs postfix package' do
-    expect(chef_run).to install_package('postfix')
+describe 'postfix-dovecot::default' do
+  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+  before do
+    stub_command('/usr/sbin/apache2 -t').and_return(true)
   end
 
-  context 'with CentOS' do
-    before do
-      chef_runner.node.automatic['platform'] = 'centos'
-    end
-
-    it 'does not install postfix-mysql package' do
-      expect(chef_run).to_not install_package('postfix-mysql')
-    end
-  end
-
-  context 'with Ubuntu' do
-    before do
-      chef_runner.node.automatic['platform'] = 'ubuntu'
-    end
-
-    it 'installs postfix-mysql package' do
-      expect(chef_run).to install_package('postfix-mysql')
+  %w(
+    postfix-dovecot::vmail
+    postfix-dovecot::spam
+    postfix-dovecot::postfix
+    postfix-dovecot::postfixadmin
+    postfix-dovecot::dovecot
+  ).each do |recipe|
+    it "includes #{recipe} recipe" do
+      expect(chef_run).to include_recipe(recipe)
     end
   end
 end

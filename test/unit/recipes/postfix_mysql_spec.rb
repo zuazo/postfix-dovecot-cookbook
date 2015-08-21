@@ -17,26 +17,33 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+require_relative '../spec_helper'
 
-describe 'postfix-dovecot::vmail' do
-  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+describe 'postfix-dovecot::postfix_mysql' do
+  let(:chef_runner) { ChefSpec::SoloRunner.new }
+  let(:chef_run) { chef_runner.converge(described_recipe) }
 
-  it 'creates vmail user' do
-    expect(chef_run).to create_user('vmail')
-      .with_comment('Vmail')
-      .with_home('/var/vmail')
-      .with_shell('/bin/false')
-      .with_uid(5000)
-      .with_supports(manage_home: true)
-      .with_system(true)
+  it 'installs postfix package' do
+    expect(chef_run).to install_package('postfix')
   end
 
-  it 'creates vmail group' do
-    expect(chef_run).to create_group('vmail')
-      .with_gid(5000)
-      .with_members(%w(vmail))
-      .with_system(true)
-      .with_append(true)
+  context 'with CentOS' do
+    before do
+      chef_runner.node.automatic['platform'] = 'centos'
+    end
+
+    it 'does not install postfix-mysql package' do
+      expect(chef_run).to_not install_package('postfix-mysql')
+    end
+  end
+
+  context 'with Ubuntu' do
+    before do
+      chef_runner.node.automatic['platform'] = 'ubuntu'
+    end
+
+    it 'installs postfix-mysql package' do
+      expect(chef_run).to install_package('postfix-mysql')
+    end
   end
 end

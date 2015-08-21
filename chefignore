@@ -47,8 +47,8 @@ a.out
 ###########
 .watchr
 .rspec
-spec/*
-spec/fixtures/*
+test/unit/*
+test/unit/fixtures/*
 test/*
 features/*
 Guardfile

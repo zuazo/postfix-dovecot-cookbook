@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe 'postfix-dovecot::postfix_postgresql' do
   let(:chef_runner) { ChefSpec::SoloRunner.new }

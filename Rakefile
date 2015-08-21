@@ -32,10 +32,13 @@ end
 desc 'Run all style checks'
 task style: %w(style:chef style:ruby)
 
-require 'rspec/core/rake_task'
 desc 'Run ChefSpec unit tests'
-RSpec::Core::RakeTask.new(:unit) do |t|
-  t.rspec_opts = '--color --format progress'
+task :unit do
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:unit) do |t|
+    t.rspec_opts = '--color --format progress'
+    t.pattern = 'test/unit/**{,/*/**}/*_spec.rb'
+  end
 end
 
 desc 'Run Test Kitchen integration tests'
