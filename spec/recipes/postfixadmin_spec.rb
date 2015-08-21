@@ -24,7 +24,7 @@ describe 'postfix-dovecot::postfixadmin' do
   let(:db_type) { 'postgresql' }
   let(:db_name) { 'postfixadmin_db' }
   let(:db_password) { 'postfixadmin_pass' }
-  let(:chef_runner) { ChefSpec::ServerRunner.new }
+  let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
   before do

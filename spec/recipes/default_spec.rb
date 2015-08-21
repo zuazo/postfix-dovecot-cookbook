@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe 'postfix-dovecot::default' do
-  let(:chef_run) { ChefSpec::ServerRunner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
   before do
     stub_command('/usr/sbin/apache2 -t').and_return(true)
   end
