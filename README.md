@@ -1,5 +1,5 @@
-Description
-===========
+Postfix Dovecot Cookbook
+========================
 [![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/postfix-dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/postfix-dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/postfix-dovecot-cookbook)
