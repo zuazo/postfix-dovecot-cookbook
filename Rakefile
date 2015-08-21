@@ -7,6 +7,18 @@
 
 require 'bundler/setup'
 
+desc 'Clean some generated files'
+task :clean do
+  %w(
+    Berksfile.lock
+    .bundle
+    .cache
+    Gemfile.lock
+    .kitchen
+    metadata.json
+  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+end
+
 namespace :style do
   require 'rubocop/rake_task'
   desc 'Run Ruby style checks'
