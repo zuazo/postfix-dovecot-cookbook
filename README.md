@@ -1,8 +1,8 @@
 Description
 ===========
 [![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/postfix-dovecot)
-[![Dependency Status](http://img.shields.io/gemnasium/onddo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/onddo/postfix-dovecot-cookbook)
-[![Build Status](http://img.shields.io/travis/onddo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/onddo/postfix-dovecot-cookbook)
+[![Dependency Status](http://img.shields.io/gemnasium/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/postfix-dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/postfix-dovecot-cookbook)
 
 Installs and configures a mail server using [Postfix](http://www.postfix.org/), [Dovecot](http://www.dovecot.org/), [PostfixAdmin](http://postfixadmin.sourceforge.net/) and [SpamAssassin](http://spamassassin.apache.org/), including [Amazon SES](http://aws.amazon.com/ses/) support.
 
@@ -19,7 +19,7 @@ This cookbook has been tested on the following platforms:
 * Fedora `>= 17.0`
 * Ubuntu `>= 12.04`
 
-Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/new?title=I%20have%20used%20it%20successfully%20on%20...) if you use it successfully on any other platform.
+Please, [let us know](https://github.com/zuazo/postfix-dovecot-cookbook/issues/new?title=I%20have%20used%20it%20successfully%20on%20...) if you use it successfully on any other platform.
 
 ## Required Cookbooks
 
@@ -93,7 +93,7 @@ include_recipe 'postfix-dovecot'
 
 This certificate is used for Postfix and Dovecot. For PostfixAdmin, you should use the `node['postfixadmin']` namespace.
 
-You can also tweak the supported SSL ciphers [setting the `node['ssl_certificate']['service']['compatibility']` attribute](https://github.com/onddo/ssl_certificate-cookbook#securing-server-side-tls):
+You can also tweak the supported SSL ciphers [setting the `node['ssl_certificate']['service']['compatibility']` attribute](https://github.com/zuazo/ssl_certificate-cookbook#securing-server-side-tls):
 
 ```ruby
 node.default['ssl_certificate']['service']['compatibility'] = :modern
@@ -189,7 +189,7 @@ Another alternative is to include the default recipe in your *Run List*.
 
 ```json
 {
-  "name": "mail.onddo.com",
+  "name": "mail.example.com",
   [...]
   "run_list": [
     [...]
@@ -217,7 +217,7 @@ PostgreSQL Support
 
 PostgreSQL support should be considered **experimental** at the moment. Use at your own risk.
 
-[Any feedback you can provide regarding the PostgreSQL support](https://github.com/onddo/postfix-dovecot-cookbook/issues/new?title=PostgreSQL%20Support) will be greatly appreciated.
+[Any feedback you can provide regarding the PostgreSQL support](https://github.com/zuazo/postfix-dovecot-cookbook/issues/new?title=PostgreSQL%20Support) will be greatly appreciated.
 
 ## PostgreSQL Support on Debian and Ubuntu
 
@@ -241,13 +241,13 @@ The `postfix-dovecot::postfix_postgresql` recipe takes care of it transparently.
 * CentOS `6.5` and `7.0`
 * Fedora `19` and `20`.
 
-Please, [let us know](https://github.com/onddo/postfix-dovecot-cookbook/issues/new?title=I%20have%20tested%20PostgreSQL%20support%20successfully%20on%20...) if you use PostgreSQL support successfully on any other platform.
+Please, [let us know](https://github.com/zuazo/postfix-dovecot-cookbook/issues/new?title=I%20have%20tested%20PostgreSQL%20support%20successfully%20on%20...) if you use PostgreSQL support successfully on any other platform.
 
 ## PostgreSQL Support on Amazon Linux
 
 Support for PostgreSQL on Amazon Linux is still not finished because of the need to patch the provided SRPM. Its implementation would require a little monkey-patching.
 
-Please, open an issue if [you need the support of PostgreSQL on Amazon Linux](https://github.com/onddo/postfix-dovecot-cookbook/issues/new?title=We%20need%20PostgreSQL%20support%20on%20Amazon%20Linux).
+Please, open an issue if [you need the support of PostgreSQL on Amazon Linux](https://github.com/zuazo/postfix-dovecot-cookbook/issues/new?title=We%20need%20PostgreSQL%20support%20on%20Amazon%20Linux).
 
 ## PostgreSQL Versions < 9.3
 
@@ -287,24 +287,24 @@ Some cookbook attributes are used internally to add PostgreSQL support. They can
 
 See the [attributes/postfix_postgresql.rb](/attributes/postfix_postgresql.rb) file for default examples.
 
-Please do not hesitate [to make a PR](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/TESTING.md) if you improve the PostgreSQL support ;-)
+Please do not hesitate [to make a PR](https://github.com/zuazo/postfix-dovecot-cookbook/blob/master/TESTING.md) if you improve the PostgreSQL support ;-)
 
 Testing
 =======
 
-See [TESTING.md](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/TESTING.md).
+See [TESTING.md](https://github.com/zuazo/postfix-dovecot-cookbook/blob/master/TESTING.md).
 
 Contributing
 ============
 
-Please do not hesitate to [open an issue](https://github.com/onddo/postfix-dovecot-cookbook/issues/new) with any questions or problems.
+Please do not hesitate to [open an issue](https://github.com/zuazo/postfix-dovecot-cookbook/issues/new) with any questions or problems.
 
-See [CONTRIBUTING.md](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/zuazo/postfix-dovecot-cookbook/blob/master/CONTRIBUTING.md).
 
 TODO
 ====
 
-See [TODO.md](https://github.com/onddo/postfix-dovecot-cookbook/blob/master/TODO.md).
+See [TODO.md](https://github.com/zuazo/postfix-dovecot-cookbook/blob/master/TODO.md).
 
 
 License and Author
@@ -312,8 +312,9 @@ License and Author
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@onddo.com>)
-| **Copyright:**       | Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
+| **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@zuazo.org>)
+| **Copyright:**       | Copyright (c) 2015, Xabier de Zuazo
+| **Copyright:**       | Copyright (c) 2014-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
 
     Licensed under the Apache License, Version 2.0 (the "License");

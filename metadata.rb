@@ -1,8 +1,8 @@
 # encoding: UTF-8
 #
 # Cookbook Name:: postfix-dovecot
-# Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL. (www.onddo.com)
+# Author:: Xabier de Zuazo (<xabier@zuazo.org>)
+# Copyright:: Copyright (c) 2013-2015 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +19,8 @@
 #
 
 name 'postfix-dovecot'
-maintainer 'Onddo Labs, Sl.'
-maintainer_email 'team@onddo.com'
+maintainer 'Xabier de Zuazo'
+maintainer_email 'xabier@zuazo.org'
 license 'Apache 2.0'
 description 'Installs and configures a mail server using Postfix, Dovecot, '\
             'PostfixAdmin and SpamAssassin, including Amazon SES support.'
