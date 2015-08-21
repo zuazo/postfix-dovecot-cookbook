@@ -13,6 +13,8 @@ platforms:
   run_list: ["recipe[apt]"]
 - name: debian-7.8
   run_list: ["recipe[apt]"]
+- name: debian-8.1
+  run_list: ["recipe[apt]"]
 - name: centos-6.6
   run_list: ["recipe[selinux::disabled]"]
 - name: centos-7.0
