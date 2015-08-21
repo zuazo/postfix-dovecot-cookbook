@@ -4,6 +4,8 @@
 
 source 'https://rubygems.org'
 
+chef_version = ENV.key?('CHEF_VERSION') ? ENV['CHEF_VERSION'] : nil
+
 group :test do
   gem 'rake'
   gem 'berkshelf', '~> 3.1'
@@ -15,6 +17,7 @@ group :style do
 end
 
 group :unit do
+  gem 'chef', chef_version unless chef_version.nil? # Ruby 1.9.3 support
   gem 'should_not', '~> 1.1'
   gem 'chefspec', '~> 4.0'
   gem 'chef-vault', '~> 2.3'
