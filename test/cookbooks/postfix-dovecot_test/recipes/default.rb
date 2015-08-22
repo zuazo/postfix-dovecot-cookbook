@@ -33,11 +33,8 @@ end
 
 node.default['postfix-dovecot']['spamc']['enabled'] = true
 
-node.default['mysql']['server_root_password'] = 'vagrant_root'
-node.default['mysql']['server_debian_password'] = 'vagrant_debian'
-node.default['mysql']['server_repl_password'] = 'vagrant_repl'
-
 node.default['postgresql']['password']['postgres'] = 'vagrant_postgres'
+node.default['postfixadmin']['mysql']['server_root_password'] = 'vagrant_root'
 
 node.default['postfixadmin']['database']['password'] = 'postfix_pass'
 node.default['postfixadmin']['setup_password'] = 'admin'
