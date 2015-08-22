@@ -2,14 +2,31 @@
 
 This file is used to list changes made in each version of `postfix-dovecot`.
 
-## v2.0.0 (2015-08-18)
+## v2.0.0 (2015-08-22)
 
-* Update RuboCop to `0.29.1` (new offenses fixed).
-* Fix ChefSpec unit tests to work with latest chef-vault cookbook.
-* Gemfile: Fix Ruby `1.9` support.
-* Update some cookbook dependencies:
-  * [...]
-* Gemfile: Update RuboCop version to `0.30.1`.
+* **Breaking changes**:
+ * Update the `postfixadmin` cookbook to version `2` ([See the `postfixadmin` cookbook CHANGELOG for the update process](https://github.com/zuazo/postfixadmin-cookbook/blob/master/CHANGELOG.md#upgrading-from-a-1xy-cookbook-release)).
+ * Update `onddo-spamassassin` cookbook to version `1` ([See the `postfixadmin` cookbook CHANGELOG for the update process](https://github.com/onddo/spamassassin-cookbook/blob/master/CHANGELOG.md#v100-2015-04-29)).
+
+* New features:
+ * metadata: Add `source_url` and `issues_url`.
+
+* Documentation:
+ * Update chef links to use *chef.io* domain.
+ * Update contact information and links after migration.
+ * README: Put the cookbook name in the title.
+
+* Testing:
+ * Fix ChefSpec unit tests to work with latest chef-vault cookbook.
+ * Use SoloRunner in some ChefSpec tests to make them faster.
+ * Move ChefSpec tests to *test/unit*.
+ * Travis: run tests against Chef `11` and Chef `12`.
+ * Add Debian `8` to test-kitchen tests.
+ * Kitchen tests: fix MySQL password.
+ * Minitest: remove some redundant tests.
+ * Gemfile:
+  * Fix Ruby `1.9` support.
+  * Update RuboCop to `0.33.0`.
 
 ## v1.2.0 (2015-01-09)
 
