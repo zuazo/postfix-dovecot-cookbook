@@ -88,10 +88,10 @@ node.default['postfix']['master']['inet:smtps']['args'] =
 
 # dovecot   unix  -       n       n       -       -       pipe
 #   flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver
-#     -f {sender} -d ${recipient}
+#     -f ${sender} -d ${recipient}
 dovecot_argv = [
   "#{node['dovecot']['lib_path']}/deliver",
-  '-f {sender}',
+  '-f ${sender}',
   '-d ${recipient}'
 ]
 if node['postfix-dovecot']['spamc']['enabled']
