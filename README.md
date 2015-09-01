@@ -313,6 +313,7 @@ License and Author
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@zuazo.org>)
+| **Contributor:**     | [Uwe Stuehler](https://github.com/ustuehler)
 | **Copyright:**       | Copyright (c) 2015, Xabier de Zuazo
 | **Copyright:**       | Copyright (c) 2014-2015, Onddo Labs, SL.
 | **License:**         | Apache License, Version 2.0
