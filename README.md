@@ -2,7 +2,7 @@ Postfix Dovecot Cookbook
 ========================
 [![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/postfix-dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/postfix-dovecot-cookbook)
-[![Build Status](http://img.shields.io/travis/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/postfix-dovecot-cookbook)
+[![Build Status](http://img.shields.io/travis/zuazo/postfix-dovecot-cookbook/2.0.1.svg?style=flat)](https://travis-ci.org/zuazo/postfix-dovecot-cookbook)
 
 Installs and configures a mail server using [Postfix](http://www.postfix.org/), [Dovecot](http://www.dovecot.org/), [PostfixAdmin](http://postfixadmin.sourceforge.net/) and [SpamAssassin](http://spamassassin.apache.org/), including [Amazon SES](http://aws.amazon.com/ses/) support.
 

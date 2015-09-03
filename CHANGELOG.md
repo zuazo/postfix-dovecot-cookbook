@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of `postfix-dovecot`.
 
+## v2.0.1 (2015-09-03)
+
+* Fix typo in `-f` argument to `/usr/lib/dovecot/deliver` ([issue #5](https://github.com/zuazo/postfix-dovecot-cookbook/pull/5), thanks [Uwe Stuehler](https://github.com/ustuehler)).
+
 ## v2.0.0 (2015-08-22)
 
 * **Breaking changes**:
