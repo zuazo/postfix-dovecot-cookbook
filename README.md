@@ -190,9 +190,9 @@ Another alternative is to include the default recipe in your *Run List*.
 ```json
 {
   "name": "mail.example.com",
-  [...]
+  "[...]": "[...]",
   "run_list": [
-    [...]
+    "[...]",
     "recipe[postfix-dovecot]"
   ]
 }
