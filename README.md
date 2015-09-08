@@ -257,33 +257,12 @@ If you are using PostgreSQL version `< 9.3`, you may need to adjust the `shmmax`
 
 Some cookbook attributes are used internally to add PostgreSQL support. They can make your journey smoother if you need to improve PostgreSQL support.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['yum']</code></td>
-    <td>A list of yum repositories to add to include the source SRPMs.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['postfix']['srpm']['packages']</code></td>
-    <td>Packages required for compiling Postfix from sources.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['postfix']['srpm']['rpm_regexp']</code></td>
-    <td>An array with two values, a pattern and a replacement. This Regexp is used to get the final Postfix RPM name from the SRPM name.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['postfix-dovecot']['postfix']['srpm']['rpm_build_args']</code></td>
-    <td>A string with the arguments to pass to <em>rpmbuild</em> application. Normally contains the required option to enable PostgreSQL in the Postfix SRPM.</td>
-    <td><em>calculated</em></td>
-  </tr>
-</table>
+| Attribute                                                      | Default      | Description                    |
+|:---------------------------------------------------------------|:-------------|:-------------------------------|
+| `node['postfix-dovecot']['yum']`                               | *calculated* | A list of yum repositories to add to include the source SRPMs.
+| `node['postfix-dovecot']['postfix']['srpm']['packages']`       | *calculated* | Packages required for compiling Postfix from sources.
+| `node['postfix-dovecot']['postfix']['srpm']['rpm_regexp']`     | *calculated* | An array with two values, a pattern and a replacement. This Regexp is used to get the final Postfix RPM name from the SRPM name.
+| `node['postfix-dovecot']['postfix']['srpm']['rpm_build_args']` | *calculated* | A string with the arguments to pass to *rpmbuild* application. Normally contains the required option to enable PostgreSQL in the Postfix SRPM.
 
 See the [attributes/postfix_postgresql.rb](/attributes/postfix_postgresql.rb) file for default examples.
 
