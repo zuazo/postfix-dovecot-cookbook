@@ -178,6 +178,7 @@ node.default['dovecot']['conf']['sql']['iterate_query'] = [
 # 10-ssl.conf
 self.class.send(:include, Chef::SslCertificateCookbook::ServiceHelpers)
 @ssl_config = ssl_config_for_service('dovecot')
+node.default['dovecot']['conf']['ssl'] = true
 node.default['dovecot']['conf']['ssl_protocols'] = @ssl_config['protocols']
 node.default['dovecot']['conf']['ssl_cipher_list'] = @ssl_config['cipher_suite']
 cert = ssl_certificate 'dovecot2' do
