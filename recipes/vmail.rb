@@ -24,7 +24,7 @@ user node['postfix-dovecot']['vmail']['user'] do
   home node['postfix-dovecot']['vmail']['home']
   shell '/bin/false'
   uid node['postfix-dovecot']['vmail']['uid']
-  supports manage_home: true
+  manage_home true
   system true
 end
 

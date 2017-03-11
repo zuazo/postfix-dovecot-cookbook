@@ -38,14 +38,14 @@ tables_path = "#{node['postfix']['base_dir']}/tables"
 if node['postfixadmin'] && node['postfixadmin']['map_files'] &&
    node['postfixadmin']['map_files']['path']
   tables_path = node['postfixadmin']['map_files']['path']
-end
-
-directory tables_path do
-  recursive true
-  owner 'root'
-  group 'root'
-  mode 00755
-  action :create
+else
+  directory tables_path do
+    recursive true
+    owner 'root'
+    group 'root'
+    mode 00755
+    action :create
+  end
 end
 
 #
@@ -276,7 +276,6 @@ chroot_files = %w(
   etc/resolv.conf
   etc/localtime
   etc/services
-  etc/resolv.conf
   etc/hosts
   etc/nsswitch.conf
   etc/nss_mdns.config
@@ -286,12 +285,16 @@ chroot_files.each do |path|
   dir_path = ::File.dirname(path)
   chroot_dir_path = ::File.join(postfix_chroot, dir_path)
 
-  directory chroot_dir_path do
-    owner 'root'
-    group 'root'
-    mode '0755'
-    recursive true
-    not_if { dir_path.empty? || ::File.exist?(chroot_dir_path) }
+  begin
+    resources(directory: chroot_dir_path)
+  rescue Chef::Exceptions::ResourceNotFound
+    directory chroot_dir_path do
+      owner 'root'
+      group 'root'
+      mode '0755'
+      recursive true
+      not_if { dir_path.empty? || ::File.exist?(chroot_dir_path) }
+    end
   end
 
   full_path = ::File.join('', path)

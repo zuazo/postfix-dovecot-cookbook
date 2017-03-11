@@ -25,6 +25,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Metadata: Remove grouping ([RFC-85](https://github.com/chef/chef-rfc/blob/8d47f1d0afa5a2313ed2010e0eda318edc28ba47/rfc085-remove-unused-metadata.md)).
 - README: Remove documentation about locale (old).
 
+### Fixed
+- Fix Chef `13` deprecation warnings.
+
 ## [2.0.1] - 2015-09-03
 ### Fixed
 - Fix typo in `-f` argument to `/usr/lib/dovecot/deliver` ([issue #5](https://github.com/zuazo/postfix-dovecot-cookbook/pull/5), thanks [Uwe Stuehler](https://github.com/ustuehler)).

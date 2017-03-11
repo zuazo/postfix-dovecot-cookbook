@@ -58,7 +58,6 @@ describe 'postfix-dovecot::postfix' do
 
   it 'creates tables directory' do
     expect(chef_run).to create_directory('/etc/postfix/tables')
-      .with_recursive(true)
       .with_owner('root')
       .with_group('root')
       .with_mode(00755)

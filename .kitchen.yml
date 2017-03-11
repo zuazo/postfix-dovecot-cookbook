@@ -4,6 +4,12 @@ driver:
   network:
   - ["forwarded_port", {guest: 80, host: 8080, auto_correct: true}]
 
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+  # client_rb:
+  #   treat_deprecation_warnings_as_errors: true # WiP on some depends
+
 platforms:
 - name: ubuntu-12.04
   run_list: ["recipe[apt]"]

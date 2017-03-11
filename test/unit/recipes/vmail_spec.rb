@@ -28,7 +28,7 @@ describe 'postfix-dovecot::vmail' do
       .with_home('/var/vmail')
       .with_shell('/bin/false')
       .with_uid(5000)
-      .with_supports(manage_home: true)
+      .with_manage_home(true)
       .with_system(true)
   end
 
