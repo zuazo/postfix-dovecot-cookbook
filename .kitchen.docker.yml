@@ -5,7 +5,6 @@ driver:
 
 # If you add new platforms below, include them in the .travis.yml file matrix
 platforms:
-- name: centos-5
 - name: centos-6
 - name: centos-7
 - name: debian-7

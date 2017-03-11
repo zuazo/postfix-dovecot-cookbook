@@ -26,11 +26,14 @@ Please, [let us know](https://github.com/zuazo/postfix-dovecot-cookbook/issues/n
 
 ## Required Cookbooks
 
+* [chef-vault](https://supermarket.chef.io/cookbooks/chef-vault)
+* [build-essential](https://supermarket.chef.io/cookbooks/build-essential)
 * [dovecot](https://supermarket.chef.io/cookbooks/dovecot)
 * [onddo-spamassassin](https://supermarket.chef.io/cookbooks/onddo-spamassassin)
 * [postfixadmin](https://supermarket.chef.io/cookbooks/postfixadmin)
 * [postfix-full](https://supermarket.chef.io/cookbooks/postfix-full) by [Malte Swart](https://github.com/mswart)
 * [ssl_certificate](https://supermarket.chef.io/cookbooks/ssl_certificate)
+* [yum](https://supermarket.chef.io/cookbooks/yum)
 
 ## Required Applications
 

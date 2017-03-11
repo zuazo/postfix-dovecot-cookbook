@@ -54,6 +54,7 @@ recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
 depends 'chef-vault', '~> 2.0'
+depends 'build-essential', '~> 8.0'
 depends 'dovecot', '~> 3.0'
 depends 'onddo-spamassassin', '~> 1.0'
 depends 'postfixadmin', '~> 3.0'

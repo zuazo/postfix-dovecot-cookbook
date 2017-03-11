@@ -15,17 +15,22 @@ platforms:
   run_list: ["recipe[apt]"]
 - name: ubuntu-14.04
   run_list: ["recipe[apt]"]
-- name: ubuntu-14.10
+- name: ubuntu-16.04
   run_list: ["recipe[apt]"]
-- name: debian-7.8
+- name: ubuntu-16.10
   run_list: ["recipe[apt]"]
-- name: debian-8.7
+- name: debian-7.11
   run_list: ["recipe[apt]"]
-- name: centos-6.6
+- name: debian-8.6
+  run_list: ["recipe[apt]"]
+- name: centos-6.8
   run_list: ["recipe[selinux::disabled]"]
-- name: centos-7.0
+- name: centos-7.3
   run_list: ["recipe[selinux::disabled]"]
-- name: fedora-20
+- name: fedora-23
+- name: fedora-24
+  run_list: ["recipe[selinux::disabled]"]
+- name: fedora-25
   run_list: ["recipe[selinux::disabled]"]
 
 suites:
@@ -66,7 +71,12 @@ suites:
   # - ubuntu-12.04
   # - debian-6.0.10
   # - debian-7.8
-  # - centos-6.6
   # - fedora-20
+  # File "/.../chef-12.19.36/lib/chef/provider/package/dnf/dnf_helper.py", line 56, in query
+  # pkgs = q.latest(1).run() TypeError: latest() takes 1 positional argument but 2 were given
+  - fedora-23
+  # Unknown system type: Linux 3.16.0-4-amd64
+  - centos-6
+  - centos-7
   run_list:
   - recipe[postfix-dovecot_test::postfix_postgresql]

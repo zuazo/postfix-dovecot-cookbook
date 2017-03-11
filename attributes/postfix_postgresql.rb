@@ -28,20 +28,20 @@ if %w(centos).include?(node['platform'])
     srpm_default['packages'] = %w(
       postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
       cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-      mariadb-devel
+      mariadb-devel pkgconfig ed
     )
     srpm_default['rpm_regexp'] = [
-      /\.src\./, ".centos.#{node['kernel']['machine']}."
+      /\.src\./, ".#{node['platform']}.#{node['kernel']['machine']}."
     ]
     srpm_default['rpm_build_args'] = '--with=pgsql'
   else
     srpm_default['packages'] = %w(
       postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
       cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-      mysql-devel
+      mysql-devel pkgconfig ed
     )
     srpm_default['rpm_regexp'] = [
-      /_[0-9]+\.src\./, ".#{node['kernel']['machine']}."
+      /_[0-9]+(\.[0-9]+)?\.src\./, "\\1.#{node['kernel']['machine']}."
     ]
     srpm_default['rpm_build_args'] = '--define="PGSQL 1"'
 
@@ -76,8 +76,9 @@ elsif %w(fedora redhat scientific).include?(node['platform'])
   srpm_default['packages'] = %w(
     postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
     cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-    mariadb-devel
+    mariadb-devel pkgconfig ed libicu-devel sqlite-devel tinycdb-devel
   )
+
   srpm_default['rpm_regexp'] = [
     /\.src\./, ".#{node['kernel']['machine']}."
   ]
@@ -90,7 +91,7 @@ elsif %w(amazon).include?(node['platform'])
   srpm_default['packages'] = %w(
     postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
     cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-    mysql-devel
+    mysql-devel pkgconfig ed
   )
   srpm_default['rpm_regexp'] = [
     /\.src\./, ".#{node['kernel']['machine']}."

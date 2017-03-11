@@ -19,11 +19,12 @@
 # limitations under the License.
 #
 
-case node['platform']
-when 'debian', 'ubuntu'
+if %w(debian ubuntu).include?(node['platform']) ||
+   (node['platform'] == 'fedora' && node['platform_version'].to_i >= 23)
   package 'postfix'
   package 'postfix-pgsql'
-when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
+elsif %w(centos fedora redhat amazon scientific).include?(node['platform'])
+  include_recipe 'build-essential'
 
   node['postfix-dovecot']['postfix']['srpm']['packages'].each do |pkg|
     package pkg
@@ -90,6 +91,7 @@ when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
 
   rpm_regexp = node['postfix-dovecot']['postfix']['srpm']['rpm_regexp']
   rpm = rpm_regexp.nil? ? srpm : srpm.sub(rpm_regexp[0], rpm_regexp[1])
+  rpm_file = "#{buildroot}/RPMS/#{node['kernel']['machine']}/#{rpm}"
 
   yum_package 'postfix (without postgresql)' do
     package_name 'postfix'
@@ -107,7 +109,7 @@ when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
   end
 
   execute 'install postfix from SRPM' do
-    command "rpm -i '#{buildroot}/RPMS/#{node['kernel']['machine']}/#{rpm}'"
+    command "rpm -i '#{rpm_file}'"
     not_if { rpm.nil? }
     not_if 'rpm -q postfix'
   end

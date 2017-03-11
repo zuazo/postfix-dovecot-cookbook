@@ -90,9 +90,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
         node.set['postfix-dovecot']['postfix']['srpm']['rpm_regexp'] =
           rpm_regexp
         expect(chef_run).to run_execute('install postfix from SRPM')
-          .with_command(
-            "rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'"
-          )
+          .with_command("rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'")
       end
     end
 
@@ -122,7 +120,10 @@ describe 'postfix-dovecot::postfix_postgresql' do
     end
 
     context 'with CentOS 7' do
-      let(:rpm) { "foobar-1.0_19.centos.#{node['kernel']['machine']}.tar.gz" }
+      let(:rpm) do
+        "postfix-2.10.1-6.el7.centos.#{node['kernel']['machine']}.rpm"
+      end
+      let(:srpm) { 'postfix-2.10.1-6.el7.src.rpm' }
       let(:rpmbuild_args) { '--with=pgsql' }
       before do
         node.automatic['platform'] = 'centos'
@@ -132,7 +133,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-        mariadb-devel
+        mariadb-devel pkgconfig ed
       ).each do |pkg|
         it "installs #{pkg} package" do
           expect(chef_run).to install_package(pkg)
@@ -141,9 +142,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
 
       it 'installs the correct RPM' do
         expect(chef_run).to run_execute('install postfix from SRPM')
-          .with_command(
-            "rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'"
-          )
+          .with_command("rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'")
       end
 
       it 'uses the correct rpmbuild args' do
@@ -155,7 +154,8 @@ describe 'postfix-dovecot::postfix_postgresql' do
     end # context on CentOS 7
 
     context 'with CentOS 6' do
-      let(:rpm) { "foobar-1.0.#{node['kernel']['machine']}.tar.gz" }
+      let(:rpm) { "postfix-2.6.6-6.el6.1.#{node['kernel']['machine']}.rpm" }
+      let(:srpm) { 'postfix-2.6.6-6.el6_7.1.src.rpm' }
       let(:rpmbuild_args) { '--define="PGSQL 1"' }
       before do
         node.automatic['platform'] = 'centos'
@@ -165,7 +165,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-        mysql-devel
+        mysql-devel pkgconfig ed
       ).each do |pkg|
         it "installs #{pkg} package" do
           expect(chef_run).to install_package(pkg)
@@ -174,9 +174,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
 
       it 'installs the correct RPM' do
         expect(chef_run).to run_execute('install postfix from SRPM')
-          .with_command(
-            "rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'"
-          )
+          .with_command("rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'")
       end
 
       it 'uses the correct rpmbuild args' do
@@ -208,7 +206,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-        mariadb-devel
+        mariadb-devel pkgconfig ed libicu-devel sqlite-devel tinycdb-devel
       ).each do |pkg|
         it "installs #{pkg} package" do
           expect(chef_run).to install_package(pkg)
@@ -217,9 +215,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
 
       it 'installs the correct RPM' do
         expect(chef_run).to run_execute('install postfix from SRPM')
-          .with_command(
-            "rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'"
-          )
+          .with_command("rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'")
       end
 
       it 'uses the correct rpmbuild args' do
@@ -229,6 +225,22 @@ describe 'postfix-dovecot::postfix_postgresql' do
           )
       end
     end # context on Fedora
+
+    context 'with Fedora 24' do
+      before do
+        node.automatic['platform'] = 'fedora'
+        node.automatic['platform_version'] = '23.0'
+      end
+
+      %w(
+        postfix
+        postfix-pgsql
+      ).each do |pkg|
+        it "installs #{pkg} package" do
+          expect(chef_run).to install_package(pkg)
+        end
+      end
+    end # context on Fedora 23
 
     context 'with Amazon' do
       let(:pc_shell_out) { instance_double('Mixlib::ShellOut') }
@@ -286,7 +298,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-        mysql-devel
+        mysql-devel pkgconfig ed
       ).each do |pkg|
         it "installs #{pkg} package" do
           expect(chef_run).to install_package(pkg)
@@ -295,9 +307,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
 
       it 'installs the correct RPM' do
         expect(chef_run).to run_execute('install postfix from SRPM')
-          .with_command(
-            "rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'"
-          )
+          .with_command("rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'")
       end
 
       it 'uses the correct rpmbuild args' do
