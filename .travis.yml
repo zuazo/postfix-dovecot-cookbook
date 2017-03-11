@@ -2,10 +2,25 @@ rvm:
 - 2.2
 - 2.3
 
-sudo: false
+sudo: required
+
+services: docker
 
 env:
 - CHEF_VERSION="~> 12.0"
 
-bundler_args: --without doc integration integration_cloud guard
-script: travis_retry bundle exec rake style unit
+before_install:
+- chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22
+- eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
+install:
+- chef exec bundle install --jobs=3 --retry=3 --without='doc integration_vagrant integration_cloud guard'
+
+before_script:
+# https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
+- sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+- chef --version
+- cookstyle --version
+- foodcritic --version
+
+script: travis_retry chef exec bundle exec rake style unit
