@@ -37,6 +37,8 @@ describe 'postfix-dovecot::postfix' do
   before do
     node.set['postfix-dovecot']['hostname'] = hostname
     allow(::File).to receive(:exist?).and_call_original
+    allow(::File).to receive(:exist?).with('/var/spool/postfix/etc')
+      .and_return(false)
     allow(::IO).to receive(:read).and_call_original
     chroot_files.each do |chroot_file|
       allow(::File).to receive(:exist?).with("/#{chroot_file}")
@@ -158,9 +160,10 @@ describe 'postfix-dovecot::postfix' do
       node.set['postfix-dovecot']['ses']['username'] = attr_username
       node.set['postfix-dovecot']['ses']['password'] = attr_password
       node.set['postfix-dovecot']['ses']['item'] = vault_item
-      allow(Chef::DataBag).to receive(:load)
-        .and_return("#{vault_item}_keys" => {})
-      allow(ChefVault::Item).to receive(:load).and_return(vault_credentials)
+      allow(ChefVault::Item).to receive(:vault?).with('amazon', 'ses')
+        .and_return(true)
+      allow(ChefVault::Item).to receive(:load).with('amazon', 'ses')
+        .and_return(vault_credentials)
     end
 
     it 'does not use chef-vault by default' do

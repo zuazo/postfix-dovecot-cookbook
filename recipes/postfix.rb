@@ -291,10 +291,7 @@ chroot_files.each do |path|
     group 'root'
     mode '0755'
     recursive true
-    only_if do
-      dir_path.length > 0 &&
-        !::File.exist?(chroot_dir_path)
-    end
+    not_if { dir_path.empty? || ::File.exist?(chroot_dir_path) }
   end
 
   full_path = ::File.join('', path)

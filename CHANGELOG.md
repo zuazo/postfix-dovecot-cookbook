@@ -2,6 +2,26 @@
 
 This file is used to list changes made in each version of `postfix-dovecot`.
 
+## Unreleased
+### Added
+- metadata: Add `chef_version`.
+
+### Changed
+- Update some cookbook versions:
+  - `chef-vault` from `1` to `2`.
+  - `dovecot` from `2` to `3`.
+  - `postfixadmin` from `2` to `3` (fixes [issue #7](https://github.com/zuazo/postfix-dovecot-cookbook/issues/7), thanks [Arunderwood](https://github.com/arunderwood) for reporting).
+  - `ssl_certificate` from `1` to `2`.
+  - `yum` from `3` to `5`.
+- Dovecot: enable SSL explicitly.
+- Update RuboCop to version `0.40` and fix new offenses.
+
+### Removed
+- Drop Chef `< 12.5` support.
+- Drop Ruby `< 2.2` support.
+- Metadata: Remove grouping ([RFC-85](https://github.com/chef/chef-rfc/blob/8d47f1d0afa5a2313ed2010e0eda318edc28ba47/rfc085-remove-unused-metadata.md)).
+- README: Remove documentation about locale (old).
+
 ## v2.0.1 (2015-09-03)
 
 * Fix typo in `-f` argument to `/usr/lib/dovecot/deliver` ([issue #5](https://github.com/zuazo/postfix-dovecot-cookbook/pull/5), thanks [Uwe Stuehler](https://github.com/ustuehler)).

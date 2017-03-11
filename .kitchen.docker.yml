@@ -1,0 +1,38 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+# If you add new platforms below, include them in the .travis.yml file matrix
+platforms:
+- name: centos-5
+- name: centos-6
+- name: centos-7
+- name: debian-7
+  run_list: recipe[apt]
+- name: debian-8
+  run_list: recipe[apt]
+  # Failed to connect to bus: No such file or directory
+  driver_config:
+    privileged: true
+    run_command: /sbin/init
+- name: ubuntu-12.04
+  run_list: recipe[apt]
+- name: ubuntu-14.04
+  run_list: recipe[apt]
+- name: ubuntu-16.04
+  run_list: recipe[apt]
+  driver_config:
+    privileged: true
+    run_command: /sbin/init
+- name: ubuntu-16.10
+  run_list: recipe[apt]
+  driver_config:
+    privileged: true
+    run_command: /sbin/init
+
+# Non-official images with systemd
+- name: scientific-6.6
+  driver_config:
+    image: ringo/scientific:6.6
+    platform: rhel

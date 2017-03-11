@@ -49,7 +49,7 @@ when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
 
     srpm =
       if Mixlib::ShellOut.new('postconf -m | grep -qFw pgsql')
-         .run_command.error?
+                         .run_command.error?
         cmd = Mixlib::ShellOut.new(
           'yum install postfix > /dev/null 2>&1 && '\
           'yes | get_reference_source -p postfix | '\
@@ -59,7 +59,7 @@ when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
         cmd.error!
         cmd.stdout.split("\n")[-1]
       end
-    fail 'Sources for postfix RPM not found.' if srpm.nil?
+    raise 'Sources for postfix RPM not found.' if srpm.nil?
 
     directory "#{buildroot}/SRPMS" do
       recursive true
@@ -75,7 +75,7 @@ when 'centos', 'fedora', 'redhat', 'amazon', 'scientific'
     package('yum-utils').run_action(:install)
 
     cmd = Mixlib::ShellOut.new('yumdownloader --source --urls postfix')
-          .run_command
+                          .run_command
     cmd.error!
     url = cmd.stdout.split("\n")[-1]
 

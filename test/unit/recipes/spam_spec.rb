@@ -23,7 +23,7 @@ describe 'postfix-dovecot::spam' do
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   before do
-    stub_command("grep -e \" --daemonize\\| -d\" /etc/sysconfig/spamassassin")
+    stub_command('grep -e " --daemonize\\| -d" /etc/sysconfig/spamassassin')
       .and_return(false)
   end
 

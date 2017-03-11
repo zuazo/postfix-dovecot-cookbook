@@ -25,7 +25,7 @@ license 'Apache 2.0'
 description 'Installs and configures a mail server using Postfix, Dovecot, '\
             'PostfixAdmin and SpamAssassin, including Amazon SES support.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '2.1.0' # WiP
+version '3.0.0' # WiP
 
 if respond_to?(:source_url)
   source_url "https://github.com/zuazo/#{name}-cookbook"
@@ -33,6 +33,8 @@ end
 if respond_to?(:issues_url)
   issues_url "https://github.com/zuazo/#{name}-cookbook/issues"
 end
+
+chef_version '>= 12.5' if respond_to?(:chef_version)
 
 supports 'amazon'
 supports 'centos', '>= 6.0'
@@ -51,13 +53,13 @@ recipe 'postfix-dovecot::postfix_postgresql',
 recipe 'postfix-dovecot::postfixadmin', 'Installs and configures PostfixAdmin.'
 recipe 'postfix-dovecot::dovecot', 'Installs and configures Dovecot 2.'
 
-depends 'chef-vault', '~> 1.1'
-depends 'dovecot', '~> 2.0'
+depends 'chef-vault', '~> 2.0'
+depends 'dovecot', '~> 3.0'
 depends 'onddo-spamassassin', '~> 1.0'
-depends 'postfixadmin', '~> 2.0'
+depends 'postfixadmin', '~> 3.0'
 depends 'postfix-full', '~> 0.1'
-depends 'ssl_certificate', '~> 1.2'
-depends 'yum', '~> 3.0'
+depends 'ssl_certificate', '~> 2.0'
+depends 'yum', '~> 5.0'
 
 attribute 'postfix-dovecot/postmaster_address',
           display_name: 'postmaster address',
@@ -80,10 +82,6 @@ attribute 'postfix-dovecot/hostname',
           required: 'recommended',
           calculated: true
 
-grouping 'postfix-dovecot/database',
-         title: 'postfix database',
-         description: 'Postfix database configuration options'
-
 attribute 'postfix-dovecot/database/type',
           display_name: 'postfix database type',
           description: 'Postfix database type.',
@@ -91,10 +89,6 @@ attribute 'postfix-dovecot/database/type',
           type: 'string',
           required: 'optional',
           default: 'mysql'
-
-grouping 'postfix-dovecot/sieve',
-         title: 'sieve configuration',
-         description: 'Sieve configuration.'
 
 attribute 'postfix-dovecot/sieve/enabled',
           display_name: 'sieve enabled',
@@ -111,10 +105,6 @@ attribute 'postfix-dovecot/sieve/global_path',
           required: 'optional',
           calculated: true
 
-grouping 'postfix-dovecot/spamc',
-         title: 'spamc configuration',
-         description: 'Spamc configuration.'
-
 attribute 'postfix-dovecot/spamc/enabled',
           display_name: 'spamc enabled',
           description: 'Whether to enable SpamAssassin.',
@@ -129,10 +119,6 @@ attribute 'postfix-dovecot/spamc/recipe',
           type: 'string',
           required: 'optional',
           default: 'onddo-spamassassin'
-
-grouping 'postfix-dovecot/vmail',
-         title: 'vmail configuration',
-         description: 'Virtual mail system user configuration.'
 
 attribute 'postfix-dovecot/vmail/user',
           display_name: 'vmail user',

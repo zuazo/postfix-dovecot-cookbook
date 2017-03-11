@@ -32,8 +32,8 @@ Please, [let us know](https://github.com/zuazo/postfix-dovecot-cookbook/issues/n
 ## Required Applications
 
 * Dovecot `>= 2`: requires this version of dovecot to be available by the distribution's package manager
-* Ruby `>= 1.9.3`
-* Chef `>= 11.14.2`
+* Chef `12.5` or higher.
+* Ruby `2.2` or higher.
 
 Attributes
 ==========
@@ -218,19 +218,6 @@ PostgreSQL Support
 PostgreSQL support should be considered **experimental** at the moment. Use at your own risk.
 
 [Any feedback you can provide regarding the PostgreSQL support](https://github.com/zuazo/postfix-dovecot-cookbook/issues/new?title=PostgreSQL%20Support) will be greatly appreciated.
-
-## PostgreSQL Support on Debian and Ubuntu
-
-Due to [`postgresql` cookbook issue #108](https://github.com/hw-cookbooks/postgresql/issues/108), you should configure your system locale correctly for PostgreSQL to work. You can use the `locale` cookbook to fix this. For example:
-
-```ruby
-ENV['LANGUAGE'] = ENV['LANG'] = node['locale']['lang']
-ENV['LC_ALL'] = node['locale']['lang']
-include_recipe 'locale'
-# ...
-node.default['postfix-dovecot']['database']['type'] = 'postgresql'
-include_recipe 'postfix-dovecot'
-```
 
 ## PostgreSQL Support on CentOS and Fedora
 

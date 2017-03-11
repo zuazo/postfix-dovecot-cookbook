@@ -20,8 +20,13 @@
 require_relative '../spec_helper'
 
 describe 'postfix-dovecot::dovecot' do
-  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
-  before { allow(::File).to receive(:exist?).and_return(false) }
+  let(:chef_runner) { ChefSpec::SoloRunner.new }
+  let(:chef_run) { chef_runner.converge(described_recipe) }
+  before do
+    allow(::File).to receive(:exist?).and_call_original
+    expect(::File).to receive(:exist?).with('/etc/dovecot/sieve')
+      .and_return(false)
+  end
 
   it 'generates SMTP SSL certificate' do
     expect(chef_run).to create_ssl_certificate('dovecot2')

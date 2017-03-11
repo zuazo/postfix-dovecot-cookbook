@@ -1,27 +1,6 @@
 Testing
 =======
 
-## Required Gems
-
-* `vagrant`
-* `foodcritic`
-* `rubocop`
-* `berkshelf`
-* `should_not`
-* `chefspec`
-* `test-kitchen`
-* `kitchen-vagrant`
-
-### Required Gems for Guard
-
-* `guard`
-* `guard-foodcritic`
-* `guard-rubocop`
-* `guard-rspec`
-* `guard-kitchen`
-
-More info at [Guard Readme](https://github.com/guard/guard#readme).
-
 ## Installing the Requirements
 
 You must have [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) installed.
@@ -29,19 +8,46 @@ You must have [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www
 You can install gem dependencies with bundler:
 
     $ gem install bundler
-    $ bundle install
+    $ bundle install --without travis
 
-## Running the Syntax Style Tests
+## Generating the Documentation
+
+This will generate the documentation for the source files inside the [*libraries/*](https://github.com/zuazo/kong-cookbook/tree/master/libraries) directory.
+
+    $ bundle exec rake doc
+
+The documentation is included in the source code itself.
+
+## Syntax Style Tests
+
+We use the following tools to test the code style:
+
+* [RuboCop](https://github.com/bbatsov/rubocop#readme)
+* [foodcritic](http://www.foodcritic.io/)
+
+To run the tests:
 
     $ bundle exec rake style
 
-## Running the Unit Tests
+## Unit Tests
+
+We use [ChefSpec](https://github.com/sethvargo/chefspec#readme) and [RSpec](http://rspec.info/) for the unit tests. RSpec is generally used to test the libraries or some Ruby specific code.
+
+The unit test files are placed in the [*test/unit/*](https://github.com/zuazo/kong-cookbook/tree/master/test/unit) directory.
+
+To run the tests:
 
     $ bundle exec rake unit
 
-## Running the Integration Tests
+## Integration Tests
 
-    $ bundle exec rake integration
+We use [Test Kitchen](http://kitchen.ci/) to run the tests and the tests are written using [Serverspec](http://serverspec.org/).
+
+The integration test files are placed in the [*test/integration/*](https://github.com/zuazo/kong-cookbook/tree/master/test/integration) directory. Some cookbooks required by this tests are in the [*test/cookbooks/*](https://github.com/zuazo/kong-cookbook/tree/master/test/cookbooks) directory.
+
+To run the tests:
+
+    $ bundle exec rake integration:vagrant
 
 Or:
 
@@ -49,15 +55,21 @@ Or:
     $ bundle exec kitchen test
     [...]
 
-### Running Integration Tests in the Cloud
+### Integration Tests in Docker
 
-#### Requirements
+You can run the integration tests using [Docker](https://www.docker.com/) instead of Vagrant if you prefer.
 
-* `kitchen-vagrant`
-* `kitchen-digitalocean`
-* `kitchen-ec2`
+Of course, you need to have [Docker installed](https://docs.docker.com/engine/installation/).
 
-You can run the tests in the cloud instead of using vagrant. First, you must set the following environment variables:
+    $ wget -qO- https://get.docker.com/ | sh
+
+Then use the `integration:docker` rake task to run the tests:
+
+    $ bundle exec rake integration:docker
+
+### Integration Tests in the Cloud
+
+You can run the tests in the cloud instead of using Vagrant. First, you must set the following environment variables:
 
 * `AWS_ACCESS_KEY_ID`
 * `AWS_SECRET_ACCESS_KEY`
@@ -67,11 +79,9 @@ You can run the tests in the cloud instead of using vagrant. First, you must set
 * `DIGITALOCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
 * `DIGITALOCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path. Only when you are not using an SSH Agent.
 
-Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
+Then use the `integration:cloud` rake task to run the tests:
 
-    $ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
-    $ bundle exec kitchen list
-    [...]
+    $ bundle exec rake integration:cloud
 
 ## Amazon SES Tests
 
@@ -92,11 +102,29 @@ Then, you must configure test-kitchen to use [.kitchen.ses.yml](/.kitchen.ses.ym
     $ bundle exec kitchen list
     [...]
 
+## Guard
+
+Guard is a tool that runs the tests automatically while you are making changes to the source files.
+
+To run Guard:
+
+    $ guard
+
+More info at [Guard Readme](https://github.com/guard/guard#readme).
+
+## Available Rake Tasks
+
+There are multiple Rake tasks that you can use to run the tests:
+
+    $ rake -T
+
+See [Rakefile documentation](https://github.com/ruby/rake/blob/master/doc/rakefile.rdoc) for more information.
+
 ## Using Vagrant with the Vagrantfile
 
 ### Vagrantfile Requirements
 
-* ChefDK: https://downloads.chef.io/chef-dk/
+* [ChefDK](https://downloads.chef.io/chef-dk/)
 * Berkhelf and Omnibus vagrant plugins:
 ```
 $ vagrant plugin install vagrant-berkshelf vagrant-omnibus
@@ -105,6 +133,7 @@ $ vagrant plugin install vagrant-berkshelf vagrant-omnibus
 ```
 $ export PATH="/opt/chefdk/bin:${PATH}"
 ```
+
 ### Vagrantfile Usage
 
     $ vagrant up

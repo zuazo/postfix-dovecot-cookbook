@@ -13,7 +13,7 @@ platforms:
   run_list: ["recipe[apt]"]
 - name: debian-7.8
   run_list: ["recipe[apt]"]
-- name: debian-8.1
+- name: debian-8.7
   run_list: ["recipe[apt]"]
 - name: centos-6.6
   run_list: ["recipe[selinux::disabled]"]
@@ -27,18 +27,24 @@ suites:
   run_list:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]
+  excludes:
+  # From postfixadmin cookbook:
+  - centos-7
+  - centos-7.0
+  - ubuntu-12.04
+  - ubuntu-14.04
+  - ubuntu-16.04
+  - ubuntu-16.10
 - name: postgresql
   excludes:
   - amazon-2011.02.1
   - amazon-2013.09.2
-  # https://github.com/hw-cookbooks/postgresql/issues/249
-  - ubuntu-10.04
-  - ubuntu-12.04
-  - ubuntu-14.10
-  - debian-6.0.10
-  - debian-7.8
-  - centos-6.6
-  - fedora-20
+  # From postfixadmin cookbook:
+  - centos-7
+  - centos-7.0
+  - scientific-6.6
+  - ubuntu-16.04
+  - ubuntu-16.10
   run_list:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]
@@ -50,7 +56,6 @@ suites:
   excludes:
   - amazon-2011.02.1
   - amazon-2013.09.2
-  # https://github.com/hw-cookbooks/postgresql/issues/249
   - ubuntu-10.04
   - ubuntu-12.04
   - debian-6.0.10

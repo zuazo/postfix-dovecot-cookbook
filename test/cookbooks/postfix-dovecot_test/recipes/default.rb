@@ -19,16 +19,13 @@
 # limitations under the License.
 #
 
-if node['postfix-dovecot']['database']['type'] == 'postgresql'
-  include_recipe 'postfix-dovecot_test::postgresql_memory'
+package 'rsyslog'
+service 'rsyslog' do
+  action [:enable, :start]
 end
 
-if node['platform_family'] == 'debian'
-  # Debian/Ubuntu requires locale cookbook:
-  # https://github.com/hw-cookbooks/postgresql/issues/108
-  ENV['LANGUAGE'] = ENV['LANG'] = node['locale']['lang']
-  ENV['LC_ALL'] = node['locale']['lang']
-  include_recipe 'locale'
+if node['postfix-dovecot']['database']['type'] == 'postgresql'
+  include_recipe 'postfix-dovecot_test::postgresql_memory'
 end
 
 node.default['postfix-dovecot']['spamc']['enabled'] = true
@@ -37,7 +34,7 @@ node.default['postgresql']['password']['postgres'] = 'vagrant_postgres'
 node.default['postfixadmin']['mysql']['server_root_password'] = 'vagrant_root'
 
 node.default['postfixadmin']['database']['password'] = 'postfix_pass'
-node.default['postfixadmin']['setup_password'] = 'admin'
+node.default['postfixadmin']['setup_password'] = '4dm1n'
 node.default['postfixadmin']['setup_password_salt'] = 'salt'
 
 include_recipe 'postfix-dovecot'

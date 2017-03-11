@@ -28,5 +28,4 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.0.1'
 
 depends 'postfix-dovecot'
-depends 'locale'
-depends 'sysctl'
+depends 'sysctl', '~> 0.8.0'
