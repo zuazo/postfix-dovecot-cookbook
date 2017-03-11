@@ -1,5 +1,8 @@
 Postfix Dovecot Cookbook
 ========================
+[![GitHub](http://img.shields.io/badge/github-zuazo/postfix--dovecot--cookbook-blue.svg?style=flat)](https://github.com/zuazo/postfix-dovecot-cookbook)
+[![License](https://img.shields.io/github/license/zuazo/postfix-dovecot-cookbook.svg?style=flat)](#license-and-author)
+
 [![Cookbook Version](https://img.shields.io/cookbook/v/postfix-dovecot.svg?style=flat)](https://supermarket.chef.io/cookbooks/postfix-dovecot)
 [![Dependency Status](http://img.shields.io/gemnasium/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://gemnasium.com/zuazo/postfix-dovecot-cookbook)
 [![Build Status](http://img.shields.io/travis/zuazo/postfix-dovecot-cookbook.svg?style=flat)](https://travis-ci.org/zuazo/postfix-dovecot-cookbook)

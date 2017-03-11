@@ -5,6 +5,7 @@ This file is used to list changes made in each version of `postfix-dovecot`.
 ## Unreleased
 ### Added
 - metadata: Add `chef_version`.
+- README: Add github and license badges.
 
 ### Changed
 - Update some cookbook versions:
