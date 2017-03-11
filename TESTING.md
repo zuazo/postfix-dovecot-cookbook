@@ -12,7 +12,7 @@ You can install gem dependencies with bundler:
 
 ## Generating the Documentation
 
-This will generate the documentation for the source files inside the [*libraries/*](https://github.com/zuazo/kong-cookbook/tree/master/libraries) directory.
+This will generate the documentation for the source files inside the [*libraries/*](https://github.com/zuazo/postfix-dovecot-cookbook/tree/master/libraries) directory.
 
     $ bundle exec rake doc
 
@@ -33,7 +33,7 @@ To run the tests:
 
 We use [ChefSpec](https://github.com/sethvargo/chefspec#readme) and [RSpec](http://rspec.info/) for the unit tests. RSpec is generally used to test the libraries or some Ruby specific code.
 
-The unit test files are placed in the [*test/unit/*](https://github.com/zuazo/kong-cookbook/tree/master/test/unit) directory.
+The unit test files are placed in the [*test/unit/*](https://github.com/zuazo/postfix-dovecot-cookbook/tree/master/test/unit) directory.
 
 To run the tests:
 
@@ -43,7 +43,7 @@ To run the tests:
 
 We use [Test Kitchen](http://kitchen.ci/) to run the tests and the tests are written using [Serverspec](http://serverspec.org/).
 
-The integration test files are placed in the [*test/integration/*](https://github.com/zuazo/kong-cookbook/tree/master/test/integration) directory. Some cookbooks required by this tests are in the [*test/cookbooks/*](https://github.com/zuazo/kong-cookbook/tree/master/test/cookbooks) directory.
+The integration test files are placed in the [*test/integration/*](https://github.com/zuazo/postfix-dovecot-cookbook/tree/master/test/integration) directory. Some cookbooks required by this tests are in the [*test/cookbooks/*](https://github.com/zuazo/postfix-dovecot-cookbook/tree/master/test/cookbooks) directory.
 
 To run the tests:
 
