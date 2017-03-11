@@ -7,7 +7,101 @@ sudo: required
 services: docker
 
 env:
-- CHEF_VERSION="~> 12.0"
+  matrix:
+  - TESTS="style unit" CHEF_VERSION="~> 12.0"
+  - TESTS="integration[mysql-centos-5,verify]"
+  - TESTS="integration[mysql-centos-6,verify]"
+  - TESTS="integration[mysql-centos-7,verify]"
+  - TESTS="integration[mysql-debian-7,verify]"
+  - TESTS="integration[mysql-debian-8,verify]"
+  - TESTS="integration[mysql-ubuntu-1204,verify]"
+  - TESTS="integration[mysql-ubuntu-1404,verify]"
+  - TESTS="integration[mysql-ubuntu-1604,verify]"
+  - TESTS="integration[mysql-ubuntu-1610,verify]"
+  - TESTS="integration[mysql-scientific-66,verify]"
+  - TESTS="integration[postgresql-centos-5,verify]"
+  - TESTS="integration[postgresql-centos-6,verify]"
+  - TESTS="integration[postgresql-centos-7,verify]"
+  - TESTS="integration[postgresql-debian-7,verify]"
+  - TESTS="integration[postgresql-debian-8,verify]"
+  - TESTS="integration[postgresql-ubuntu-1204,verify]"
+  - TESTS="integration[postgresql-ubuntu-1404,verify]"
+  - TESTS="integration[postgresql-ubuntu-1604,verify]"
+  - TESTS="integration[postgresql-ubuntu-1610,verify]"
+  - TESTS="integration[postgresql-scientific-66,verify]"
+  - TESTS="integration[postfixpgsql-centos-5,verify]"
+  - TESTS="integration[postfixpgsql-centos-6,verify]"
+  - TESTS="integration[postfixpgsql-centos-7,verify]"
+  - TESTS="integration[postfixpgsql-debian-7,verify]"
+  - TESTS="integration[postfixpgsql-debian-8,verify]"
+  - TESTS="integration[postfixpgsql-ubuntu-1204,verify]"
+  - TESTS="integration[postfixpgsql-ubuntu-1404,verify]"
+  - TESTS="integration[postfixpgsql-ubuntu-1604,verify]"
+  - TESTS="integration[postfixpgsql-ubuntu-1610,verify]"
+  - TESTS="integration[postfixpgsql-scientific-66,verify]"
+
+matrix:
+  exclude:
+  - rvm: 2.2
+    env: TESTS="integration[mysql-centos-5,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-centos-6,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-centos-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-debian-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-debian-8,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-ubuntu-1204,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-ubuntu-1404,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-ubuntu-1604,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-ubuntu-1610,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[mysql-scientific-66,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-centos-5,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-centos-6,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-centos-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-debian-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-debian-8,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-ubuntu-1204,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-ubuntu-1404,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-ubuntu-1604,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-ubuntu-1610,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postgresql-scientific-66,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-centos-5,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-centos-6,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-centos-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-debian-7,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-debian-8,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-ubuntu-1204,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-ubuntu-1404,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-ubuntu-1604,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-ubuntu-1610,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-scientific-66,verify]"
 
 before_install:
 - chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22
@@ -23,4 +117,4 @@ before_script:
 - cookstyle --version
 - foodcritic --version
 
-script: travis_retry chef exec bundle exec rake style unit
+script: travis_retry chef exec bundle exec rake $TESTS
