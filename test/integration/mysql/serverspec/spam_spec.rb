@@ -50,7 +50,7 @@ describe 'SpamAssassin' do
   end
 
   describe(
-    'when spam is sent through smtp', if: !::File.exist?('/etc/fedora-release'
+    'when spam is sent through smtp', if: !::File.exist?('/etc/fedora-release')
   ) do
     gtube =
       'XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X'
