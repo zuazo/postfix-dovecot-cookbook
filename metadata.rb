@@ -258,4 +258,3 @@ attribute 'postfix-dovecot/postfixadmin/enabled',
           choice: %w(true false),
           required: 'recommended',
           default: 'true'
-
