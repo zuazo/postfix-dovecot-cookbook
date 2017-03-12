@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - `dovecot` from `2` to `3`.
   - `postfixadmin` from `2` to `3` (fixes [issue #7](https://github.com/zuazo/postfix-dovecot-cookbook/issues/7), thanks [Arunderwood](https://github.com/arunderwood) for reporting).
   - `ssl_certificate` from `1` to `2`.
+  - `onddo-spamassassin` from `1` to `2`.
   - `yum` from `3` to `5`.
 - Dovecot: enable SSL explicitly.
 - Update RuboCop to version `0.40` and fix new offenses.
