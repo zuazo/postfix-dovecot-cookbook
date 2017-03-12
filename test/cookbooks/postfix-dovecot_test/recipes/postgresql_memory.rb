@@ -25,7 +25,8 @@ def getconf(var)
   cmd.stdout.split("\n")[-1]
 end
 
-if node['postgresql']['version'].to_f <= 9.3
+if node['postgresql']['version'].to_f <= 9.3 &&
+   node['platform'] != 'scientific'
   page_size = getconf('PAGE_SIZE').to_i
   phys_pages = getconf('_PHYS_PAGES').to_i
 

@@ -34,7 +34,12 @@ platforms:
     run_command: /sbin/init
 
 # Non-official images with systemd
-- name: scientific-6.6
+# Unknown system type: Linux 3.16.0-4-amd64
+# - name: scientific-6.8
+#   driver_config:
+#     image: ringo/scientific:6.8
+#     platform: rhel
+- name: scientific-7.2
   driver_config:
-    image: ringo/scientific:6.6
+    image: ringo/scientific:7.2
     platform: rhel

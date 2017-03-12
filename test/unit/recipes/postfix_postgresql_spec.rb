@@ -133,7 +133,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-        mariadb-devel pkgconfig ed
+        mariadb-devel pkgconfig ed tar systemd-sysv
       ).each do |pkg|
         it "installs #{pkg} package" do
           expect(chef_run).to install_package(pkg)
@@ -206,7 +206,7 @@ describe 'postfix-dovecot::postfix_postgresql' do
       %w(
         postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
         cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-        mariadb-devel pkgconfig ed libicu-devel sqlite-devel tinycdb-devel
+        mariadb-devel pkgconfig ed tar libicu-devel sqlite-devel tinycdb-devel
       ).each do |pkg|
         it "installs #{pkg} package" do
           expect(chef_run).to install_package(pkg)
@@ -317,6 +317,38 @@ describe 'postfix-dovecot::postfix_postgresql' do
           )
       end
     end # context on Amazon
+
+    context 'with Scientific 7' do
+      let(:rpm) { "postfix-2.10.1-6.el7.#{node['kernel']['machine']}.rpm" }
+      let(:srpm) { 'postfix-2.10.1-6.el7.src.rpm' }
+      let(:rpmbuild_args) { '--with=pgsql' }
+      before do
+        node.automatic['platform'] = 'scientific'
+        node.automatic['platform_version'] = '7.0'
+      end
+
+      %w(
+        postgresql-devel rpm-build zlib-devel libdb-devel
+        cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
+        mariadb-devel pkgconfig ed tar systemd-sysv
+      ).each do |pkg|
+        it "installs #{pkg} package" do
+          expect(chef_run).to install_package(pkg)
+        end
+      end
+
+      it 'installs the correct RPM' do
+        expect(chef_run).to run_execute('install postfix from SRPM')
+          .with_command("rpm -i '#{buildroot}/RPMS/x86_64/#{rpm}'")
+      end
+
+      it 'uses the correct rpmbuild args' do
+        expect(chef_run).to run_execute('compile postfix from SRPM')
+          .with_command(
+            "rpmbuild #{rpmbuild_args} --rebuild '#{buildroot}/SRPMS/#{srpm}'"
+          )
+      end
+    end # context on Scientific 7
   end # context on RPM platforms
 
   context 'with APT platforms' do

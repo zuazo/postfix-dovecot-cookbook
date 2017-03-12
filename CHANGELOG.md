@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - README: Remove documentation about locale (old).
 
 ### Fixed
+- Fix CentOS 7 and Scientific support with PostgreSQL.
 - Fix PostgreSQL support on CentOS and Fedora.
 - Fix Chef `13` deprecation warnings.
 

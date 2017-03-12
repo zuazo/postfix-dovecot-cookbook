@@ -23,22 +23,28 @@ releasever = node['platform_version'].to_i # TODO: avoid this
 yum_default = node.default['postfix-dovecot']['yum']
 srpm_default = node.default['postfix-dovecot']['postfix']['srpm']
 
-if %w(centos).include?(node['platform'])
+if %w(centos scientific).include?(node['platform'])
   if node['platform_version'].to_i >= 7
     srpm_default['packages'] = %w(
       postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
       cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-      mariadb-devel pkgconfig ed
+      mariadb-devel pkgconfig ed tar systemd-sysv
     )
-    srpm_default['rpm_regexp'] = [
-      /\.src\./, ".#{node['platform']}.#{node['kernel']['machine']}."
-    ]
+    if node['platform'] == 'scientific'
+      srpm_default['rpm_regexp'] = [
+        /\.src\./, ".#{node['kernel']['machine']}."
+      ]
+    else
+      srpm_default['rpm_regexp'] = [
+        /\.src\./, ".#{node['platform']}.#{node['kernel']['machine']}."
+      ]
+    end
     srpm_default['rpm_build_args'] = '--with=pgsql'
   else
     srpm_default['packages'] = %w(
       postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
       cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-      mysql-devel pkgconfig ed
+      mysql-devel pkgconfig ed tar
     )
     srpm_default['rpm_regexp'] = [
       /_[0-9]+(\.[0-9]+)?\.src\./, "\\1.#{node['kernel']['machine']}."
@@ -70,13 +76,13 @@ if %w(centos).include?(node['platform'])
     yum_default['extras-source']['gpgkey'] =
       "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-#{releasever}"
   end
-elsif %w(fedora redhat scientific).include?(node['platform'])
+elsif %w(fedora redhat).include?(node['platform'])
   # Uses MariaDB since fedora 19
   # TODO: test with older versions
   srpm_default['packages'] = %w(
     postgresql-devel rpm-build zlib-devel openldap-devel libdb-devel
     cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-    mariadb-devel pkgconfig ed libicu-devel sqlite-devel tinycdb-devel
+    mariadb-devel pkgconfig ed tar libicu-devel sqlite-devel tinycdb-devel
   )
 
   srpm_default['rpm_regexp'] = [
@@ -91,7 +97,7 @@ elsif %w(amazon).include?(node['platform'])
   srpm_default['packages'] = %w(
     postgresql-devel rpm-build zlib-devel openldap-devel db4-devel
     cyrus-sasl-devel pcre-devel openssl-devel perl-Date-Calc gcc
-    mysql-devel pkgconfig ed
+    mysql-devel pkgconfig ed tar
   )
   srpm_default['rpm_regexp'] = [
     /\.src\./, ".#{node['kernel']['machine']}."

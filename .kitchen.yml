@@ -51,15 +51,15 @@ suites:
   - ubuntu-16.04
   # mysql: undefined method `split' for nil:NilClass
   - ubuntu-16.10
-  # spamassassin: /etc/sysconfig/network: No such file or directory
-  - scientific-6.6
+  # spamassassin: cpio: cap_set_file failed - Operation not supported
+  - scientific-7.2
 - name: postgresql
   excludes:
   - amazon-2011.02.1
   - amazon-2013.09.2
   # postfix-dovecot: Unknown system type: Linux 4.4.0-51-generic
   - centos-6
-  # postfix-dovecot: Unknown system type: Linux 4.4.0-51-generic
+  # apache2: cpio: cap_set_file failed - Operation not supported
   - centos-7
   # postfix-full: Starting Postfix Mail Transport Agent: postfix failed
   - debian-7
@@ -71,8 +71,8 @@ suites:
   - ubuntu-16.04
   # php: No candidate version available for php5-cgi
   - ubuntu-16.10
-  # spamassassin: /etc/sysconfig/network: No such file or directory
-  - scientific-6.6
+  # spamassassin: cpio: cap_set_file failed - Operation not supported
+  - scientific-7.2
   run_list:
   - recipe[minitest-handler]
   - recipe[postfix-dovecot_test]
@@ -94,7 +94,5 @@ suites:
   - fedora-23
   # postfix-dovecot: Unknown system type: Linux 4.4.0-51-generic
   - centos-6
-  # postfix-dovecot: Unknown system type: Linux 4.4.0-51-generic
-  - centos-7
   run_list:
   - recipe[postfix-dovecot_test::postfix_postgresql]

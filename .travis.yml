@@ -12,13 +12,14 @@ env:
   - TESTS="integration[mysql-centos-6,verify]"
   - TESTS="integration[mysql-debian-8,verify]"
   - TESTS="integration[postgresql-debian-8,verify]"
+  - TESTS="integration[postfixpgsql-centos-7,verify]"
   - TESTS="integration[postfixpgsql-debian-7,verify]"
   - TESTS="integration[postfixpgsql-debian-8,verify]"
   - TESTS="integration[postfixpgsql-ubuntu-1204,verify]"
   - TESTS="integration[postfixpgsql-ubuntu-1404,verify]"
   - TESTS="integration[postfixpgsql-ubuntu-1604,verify]"
   - TESTS="integration[postfixpgsql-ubuntu-1610,verify]"
-  - TESTS="integration[postfixpgsql-scientific-66,verify]"
+  - TESTS="integration[postfixpgsql-scientific-72,verify]"
 
 matrix:
   exclude:
@@ -28,6 +29,8 @@ matrix:
     env: TESTS="integration[mysql-debian-8,verify]"
   - rvm: 2.2
     env: TESTS="integration[postgresql-debian-8,verify]"
+  - rvm: 2.2
+    env: TESTS="integration[postfixpgsql-centos-7,verify]"
   - rvm: 2.2
     env: TESTS="integration[postfixpgsql-debian-7,verify]"
   - rvm: 2.2
@@ -41,7 +44,7 @@ matrix:
   - rvm: 2.2
     env: TESTS="integration[postfixpgsql-ubuntu-1610,verify]"
   - rvm: 2.2
-    env: TESTS="integration[postfixpgsql-scientific-66,verify]"
+    env: TESTS="integration[postfixpgsql-scientific-72,verify]"
 
 before_install:
 - chef --version &> /dev/null || curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 1.2.22
