@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Cookbook Name:: postfix-dovecot
-# Recipe:: postfixadmin
+# Attributes:: postfixadmin
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
 # Copyright:: Copyright (c) 2013 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
@@ -19,14 +19,4 @@
 # limitations under the License.
 #
 
-if node['postfix-dovecot']['postfixadmin']['enabled']
-    node.default['postfixadmin']['server_name'] =
-      node['postfix-dovecot']['hostname']
-    node.default['postfixadmin']['common_name'] =
-      node['postfix-dovecot']['hostname']
-    node.default['postfixadmin']['database']['type'] =
-      node['postfix-dovecot']['database']['type']
-
-    include_recipe 'postfixadmin'
-    include_recipe 'postfixadmin::map_files'
-end
+default['postfix-dovecot']['postfixadmin']['enabled'] = true
