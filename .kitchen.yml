@@ -57,8 +57,6 @@ suites:
   excludes:
   - amazon-2011.02.1
   - amazon-2013.09.2
-  # postfix-dovecot: Unknown system type: Linux 4.4.0-51-generic
-  - centos-6
   # apache2: cpio: cap_set_file failed - Operation not supported
   - centos-7
   # postfix-full: Starting Postfix Mail Transport Agent: postfix failed
@@ -92,7 +90,5 @@ suites:
   # File "/.../chef-12.19.36/lib/chef/provider/package/dnf/dnf_helper.py", line 56, in query
   # pkgs = q.latest(1).run() TypeError: latest() takes 1 positional argument but 2 were given
   - fedora-23
-  # postfix-dovecot: Unknown system type: Linux 4.4.0-51-generic
-  - centos-6
   run_list:
   - recipe[postfix-dovecot_test::postfix_postgresql]
