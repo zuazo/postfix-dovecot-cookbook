@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe 'Postfix MySQL' do
-  describe command('/usr/sbin/postconf') do
+  describe command('/usr/sbin/postconf -m') do
     its(:stdout) { should include 'mysql' }
   end
 end

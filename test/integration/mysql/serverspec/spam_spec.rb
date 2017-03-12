@@ -44,15 +44,14 @@ describe 'SpamAssassin' do
     it { should be_running }
   end
 
-  # TODO: This does not work on Fedora :-/
-  it 'detects spam correctly' do # ,if: !::File.exist?('/etc/fedora-release') do
-    expect(
-      command("echo '#{gtube}' | spamc | grep -qF 'X-Spam-Flag: YES'")
-        .exit_status
-    ).to eq 0
+  it 'detects spam correctly', if: !::File.exist?('/etc/fedora-release') do
+    expect(command("echo '#{gtube}' | spamc").stdout)
+      .to match(/X-Spam-Flag: +YES/i)
   end
 
-  describe 'when spam is sent through smtp' do
+  describe(
+    'when spam is sent through smtp', if: !::File.exist?('/etc/fedora-release'
+  ) do
     gtube =
       'XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X'
     fingerprint = "#{gtube} - #{Time.new.to_i}"
