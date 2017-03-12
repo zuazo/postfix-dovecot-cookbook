@@ -18,38 +18,67 @@
 #
 
 require 'spec_helper'
+require 'net/imap'
 
-describe process('dovecot') do
-  it { should be_running }
-end
+describe 'Dovecot' do
+  describe command('doveconf') do
+    its(:exit_status) { should eq 0 }
+    its(:stderr) { should eq '' }
+  end
 
-# imap
-describe port(143) do
-  it { should be_listening.with('tcp') }
-end
+  describe process('dovecot') do
+    it { should be_running }
+  end
 
-# imaps
-describe port(993) do
-  it { should be_listening.with('tcp') }
-end
+  # imap
+  describe port(143) do
+    it { should be_listening.with('tcp') }
+  end
 
-describe file('/etc/dovecot/sieve') do
-  it { should be_directory }
-  it { should be_mode 755 }
-  it { should be_owned_by 'root' }
-  it { should be_grouped_into 'root' }
-end
+  # imaps
+  describe port(993) do
+    it { should be_listening.with('tcp') }
+  end
 
-describe file('/etc/dovecot/sieve/default.sieve') do
-  it { should be_file }
-  it { should be_mode 644 }
-  it { should be_owned_by 'root' }
-  it { should be_grouped_into 'root' }
-end
+  it 'connects to imap SSL' do
+    expect(
+      command('echo | openssl s_client -connect 127.0.0.1:imaps')
+        .exit_status
+    ).to eq 0
+  end
 
-describe file('/etc/dovecot/sieve/default.svbin') do
-  it { should be_file }
-  it { should be_mode 644 }
-  it { should be_owned_by 'root' }
-  it { should be_grouped_into 'root' }
+  it 'connects to imap with startls' do
+    expect(
+      command('echo | openssl s_client -starttls imap -connect 127.0.0.1:imap')
+        .exit_status
+    ).to eq 0
+  end
+
+  it 'is able to login using imap (plain)' do
+    imap = Net::IMAP.new('localhost')
+    imap.authenticate('PLAIN', 'postmaster@foobar.com', 'p0stm@st3r1')
+    imap.examine('INBOX')
+    imap.close
+  end
+
+  describe file('/etc/dovecot/sieve') do
+    it { should be_directory }
+    it { should be_mode 755 }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+  end
+
+  describe file('/etc/dovecot/sieve/default.sieve') do
+    it { should be_file }
+    it { should be_mode 644 }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+  end
+
+  describe file('/etc/dovecot/sieve/default.svbin') do
+    it { should be_file }
+    it { should be_mode 644 }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+  end
 end

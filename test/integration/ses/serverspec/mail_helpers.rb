@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2017 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,19 @@
 # limitations under the License.
 #
 
-require 'net/imap'
-imap = Net::IMAP.new('localhost')
-imap.authenticate('PLAIN', 'postmaster@foobar.com', 'p0stm@st3r1')
-imap.examine('INBOX')
-imap.close
+require 'spec_helper'
+require 'net/smtp'
+
+EMAIL_TEMPLATE = <<-EOM
+Subject: Some cool subject for testing
+
+A blackhole email body.
+
+EOM
+                 .freeze
+
+def send_email(from, to)
+  Net::SMTP.start('localhost', 25) do |smtp|
+    smtp.send_message(EMAIL_TEMPLATE, from, to)
+  end
+end

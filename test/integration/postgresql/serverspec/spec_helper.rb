@@ -18,6 +18,10 @@
 #
 
 require 'serverspec'
+require 'infrataster/rspec'
+require 'rspec/retry'
 
 # Set backend type
 set :backend, :exec
+
+Infrataster::Server.define(:web, '127.0.0.1')

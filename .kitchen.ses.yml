@@ -1,12 +1,10 @@
 suites:
 - name: default
-  run_list:
-    - recipe[postfix-dovecot_test]
-  attributes: { }
+  run_list: recipe[postfix-dovecot_test]
 - name: ses
   run_list:
-    - recipe[minitest-handler]
-    - recipe[postfix-dovecot_test]
+  - recipe[minitest-handler]
+  - recipe[postfix-dovecot_test]
   attributes:
     postfix-dovecot:
       ses:

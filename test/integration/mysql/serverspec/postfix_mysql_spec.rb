@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,23 +17,10 @@
 # limitations under the License.
 #
 
-require 'net/smtp'
-unless ARGV[0]
-  puts 'Usage:'
-  puts "  #{$PROGRAM_NAME} FINGERPRINT"
-  exit 1
-end
-msgstr = <<-EOM
-Subject: Some cool subject for testing
+require 'spec_helper'
 
-A hamish email body.
-
-Fingerprint: #{ARGV[0]}
-EOM
-Net::SMTP.start('localhost', 25) do |smtp|
-  smtp.send_message(
-    msgstr,
-    'team@onddo.com',
-    'postmaster@foobar.com'
-  )
+describe 'Postfix MySQL' do
+  describe command('/usr/sbin/postconf') do
+    its(:stdout) { should include 'mysql' }
+  end
 end

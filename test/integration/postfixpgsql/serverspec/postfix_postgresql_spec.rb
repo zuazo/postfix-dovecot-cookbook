@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2017 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,11 +17,10 @@
 # limitations under the License.
 #
 
-require 'serverspec'
-require 'infrataster/rspec'
-require 'rspec/retry'
+require 'spec_helper'
 
-# Set backend type
-set :backend, :exec
-
-Infrataster::Server.define(:web, '127.0.0.1')
+describe 'Postfix PostgreSQL' do
+  describe command('/usr/sbin/postconf') do
+    its(:stdout) { should include 'pgsql' }
+  end
+end

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,14 +17,10 @@
 # limitations under the License.
 #
 
-require 'net/smtp'
+require 'spec_helper'
 
-smtp = Net::SMTP.new 'localhost', 587
-ctx = OpenSSL::SSL::SSLContext.new
-ctx.verify_mode = OpenSSL::SSL::VERIFY_NONE
-smtp.enable_starttls(ctx)
-smtp.start(
-  'onddo.com', 'postmaster@foobar.com', 'p0stm@st3r1', :plain
-) do |_smtp|
-  puts 'OK'
+describe 'Postfix PostgreSQL' do
+  describe command('/usr/sbin/postconf') do
+    its(:stdout) { should include 'pgsql' }
+  end
 end

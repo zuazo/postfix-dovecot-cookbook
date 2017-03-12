@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2017 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,23 +17,31 @@
 # limitations under the License.
 #
 
+require 'spec_helper'
 require 'net/smtp'
-unless ARGV[0]
-  puts 'Usage:'
-  puts "  #{$PROGRAM_NAME} FINGERPRINT"
-  exit 1
-end
-msgstr = <<-EOM
+
+EMAIL_TEMPLATE = <<-EOM
 Subject: Some cool subject for testing
 
 A hamish email body.
 
-Fingerprint: #{ARGV[0]}
+Fingerprint: %s
 EOM
-Net::SMTP.start('localhost', 25) do |smtp|
-  smtp.send_message(
-    msgstr,
-    'team@onddo.com',
-    'postmaster@foobar.com'
-  )
+                 .freeze
+
+def send_email(fingerprint)
+  msgstr = format(EMAIL_TEMPLATE, fingerprint)
+  Net::SMTP.start('localhost', 25) do |smtp|
+    smtp.send_message(
+      msgstr,
+      'team@onddo.com',
+      'postmaster@foobar.com'
+    )
+  end
+end
+
+def all_file_contents(path)
+  Dir.glob(path).reduce('') do |result, file|
+    result + "\n" + File.read(file)
+  end
 end

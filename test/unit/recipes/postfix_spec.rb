@@ -29,7 +29,6 @@ describe 'postfix-dovecot::postfix' do
     etc/resolv.conf
     etc/localtime
     etc/services
-    etc/resolv.conf
     etc/hosts
     etc/nsswitch.conf
     etc/nss_mdns.config

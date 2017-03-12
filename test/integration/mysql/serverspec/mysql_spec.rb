@@ -19,10 +19,12 @@
 
 require 'spec_helper'
 
-describe process('mysqld') do
-  it { should be_running }
-end
+describe 'MySQL' do
+  describe process('mysqld') do
+    it { should be_running }
+  end
 
-describe port(3306) do
-  it { should be_listening.with('tcp') }
+  describe port(3306) do
+    it { should be_listening.with('tcp') }
+  end
 end

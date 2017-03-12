@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2017 Xabier de Zuazo
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,14 +17,31 @@
 # limitations under the License.
 #
 
+require 'spec_helper'
 require 'net/smtp'
 
-smtp = Net::SMTP.new 'localhost', 587
-ctx = OpenSSL::SSL::SSLContext.new
-ctx.verify_mode = OpenSSL::SSL::VERIFY_NONE
-smtp.enable_starttls(ctx)
-smtp.start(
-  'onddo.com', 'postmaster@foobar.com', 'p0stm@st3r1', :plain
-) do |_smtp|
-  puts 'OK'
+EMAIL_TEMPLATE = <<-EOM
+Subject: Some cool subject for testing
+
+A hamish email body.
+
+Fingerprint: %s
+EOM
+                 .freeze
+
+def send_email(fingerprint)
+  msgstr = format(EMAIL_TEMPLATE, fingerprint)
+  Net::SMTP.start('localhost', 25) do |smtp|
+    smtp.send_message(
+      msgstr,
+      'team@onddo.com',
+      'postmaster@foobar.com'
+    )
+  end
+end
+
+def all_file_contents(path)
+  Dir.glob(path).reduce('') do |result, file|
+    result + "\n" + File.read(file)
+  end
 end

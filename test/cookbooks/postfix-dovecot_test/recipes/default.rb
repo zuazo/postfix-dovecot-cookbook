@@ -19,11 +19,6 @@
 # limitations under the License.
 #
 
-package 'rsyslog'
-service 'rsyslog' do
-  action [:enable, :start]
-end
-
 if node['postfix-dovecot']['database']['type'] == 'postgresql'
   include_recipe 'postfix-dovecot_test::postgresql_memory'
 end

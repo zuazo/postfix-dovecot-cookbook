@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@zuazo.org>)
-# Copyright:: Copyright (c) 2013 Onddo Labs, SL.
+# Copyright:: Copyright (c) 2014 Onddo Labs, SL.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
-require 'net/imap'
-imap = Net::IMAP.new('localhost')
-imap.authenticate('PLAIN', 'postmaster@foobar.com', 'p0stm@st3r1')
-imap.examine('INBOX')
-imap.close
+require 'serverspec'
+require 'infrataster/rspec'
+require 'rspec/retry'
+
+# Set backend type
+set :backend, :exec
+
+Infrataster::Server.define(:web, '127.0.0.1')

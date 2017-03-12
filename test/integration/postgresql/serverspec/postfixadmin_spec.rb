@@ -19,6 +19,12 @@
 
 require 'spec_helper'
 
-describe port(80) do
-  it { should be_listening }
+describe 'PostfixAdmin' do
+  describe server(:web) do
+    describe http('/login.php') do
+      it 'returns "Postfix Admin" string' do
+        expect(response.body).to include('Postfix Admin')
+      end
+    end
+  end
 end

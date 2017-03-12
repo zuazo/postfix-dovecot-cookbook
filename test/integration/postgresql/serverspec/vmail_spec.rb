@@ -19,15 +19,17 @@
 
 require 'spec_helper'
 
-describe user('vmail') do
-  it { should exist }
-  it { should belong_to_group 'vmail' }
-  it { should have_uid 5000 }
-  it { should have_home_directory '/var/vmail' }
-  it { should have_login_shell '/bin/false' }
-end
+describe 'Vmail' do
+  describe user('vmail') do
+    it { should exist }
+    it { should belong_to_group 'vmail' }
+    it { should have_uid 5000 }
+    it { should have_home_directory '/var/vmail' }
+    it { should have_login_shell '/bin/false' }
+  end
 
-describe group('vmail') do
-  it { should exist }
-  it { should have_gid 5000 }
+  describe group('vmail') do
+    it { should exist }
+    it { should have_gid 5000 }
+  end
 end

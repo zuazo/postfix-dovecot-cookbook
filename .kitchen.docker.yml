@@ -29,6 +29,9 @@ platforms:
   driver_config:
     privileged: true
     run_command: /sbin/init
+- name: fedora-23
+- name: fedora-24
+- name: fedora-25
 
 # Non-official images with systemd
 - name: scientific-6.6

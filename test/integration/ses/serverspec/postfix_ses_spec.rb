@@ -18,31 +18,36 @@
 #
 
 require 'spec_helper'
+require 'net/smtp'
+require_relative 'mail_helpers'
 
-def centos?
-  File.exist?('/etc/centos-release')
-end
-
-family = os[:family].downcase
-release = os[:release].to_i
-
-postgres =
-  if %w(centos redhat scientific amazon).include?(family)
-    if centos? && release >= 7
-      'postgres'
-    else
-      'master'
-    end
-  else
-    'postgres'
+describe 'Postfix' do
+  describe command('/usr/sbin/postconf') do
+    its(:exit_status) { should eq 0 }
+    its(:stderr) { should eq '' }
   end
 
-describe 'PostgreSQL' do
-  describe process(postgres) do
+  describe process('master') do
     it { should be_running }
   end
 
-  describe port(5432) do
-    it { should be_listening }
+  describe 'when an email is sent through smtp' do
+    let(:from) { 'from@foobar.com' }
+    let(:to) { 'blackhole@zuazo.org' }
+    let(:pattern) do
+      "postfix/smtp.* to=<#{to}>, relay=.*.amazonaws.com.*, .*status=sent"
+    end
+    let(:mail_log) do
+      if ::File.exist?('/var/log/maillog')
+        '/var/log/maillog'
+      else
+        '/var/log/mail.log'
+      end
+    end
+    before(:context) { send_email(from, to) }
+
+    it 'is able to receive it', retry: 30, retry_wait: 1 do
+      expect(::File.read(mail_log)).to include pattern
+    end
   end
 end
