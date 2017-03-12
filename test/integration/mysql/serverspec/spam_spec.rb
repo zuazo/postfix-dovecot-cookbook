@@ -20,6 +20,16 @@
 require 'spec_helper'
 require_relative 'mail_helpers'
 
+family = os[:family].downcase
+
+spamd =
+  case family
+  when 'debian', 'ubuntu'
+    '/usr/sbin/spamd'
+  else
+    'spamd'
+  end
+
 describe 'SpamAssassin' do
   let(:gtube) do
     'XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X'
@@ -30,7 +40,7 @@ describe 'SpamAssassin' do
     its(:stderr) { should eq '' }
   end
 
-  describe process('/usr/sbin/spamd') do
+  describe process(spamd) do
     it { should be_running }
   end
 
