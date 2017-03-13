@@ -82,13 +82,5 @@ suites:
   excludes:
   - amazon-2011.02.1
   - amazon-2013.09.2
-  # - ubuntu-10.04
-  # - ubuntu-12.04
-  # - debian-6.0.10
-  # - debian-7.8
-  # - fedora-20
-  # File "/.../chef-12.19.36/lib/chef/provider/package/dnf/dnf_helper.py", line 56, in query
-  # pkgs = q.latest(1).run() TypeError: latest() takes 1 positional argument but 2 were given
-  - fedora-23
   run_list:
   - recipe[postfix-dovecot_test::postfix_postgresql]
