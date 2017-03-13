@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Drop Chef `< 12.5` support.
 - Drop Ruby `< 2.2` support.
 - Metadata: Remove grouping ([RFC-85](https://github.com/chef/chef-rfc/blob/8d47f1d0afa5a2313ed2010e0eda318edc28ba47/rfc085-remove-unused-metadata.md)).
+- Remove `postfix_full` recipe.
 - README: Remove documentation about locale (old).
 
 ### Fixed
