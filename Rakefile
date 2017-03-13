@@ -12,6 +12,7 @@
 # rake integration[regexp,action]          # Run Test Kitchen integration tests
 # rake integration:cloud[regexp,action]    # Run Kitchen tests in the cloud
 # rake integration:docker[regexp,action]   # Run Kitchen tests using docker
+# rake integration:ses[regexp,action]      # Run Test Kitchen tests with SES
 # rake integration:vagrant[regexp,action]  # Run Kitchen tests using vagrant
 # rake style                    # Run all style checks
 # rake style:chef               # Run Chef style checks using foodcritic
@@ -139,6 +140,11 @@ namespace :integration do
   desc 'Run Test Kitchen integration tests in the cloud'
   task :cloud, [:regexp, :action] do |_t, args|
     run_kitchen(args.action, args.regexp, local_config: '.kitchen.cloud.yml')
+  end
+
+  desc 'Run Test Kitchen integration tests with SES'
+  task :ses, [:regexp, :action] do |_t, args|
+    run_kitchen(args.action, args.regexp, local_config: '.kitchen.ses.yml')
   end
 end
 
