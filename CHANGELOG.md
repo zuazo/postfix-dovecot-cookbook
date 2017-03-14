@@ -3,7 +3,7 @@ All notable changes to the `postfix-dovecot` cookbook will be documented in this
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [3.0.0] - 2017-03-14
 ### Added
 - metadata: Add `chef_version`.
 - README: Add github and license badges.
@@ -130,7 +130,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Initial release of `postfix-dovecot`.
 
-[Unreleased]: https://github.com/zuazo/postfix-dovecot-cookbook/compare/2.0.1...HEAD
+[Unreleased]: https://github.com/zuazo/postfix-dovecot-cookbook/compare/3.0.0...HEAD
+[3.0.0]: https://github.com/zuazo/postfix-dovecot-cookbook/compare/2.0.1...3.0.0
 [2.0.1]: https://github.com/zuazo/postfix-dovecot-cookbook/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/zuazo/postfix-dovecot-cookbook/compare/1.2.0...2.0.0
 [1.2.0]: https://github.com/zuazo/postfix-dovecot-cookbook/compare/1.1.0...1.2.0
