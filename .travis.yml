@@ -9,7 +9,7 @@ services: docker
 env:
   matrix:
   - TESTS="style unit" CHEF_VERSION="~> 12.0"
-  - TESTS="integration[mysql-centos-6,verify]"
+  # - TESTS="integration[mysql-centos-6,verify]"
   - TESTS="integration[mysql-debian-8,verify]"
   - TESTS="integration[postgresql-debian-8,verify]"
   - TESTS="integration[postfixpgsql-debian-7,verify]"
