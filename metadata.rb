@@ -251,3 +251,11 @@ attribute 'postfix-dovecot/srpm/rpm_regexp',
           type: 'hash',
           required: 'optional',
           calculated: true
+
+attribute 'postfix-dovecot/postfixadmin/enabled',
+          display_name: 'postfixadmin enabled',
+          description: 'Whether to enable Postfixadmin.',
+          type: 'string',
+          choice: %w(true false),
+          required: 'recommended',
+          default: 'true'

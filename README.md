@@ -60,6 +60,14 @@ Attributes
 | `node['postfix-dovecot']['vmail']['gid']`         | `node['postfix-dovecot']['vmail']['uid']` | Virtual mail system group id.
 | `node['postfix-dovecot']['vmail']['home']`        | `'/var/vmail'`         | Virtual mail user home path.
 
+## Postfixadmin Attributes
+
+You can use `node['postfix-dovecot']['postfixadmin']['enabled']` to disable the installation of Postfixadmin.
+
+| Attribute                                    | Default        | Description                       |
+|:---------------------------------------------|:---------------|:----------------------------------|
+| `node['postfix-dovecot']['postfixadmin']['enabled']`  | `true`        | Whether to enable [Postfixadmin](https://github.com/zuazo/postfixadmin-cookbook).
+
 ## Amazon SES Attributes
 
 You can use `node['postfix-dovecot']['ses']['enabled']` to enable SES for sending emails.
